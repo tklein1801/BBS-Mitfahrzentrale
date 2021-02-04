@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrieren</title>
+    <!-- Bootstrap v5.0.0-beta1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./assets/css/master.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="form-container w-50 mx-auto">
+        <form id="signUpForm">
+          <h1 class="text-center font-weight-bold">Registrieren</h1>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label">Vorname</label>
+              <input type="text" id="name" class="form-control" />
+            </div>
+            <div class="col">
+              <label class="form-label">Nachname</label>
+              <input type="text" id="surname" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label">E-Mail</label>
+              <input type="email" id="email" class="form-control" />
+              <div id="validationEmail" class="invalid-feedback"></div>
+            </div>
+            <div class="col">
+              <label class="form-label">Telefon</label>
+              <input type="tel" id="phone" class="form-control" />
+            </div>
+          </div>
+
+          <label class="form-label">Passwort</label>
+          <div class="input-group mb-3">
+            <input type="password" id="password" class="form-control" />
+            <button type="button" class="btn btn-outline-primary" id="toggler">Toggle</button>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-2">
+              <label class="form-label">PLZ</label>
+              <input type="number" id="plz" class="form-control" />
+            </div>
+            <div class="col-5">
+              <label class="form-label">Ort</label>
+              <input type="text" id="place" class="form-control" />
+            </div>
+            <div class="col-5">
+              <label class="form-label">Straße</label>
+              <input type="text" id="adress" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row mx-0">
+            <input type="submit" class="btn btn-primary w-25 mx-auto" value="Registrieren" />
+          </div>
+
+          <hr class="divider" data-text="Schon ein Konto?" />
+
+          <a href="./Anmelden" class="btn btn-outline-primary w-100 rounded-pill">Hier anmelden!</a>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/js/ApiHandler.js"></script>
+    <script>
+      const UserAPI = new User();
+      const form = document.querySelector("body #signUpForm"),
+        name = form.querySelector("#name"),
+        surname = form.querySelector("#surname"),
+        email = form.querySelector("#email"),
+        phone = form.querySelector("#phone"),
+        password = form.querySelector("#password"),
+        passwordToggler = form.querySelector("#toggler"),
+        plz = form.querySelector("#plz"),
+        place = form.querySelector("#place"),
+        adress = form.querySelector("#adress");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        UserAPI.register(
+          name.value,
+          surname.value,
+          email.value,
+          password.value,
+          adress.value,
+          plz.value,
+          place.value,
+          phone.value
+        )
+          .then((result) => {
+            // If there are validation classes addes we're gonna remove them
+            email.classList.remove("is-invalid");
+
+            // console.log("RESULT", result);
+            // Check if we received an error from our RestAPI
+            if (result.error == null) {
+              // Everything should be fine...
+              // Now we're gonna call the checkCredentials-function to sign the user in
+              UserAPI.checkCredentials(email.value, password.value).then(() => {
+                window.location.href = "../";
+              });
+            } else {
+              // Something went wrong
+              const error = result.error;
+              switch (error) {
+                case "auth/user-already-exist":
+                  email.classList.add("is-invalid");
+                  form.querySelector("#validationEmail").innerHTML =
+                    "Der Benutzer ist bereits registriert!";
+                  break;
+              }
+            }
+          })
+          .catch((err) => console.error(err));
+      });
+
+      passwordToggler.addEventListener("click", function () {
+        password.type == "password" ? (password.type = "text") : (password.type = "password");
+      });
+    </script>
+  </body>
+</html>
