@@ -65,11 +65,10 @@ class User
     $con->close();
   }
 
-  public function destroySession(string $redirectTo)
+  public function destroySession()
   {
     session_start();
     session_destroy();
-    header("Location: ".$redirectTo);
   }
 
   public function exist(string $email)

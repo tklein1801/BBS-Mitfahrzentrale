@@ -49,12 +49,10 @@ class User {
   }
 
   /**
-   * Destroys the current user session & redirects the user to a new url
-   * (Won't return anything)
-   * @param {string} redirectTo
+   * Destroys the current user session
    */
-  async destroySession(redirectTo) {
-    await fetch(this.apiHost + `destroySession?redirectTo=${redirectTo}`, { method: "GET" });
+  async destroySession() {
+    await fetch(this.apiHost + `destroySession`, { method: "GET" });
   }
 
   /**
