@@ -1,75 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registrieren</title>
-    <!-- Bootstrap v5.0.0-beta1 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./assets/css/master.css" />
+    <?php require_once "assets/php/header.php"; ?>
+    <title>BBS-Mitfahrzentrale • Registrieren</title>
+    <!-- Other stylesheets -->
+    <link rel="stylesheet" href="./assets/css/signIn.css" />
   </head>
-  <body>
+  <body id="sign-up">
     <div class="wrapper">
-      <div class="form-container w-50 mx-auto">
+      <div class="form-container p-3 p-md-4">
         <form id="signUpForm">
-          <h1 class="text-center font-weight-bold">Registrieren</h1>
+          <img src="./assets/img/BBS-Soltau-Logo.svg" alt="BBS Logo" />
 
-          <div class="row mb-3">
-            <div class="col">
+          <div class="row mb-0">
+            <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Vorname</label>
               <input type="text" id="name" class="form-control" />
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Nachname</label>
               <input type="text" id="surname" class="form-control" />
             </div>
           </div>
 
-          <div class="row mb-3">
-            <div class="col">
+          <div class="row mb-0">
+            <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">E-Mail</label>
               <input type="email" id="email" class="form-control" />
               <div id="validationEmail" class="invalid-feedback"></div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Telefon</label>
               <input type="tel" id="phone" class="form-control" />
             </div>
           </div>
 
           <label class="form-label">Passwort</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-2 mb-md-3">
             <input type="password" id="password" class="form-control" />
-            <button type="button" class="btn btn-outline-primary" id="toggler">Toggle</button>
+            <button type="button" class="btn" id="toggler">
+              <i id="icon" class="far fa-eye"></i>
+            </button>
           </div>
 
-          <div class="row mb-3">
-            <div class="col-2">
+          <div class="row">
+            <div class="col-12 col-md-3 mb-2 mb-md-3">
               <label class="form-label">PLZ</label>
-              <input type="number" id="plz" class="form-control" />
+              <input type="text" id="plz" class="form-control" />
             </div>
-            <div class="col-5">
+            <div class="col-12 col-md-4 mb-2 mb-md-3">
               <label class="form-label">Ort</label>
               <input type="text" id="place" class="form-control" />
             </div>
-            <div class="col-5">
+            <div class="col-12 col-md-5 mb-4 mb-md-3">
               <label class="form-label">Straße</label>
               <input type="text" id="adress" class="form-control" />
             </div>
           </div>
 
           <div class="row mx-0">
-            <input type="submit" class="btn btn-primary w-25 mx-auto" value="Registrieren" />
+            <input type="submit" class="btn submit-btn" value="Registrieren" />
           </div>
 
           <hr class="divider" data-text="Schon ein Konto?" />
 
-          <a href="./Anmelden" class="btn btn-outline-primary w-100 rounded-pill">Hier anmelden!</a>
+          <a href="./Anmelden" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
+            >Hier anmelden!</a
+          >
         </form>
       </div>
     </div>
@@ -89,6 +86,7 @@
         phone = form.querySelector("#phone"),
         password = form.querySelector("#password"),
         passwordToggler = form.querySelector("#toggler"),
+        togglerIcon = form.querySelector("#icon"),
         plz = form.querySelector("#plz"),
         place = form.querySelector("#place"),
         adress = form.querySelector("#adress");
@@ -133,7 +131,13 @@
       });
 
       passwordToggler.addEventListener("click", function () {
-        password.type == "password" ? (password.type = "text") : (password.type = "password");
+        if (password.type == "password") {
+          password.type = "text";
+          togglerIcon.classList = "far fa-eye-slash";
+        } else {
+          password.type = "password";
+          togglerIcon.classList = "far fa-eye";
+        }
       });
     </script>
   </body>

@@ -34,12 +34,12 @@ Route::add("/", function () {
 
 # Sign in
 Route::add("/Anmelden", function () {
-  require_once "anmelden.html";
+  require_once "routes/sign-in.php";
 });
 
 # Sign up
 Route::add("/Registrieren", function () {
-  require_once "registrieren.html";
+  require_once "routes/sign-up.php";
 });
 
 # Official api documentation

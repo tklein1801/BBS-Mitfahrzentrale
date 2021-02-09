@@ -1,44 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anmelden</title>
-    <!-- Bootstrap v5.0.0-beta1 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./assets/css/master.css" />
+    <?php require_once "assets/php/header.php"; ?>
+    <title>BBS-Mitfahrzentrale • Anmelden</title>
+    <!-- Other stylesheets -->
+    <link rel="stylesheet" href="./assets/css/signIn.css" />
   </head>
-  <body>
+  <body id="sign-in">
     <div class="wrapper">
-      <div class="form-container w-50 mx-auto">
+      <div class="form-container p-3 p-md-4"">
         <form id="signInForm">
-          <h1 class="text-center font-weight-bold">Anmelden</h1>
+          <img src="./assets/img/BBS-Soltau-Logo.svg" alt="BBS Logo" />
 
-          <div class="mb-3">
+          <div class="mb-2 mb-md-3">
             <label class="form-label font-weight-bold mb-0">E-Mail</label>
             <input type="email" id="email" class="form-control" />
             <div id="validationEmail" class="invalid-feedback"></div>
           </div>
 
           <label class="form-label font-weight-bold mb-0">Passwort</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-4 mb-md-3">
             <input type="password" id="password" class="form-control" />
-            <button type="button" class="btn btn-outline-primary" id="toggler">Toggle</button>
+            <button type="button" class="btn" id="toggler">
+              <i id="icon" class="far fa-eye"></i>
+            </button>
             <div id="validationPassword" class="invalid-feedback"></div>
           </div>
 
           <div class="row mx-0">
-            <input type="submit" class="btn btn-primary w-25 mx-auto" value="Anmelden" />
+            <input type="submit" class="btn submit-btn" value="Anmelden" />
           </div>
 
           <hr class="divider" data-text="Noch kein Konto?" />
 
-          <a href="./Registrieren" class="btn btn-outline-primary w-100 rounded-pill"
+          <a href="./Registrieren" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
             >Hier registrieren!</a
           >
         </form>
@@ -56,7 +51,8 @@
       const form = document.querySelector("body #signInForm"),
         email = form.querySelector("#email"),
         password = form.querySelector("#password"),
-        passwordToggler = form.querySelector("#toggler");
+        passwordToggler = form.querySelector("#toggler"),
+        togglerIcon = form.querySelector("#icon");
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -93,7 +89,13 @@
       });
 
       passwordToggler.addEventListener("click", function () {
-        password.type == "password" ? (password.type = "text") : (password.type = "password");
+        if (password.type == "password") {
+          password.type = "text";
+          togglerIcon.classList = "far fa-eye-slash";
+        } else {
+          password.type = "password";
+          togglerIcon.classList = "far fa-eye";
+        }
       });
     </script>
   </body>
