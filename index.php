@@ -22,14 +22,15 @@ $GLOBALS['clientIp'] = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT
 # Dashboard
 Route::add("/", function () {
   session_start();
-  echo "Willkommen!";
+  // require_once $GLOBALS['routesPath'] . "offers.php";
+  // Check if the user is signed in
   if(isset($_SESSION['login'])) {
-    print_r($_SESSION['login']);
+    // print_r($_SESSION['login']);
+    require_once $GLOBALS['routesPath'] . "offers.php";
+    // require_once "index.html";
   } else {
-    echo "<br /> You have to sign in first";
+    header("Location: ./Anmelden");
   }
-
-  echo '<a href="./Anmelden">Anmelden</a> <a href="./Registrieren">Registrieren</a>';
 });
 
 # Sign in
