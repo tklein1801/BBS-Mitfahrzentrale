@@ -1,0 +1,142 @@
+body#sign-in,
+body#sign-up {
+  background-color: #004253;
+  color: white;
+}
+
+body#sign-in .wrapper,
+body#sign-up .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body#sign-in .form-container,
+body#sign-up .form-container {
+  width: 25%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  background-color: #023846;
+}
+
+body#sign-in .form-container img,
+body#sign-up .form-container img {
+  width: 75%;
+  margin-left: calc(25% / 2);
+  margin-bottom: 1rem;
+}
+
+body#sign-in .form-container .form-control,
+body#sign-up .form-container .form-control {
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 0;
+  color: white;
+}
+
+body#sign-in .form-container .form-control:hover, body#sign-in .form-container .form-control:focus,
+body#sign-up .form-container .form-control:hover,
+body#sign-up .form-container .form-control:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: #e27a00;
+  color: #e27a00;
+}
+
+body#sign-in .form-container .input-group .form-control,
+body#sign-up .form-container .input-group .form-control {
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  border-right-width: 0px;
+  background-color: transparent !important;
+}
+
+body#sign-in .form-container .input-group .form-control:hover + .btn,
+body#sign-in .form-container .input-group .form-control:focus + .btn,
+body#sign-up .form-container .input-group .form-control:hover + .btn,
+body#sign-up .form-container .input-group .form-control:focus + .btn {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: #e27a00;
+  color: #e27a00;
+}
+
+body#sign-in .form-container .input-group .btn,
+body#sign-up .form-container .input-group .btn {
+  color: white;
+  border: 2px solid white;
+  border-left-width: 2px;
+  border-radius: 0px;
+}
+
+body#sign-in .form-container .input-group .btn:hover, body#sign-in .form-container .input-group .btn:focus,
+body#sign-up .form-container .input-group .btn:hover,
+body#sign-up .form-container .input-group .btn:focus {
+  background-color: #e27a00;
+  border-color: orange;
+}
+
+body#sign-in .form-container .redirect-btn,
+body#sign-up .form-container .redirect-btn {
+  border-width: 2px;
+}
+
+body#sign-in .form-container .submit-btn,
+body#sign-up .form-container .submit-btn {
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  width: 50%;
+  margin: 0 auto;
+  border: 2px solid white;
+  border-radius: 0;
+  color: white;
+}
+
+body#sign-in .form-container .submit-btn:hover, body#sign-in .form-container .submit-btn:focus,
+body#sign-up .form-container .submit-btn:hover,
+body#sign-up .form-container .submit-btn:focus {
+  background-color: #e27a00;
+  border-color: #e27a00;
+}
+
+body#sign-in .form-container hr.divider,
+body#sign-up .form-container hr.divider {
+  color: white;
+  opacity: 1;
+}
+
+body#sign-in .form-container hr.divider:before,
+body#sign-up .form-container hr.divider:before {
+  background-color: white;
+}
+
+body#sign-in .form-container hr.divider:after,
+body#sign-up .form-container hr.divider:after {
+  background-color: #023846;
+  color: white;
+}
+
+@media (max-width: 1600px) {
+  body#sign-in .form-container {
+    width: 30%;
+  }
+  body#sign-up .form-container {
+    width: 40%;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    width: calc(100% - 1rem) !important;
+  }
+}
+/*# sourceMappingURL=signIn.css.map */

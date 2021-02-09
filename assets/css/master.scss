@@ -1,8 +1,201 @@
 @import "./_variables";
+@import "./navbar";
 
 html,
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
+  // font-family: "Hind Madurai", sans-serif !important;
+  font-size: 1.05rem;
+}
+html ::-moz-selection,
+body ::-moz-selection {
+  background: $orange;
+  color: white;
+}
+html ::selection,
+body ::selection {
+  background: $orange;
+  color: white;
+}
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+}
+
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0 !important;
+}
+a {
+  transition: 200ms;
+  text-decoration: none;
+  color: white;
+  &:hover,
+  &:focus {
+    color: $orange;
+  }
+}
+
+// Buttons
+.btn {
+  transition: 200ms;
+  &:focus {
+    box-shadow: none;
+  }
+
+  &.btn-outline-orange {
+    border: 2px solid $orange;
+    color: $orange !important;
+    &:hover {
+      background-color: $orange;
+      color: white !important;
+    }
+  }
+}
+
+// Bagde
+.badge {
+  padding: 0.45rem 0.75rem;
+  &.bg-orange {
+    background-color: $orange;
+  }
+}
+
+// Dropdowns
+.dropdown-menu {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: $blue;
+  border: 2px solid $orange;
+  border-radius: 0px;
+
+  button {
+    color: $orange;
+    &:hover,
+    &:focus {
+      background-color: $orange;
+      color: white;
+    }
+  }
+}
+
+// Form
+.form-label {
+  margin-bottom: 0;
+  font-size: 90%;
+}
+.form-control.is-invalid {
+  border-color: $red !important;
+  color: $red !important;
+}
+.form-control {
+  transition: 200ms;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 0;
+  color: white;
+  &:hover,
+  &:focus {
+    box-shadow: none;
+    border-color: $orange;
+    color: $orange;
+  }
+}
+.input-group {
+  .form-control {
+    transition: 200ms;
+    border-right-width: 0px;
+    background-color: transparent !important;
+    &:hover + .btn,
+    &:focus + .btn {
+      box-shadow: none;
+      border-color: $orange;
+      color: $orange;
+    }
+  }
+  .btn {
+    color: white;
+    border: 2px solid white;
+    border-left-width: 2px;
+    border-radius: 0px;
+    &:hover,
+    &:focus {
+      background-color: $orange;
+      border-color: orange;
+    }
+  }
+}
+.form-check-input:checked {
+  background-color: $orange;
+  border-color: $orange;
+}
+
+// Footer
+.footer {
+  background-color: $blue;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 2rem;
+    > div {
+      color: white;
+      i {
+        font-size: 1.8rem;
+        color: $orange;
+      }
+    }
+
+    .logo-container {
+      grid-row: 1 / 3;
+    }
+  }
+
+  .bottom {
+    background-color: $blueDark;
+
+    a:first-child {
+      margin-right: 1rem;
+    }
+  }
+}
+@media (max-width: $brXl) {
+  .footer .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+
+    .logo-container {
+      display: none;
+    }
+  }
+}
+@media (max-width: $brXs) {
+  .footer .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+
+    .logo-container {
+      display: unset;
+      grid-row: unset;
+      img {
+        width: 50%;
+        margin-left: calc(50% / 2);
+      }
+    }
+
+    i {
+      font-size: 1.6rem !important;
+    }
+  }
 }
 
 // Divider
@@ -36,5 +229,56 @@ hr.divider {
     line-height: 1.5em;
     background-color: white;
     color: $dividerBackground;
+  }
+}
+
+// Home Stylesheets
+.search-container {
+  background-color: $blue;
+}
+.filter-container {
+  background-color: $blue;
+  color: white;
+}
+#sidebar-column {
+  padding-left: 0;
+}
+.offer-card/*,
+.filter-container,
+.search-container*/ {
+  transition: 200ms;
+  background-color: $blue;
+  border-radius: 0;
+  border: 4px solid $blue;
+  color: white;
+  &:hover {
+    background-color: $blueDark;
+    border-color: $orange;
+  }
+
+  .price {
+    font-weight: bold;
+  }
+
+  .text-muted {
+    transition: 100ms;
+    color: rgba($color: white, $alpha: 0.85) !important;
+    &:hover {
+      color: white !important;
+    }
+  }
+}
+
+@media (max-width: $brXs) {
+  .search-container {
+    .input-group {
+      min-width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  #sidebar-column {
+    margin-bottom: 1rem;
+    padding-right: 0;
   }
 }

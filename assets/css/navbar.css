@@ -1,0 +1,35 @@
+.navbar {
+  padding: 0.5rem 2.5rem;
+  background-color: #004253;
+}
+
+.navbar.scrolled {
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+.navbar.scrolled .navbar-brand img {
+  height: 4rem;
+}
+
+.navbar .navbar-brand img {
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  height: 6rem;
+}
+
+.navbar .navbar-nav {
+  margin-left: auto;
+}
+
+.navbar .navbar-nav .nav-item:not(:last-child) {
+  -webkit-transition: 150ms;
+  transition: 150ms;
+  margin-right: 1rem;
+  padding: 0 1rem;
+}
+
+.navbar .navbar-nav .nav-item:not(:last-child):hover, .navbar .navbar-nav .nav-item:not(:last-child):focus {
+  background-color: #e27a00;
+}
+/*# sourceMappingURL=navbar.css.map */
