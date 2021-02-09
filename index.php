@@ -55,9 +55,11 @@ Route::add($GLOBALS['apiPath'], function() {
 Route::add($GLOBALS['apiPath']."user/register", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
-  $user = new User();
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
   $logger = new ApiLogger();
-  $logger->create($GLOBALS['apiPath']."user/register", $GLOBALS['clientIp'], null);
+  $logger->create($GLOBALS['apiPath']."user/register", $GLOBALS['clientIp'], $key);
+  $user = new User();
   $result = $user->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['adress'], $_POST['plz'], $_POST['place'], $_POST['telNumber']);
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
@@ -65,9 +67,11 @@ Route::add($GLOBALS['apiPath']."user/register", function () {
 Route::add($GLOBALS['apiPath']."user/checkCredentials", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
-  $user = new User();
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
   $logger = new ApiLogger();
-  $logger->create($GLOBALS['apiPath']."user/checkCredentials", $GLOBALS['clientIp'], null);
+  $logger->create($GLOBALS['apiPath']."user/checkCredentials", $GLOBALS['clientIp'], $key);
+  $user = new User();
   $result = $user->checkCredentials($_GET['email'], $_GET['password']);
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "GET");
@@ -75,18 +79,22 @@ Route::add($GLOBALS['apiPath']."user/checkCredentials", function () {
 Route::add($GLOBALS['apiPath']."user/exist", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
-  $user = new User();
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
   $logger = new ApiLogger();
-  $logger->create($GLOBALS['apiPath']."user/exist", $GLOBALS['clientIp'], null);
+  $logger->create($GLOBALS['apiPath']."user/exist", $GLOBALS['clientIp'], $key);
+  $user = new User();
   $result = $user->exist($_GET['email']);
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "GET");
 
 Route::add($GLOBALS['apiPath']."user/destroySession", function () {
   header('Access-Control-Allow-Origin: *');
-  $user = new User();
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
   $logger = new ApiLogger();
-  $logger->create($GLOBALS['apiPath']."user/destroySession", $GLOBALS['clientIp'], null);
+  $logger->create($GLOBALS['apiPath']."user/destroySession", $GLOBALS['clientIp'], $key);
+  $user = new User();
   $result = $user->destroySession($_GET['redirectTo']);
 }, "GET"); // FIXME Maybe change it to POST
 
