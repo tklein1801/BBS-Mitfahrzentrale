@@ -113,7 +113,7 @@
               // Everything should be fine...
               // Now we're gonna call the checkCredentials-function to sign the user in
               UserAPI.checkCredentials(email.value, password.value).then(() => {
-                window.location.href = "../";
+                window.location.href = "../Anzeigen";
               });
             } else {
               // Something went wrong

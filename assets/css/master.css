@@ -79,6 +79,10 @@ a:hover, a:focus {
   color: #e27a00;
 }
 
+.bg-blue {
+  background-color: #004253;
+}
+
 .btn {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -115,11 +119,16 @@ a:hover, a:focus {
   border-radius: 0px;
 }
 
-.dropdown-menu button {
+.dropdown-menu button,
+.dropdown-menu a {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
   color: #e27a00;
 }
 
-.dropdown-menu button:hover, .dropdown-menu button:focus {
+.dropdown-menu button:hover, .dropdown-menu button:focus,
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
   background-color: #e27a00;
   color: white;
 }
@@ -127,6 +136,7 @@ a:hover, a:focus {
 .form-label {
   margin-bottom: 0;
   font-size: 90%;
+  color: white;
 }
 
 .form-control.is-invalid {
@@ -135,6 +145,7 @@ a:hover, a:focus {
 }
 
 .form-control {
+  resize: none;
   -webkit-transition: 200ms;
   transition: 200ms;
   background-color: transparent;
@@ -144,6 +155,7 @@ a:hover, a:focus {
 }
 
 .form-control:hover, .form-control:focus {
+  background-color: transparent !important;
   -webkit-box-shadow: none;
           box-shadow: none;
   border-color: #e27a00;
@@ -177,9 +189,35 @@ a:hover, a:focus {
   border-color: orange;
 }
 
-.form-check-input:checked {
+.input-group .btn:disabled {
+  opacity: 1;
+}
+
+.form-check .form-check-input {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 0 !important;
+  border: 2px solid white;
+  background-color: transparent;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.form-check .form-check-input:hover {
+  cursor: pointer;
+}
+
+.form-check .form-check-input:checked {
   background-color: #e27a00;
   border-color: #e27a00;
+}
+
+.form-check .form-check-label {
+  color: white;
+}
+
+.form-check .form-check-label a {
+  color: #e27a00;
 }
 
 .footer {
@@ -289,6 +327,21 @@ hr.divider:after {
 .filter-container {
   background-color: #004253;
   color: white;
+}
+
+.filter-container a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.filter-container a.active {
+  color: #e27a00;
+}
+
+.filter-container a span {
+  margin-left: 0.3rem;
 }
 
 #sidebar-column {

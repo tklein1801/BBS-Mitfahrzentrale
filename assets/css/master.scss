@@ -44,6 +44,11 @@ a {
   }
 }
 
+// Background
+.bg-blue {
+  background-color: $blue;
+}
+
 // Buttons
 .btn {
   transition: 200ms;
@@ -77,7 +82,10 @@ a {
   border: 2px solid $orange;
   border-radius: 0px;
 
-  button {
+  button,
+  a {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
     color: $orange;
     &:hover,
     &:focus {
@@ -91,12 +99,14 @@ a {
 .form-label {
   margin-bottom: 0;
   font-size: 90%;
+  color: white;
 }
 .form-control.is-invalid {
   border-color: $red !important;
   color: $red !important;
 }
 .form-control {
+  resize: none;
   transition: 200ms;
   background-color: transparent;
   border: 2px solid white;
@@ -104,6 +114,7 @@ a {
   color: white;
   &:hover,
   &:focus {
+    background-color: transparent !important;
     box-shadow: none;
     border-color: $orange;
     color: $orange;
@@ -131,11 +142,33 @@ a {
       background-color: $orange;
       border-color: orange;
     }
+    &:disabled {
+      opacity: 1;
+    }
   }
 }
-.form-check-input:checked {
-  background-color: $orange;
-  border-color: $orange;
+.form-check {
+  .form-check-input {
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 0 !important;
+    border: 2px solid white;
+    background-color: transparent;
+    box-shadow: none !important;
+    &:hover {
+      cursor: pointer;
+    }
+    &:checked {
+      background-color: $orange;
+      border-color: $orange;
+    }
+  }
+  .form-check-label {
+    color: white;
+    a {
+      color: $orange;
+    }
+  }
 }
 
 // Footer
@@ -239,6 +272,17 @@ hr.divider {
 .filter-container {
   background-color: $blue;
   color: white;
+  a {
+    display: flex;
+    width: 100%;
+    &.active {
+      color: $orange;
+    }
+
+    span {
+      margin-left: 0.3rem;
+    }
+  }
 }
 #sidebar-column {
   padding-left: 0;
@@ -268,7 +312,6 @@ hr.divider {
     }
   }
 }
-
 @media (max-width: $brXs) {
   .search-container {
     .input-group {

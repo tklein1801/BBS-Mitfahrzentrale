@@ -1,11 +1,13 @@
 <?php
 namespace DulliAG\API;
 require_once "C:/xampp/htdocs/endpoints/user/nanoid/Client.php";
+// require_once "/Applications/XAMPP/xamppfiles/htdocs/endpoints/user/nanoid/Client.php";
 use Hidehalo\Nanoid\Client;
 
 class User 
 {
   public $sqlPHP = "C:/xampp/htdocs/endpoints/sql.php";
+  // public $sqlPHP = "/Applications/XAMPP/xamppfiles/htdocs/endpoints/sql.php";
   public $alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   public $size = 16;
 
@@ -47,7 +49,7 @@ class User
       $result = $select->num_rows;
       if ($result == 1) {
         while ($data = $select->fetch_assoc()) {
-          session_start();
+          if (session_status() == PHP_SESSION_NONE) session_start();
           $userId = $data['userId'];
           $username = $data['email'];
           $apiKey = $data['apiKey'];

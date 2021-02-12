@@ -67,7 +67,7 @@
             if (result.error == null) {
               // Everything should be fine...
               // Redriect the user to the application
-              window.location.href = "../";
+              window.location.href = "../Anzeigen";
             } else {
               // Something went wrong
               const error = result.error;
