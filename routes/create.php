@@ -133,7 +133,11 @@
                   </div>
 
                   <div style="display: flex; flex-direction: row;">
-                    <input type="submit" class="btn btn-outline-orange rounded-0 px-5 mx-auto" value="Erstellen">
+                    <a style="margin-right: 1rem;" class="btn btn-outline-white rounded-0" onclick="window.history.back();"> 
+                      <i class="fas fa-angle-double-left"></i>
+                      Zurück
+                    </a>
+                    <input type="submit" class="btn btn-outline-orange rounded-0 px-5" value="Erstellen">
                   </div>
                 </form>
               </div>
@@ -151,20 +155,6 @@
 
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
-      const navbar = document.querySelector(".navbar");
-      window.addEventListener("scroll", () => {
-        const scrollOffset = window.scrollY;
-        scrollOffset >= 1 ? navbar.classList.add("scrolled") : navbar.classList.remove("scrolled");
-      });
-
-      const UserAPI = new User();
-      const signOutBtn = document.querySelector(".navbar #signOut");
-      signOutBtn.addEventListener("click", function () {
-        UserAPI.destroySession().then(() => {
-          window.location.href = window.location.origin + "/Anmelden";
-        }).catch(err => console.error(err));
-      });
-
       const RideAPI = new Ride();
       const form = document.querySelector("#main-column form")
       form.addEventListener("submit", function (event) {

@@ -55,56 +55,6 @@
             <!-- ./top-bar -->
 
             <?php
-              function _renderOffer($offer) {
-                $driver = $offer['driver'] == 1 ? "Angebot" : "Gesuch";
-                $createdAt = $offer['createdAt'];
-                $day = date("d", $createdAt);
-                $month = date("m", $createdAt);
-                $day = $day == date("d", time()) ? "Heute" : ($day == (date("d", time()) - 1) ? "Gestern" : $day.".".$month);
-                return '<div id="offer-'.$offer['rideId'].'" class="card offer-card mb-3">
-                    <div class="row g-0">
-                      <div class="col-md-6">
-                        <div class="card-body">
-                          <a href="Angebot/'.$offer['rideId'].'" class="stretched-link text-white">
-                            <h5 class="card-title">'.$offer['title'].'</h5>
-                          </a>
-                          <!-- <h5 class="card-title">Card title</h5> -->
-                          <p class="card-text">
-                            '.$offer['information'].'
-                          </p>
-                          <p class="card-text">
-                            <small class="text-muted">'.$day.', '.date("H:i", $createdAt).' Uhr</small>
-                          </p>
-                          <span class="badge bg-orange">'.$offer['price'].' €</span>
-                          <span class="badge bg-orange">'.$driver.'</span>
-                        </div>
-                      </div>
-                      <!-- ./1st-col -->
-                      <div class="col-md-3 d-flex align-items-center">
-                        <div class="card-body">
-                          <p class="price">Start</p>
-                          <p>
-                            '.$offer['startPlz'].' '.$offer['startCity'].' <br />
-                            '.$offer['startAdress'].'
-                          </p>
-                        </div>
-                      </div>
-                      <!-- ./2nd-col -->
-                      <div class="col-md-3 d-flex align-items-center">
-                        <div class="card-body">
-                          <p class="price">Ziel</p>
-                          <p>
-                            '.$offer['destinationPlz'].' '.$offer['destinationCity'].' <br />
-                            '.$offer['destinationAdress'].'
-                          </p>
-                        </div>
-                      </div>
-                      <!-- ./3rd-col -->
-                    </div>
-                    <!-- ./row -->
-                  </div>';
-              }
-
               $all = $ride->getAll();
               $allAmount = count($all);
               $offers = $ride->getOffers();
@@ -142,25 +92,25 @@
                   switch ($slug) {
                     case "Angebote":
                       foreach ($offers as $key => $offer) {
-                        echo _renderOffer($offer);
+                        echo $ride->_renderOffer($offer);
                       }
                       break;
                     
                     case "Gesuche":
                       foreach ($requests as $key => $offer) {
-                        echo _renderOffer($offer);
+                        echo $ride->_renderOffer($offer);
                       }
                       break;
 
                     case "Favoriten":
                       foreach ($favoriteOffers as $key => $offer) {
-                        echo _renderOffer($offer);
+                        echo $ride->_renderOffer($offer);
                       }
                       break;
 
                     default:
                       foreach ($all as $key => $offer) {
-                        echo _renderOffer($offer);
+                        echo $ride->_renderOffer($offer);
                       }   
                       break;
                   }
@@ -180,20 +130,6 @@
 
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
-      const navbar = document.querySelector(".navbar");
-      window.addEventListener("scroll", () => {
-        const scrollOffset = window.scrollY;
-        scrollOffset >= 1 ? navbar.classList.add("scrolled") : navbar.classList.remove("scrolled");
-      });
-
-      const UserAPI = new User();
-      const signOutBtn = document.querySelector(".navbar #signOut");
-      signOutBtn.addEventListener("click", function () {
-        UserAPI.destroySession().then(() => {
-          window.location.href = window.location.origin + "/Anmelden";
-        }).catch(err => console.error(err));
-      });
-
       const offerOutput = document.querySelector("#main-column #offer-output");
       const searchOffer = document.querySelector("#search-offer");
       searchOffer.addEventListener("keyup", function (event) {
