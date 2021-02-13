@@ -50,6 +50,26 @@ Route::add("/Erstellen", function () {
   }
 });
 
+# Offer
+Route::add("/(Angebot|Anzeige)/([0-9]*)", function ($slug, $rideId) {
+  session_start();
+  if(isset($_SESSION['login'])) {
+    require_once $GLOBALS['routesPath'] . "offer.php";
+  } else {
+    header("Location: ./Anmelden");
+  }
+});
+
+# Profile
+Route::add("/Profil", function () {
+  session_start();
+  if(isset($_SESSION['login'])) {
+    require_once $GLOBALS['routesPath'] . "profile.php";
+  } else {
+    header("Location: ./Anmelden");
+  }
+});
+
 # Sign in
 Route::add("/Anmelden", function () {
   require_once "routes/sign-in.php";
