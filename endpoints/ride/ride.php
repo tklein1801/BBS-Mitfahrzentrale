@@ -12,6 +12,7 @@ class Ride
     $day = date("d", $createdAt);
     $month = date("m", $createdAt);
     $day = $day == date("d", time()) ? "Heute" : ($day == (date("d", time()) - 1) ? "Gestern" : $day.".".$month);
+    $seats = $offer['seats'] > 1 ? $offer['seats']." Plätze" : $offer['seats']." Platz";
     return '<div id="offer-'.$offer['rideId'].'" class="card offer-card mb-3">
         <div class="row g-0">
           <div class="col-md-6">
@@ -25,6 +26,7 @@ class Ride
               </p>
               <span class="badge bg-orange">'.$offer['price'].' €</span>
               <span class="badge bg-orange">'.$driver.'</span>
+              <span class="badge bg-orange">'.$seats.'</span>
             </div>
           </div>
           <!-- ./1st-col -->
@@ -32,6 +34,7 @@ class Ride
           <div class="col-md-3 d-flex align-items-center">
             <div class="card-body">
               <p class="price">Start</p>
+              <p>'.date("d.M.Y • H:m", $offer['startAt']).' Uhr</p>
               <p>
                 '.$offer['startPlz'].' '.$offer['startCity'].' <br />
                 '.$offer['startAdress'].'

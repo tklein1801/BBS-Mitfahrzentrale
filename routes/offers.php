@@ -40,7 +40,7 @@
                 style="display: flex; flex-direction: row; flex-wrap: wrap"
               >
                 <div class="input-group col" style="margin-right: 1.5rem">
-                  <input type="text" id="search-offer" class="form-control" />
+                  <input type="text" id="search-offer" class="form-control" maxlength="50" />
                   <button type="button" class="btn px-3">
                     <i class="fas fa-search"></i>
                   </button>
@@ -136,15 +136,30 @@
         var keywords = this.value.toLowerCase();
         var items = offerOutput.querySelectorAll(".offer-card");
         var itemAmount = items.length;
-
+        let displayOffers = itemAmount;
         for (let i = 0; i < itemAmount; i++) {
           const item = items[i];
           const itemTitle = item.querySelector(".card-title").innerText.toLowerCase();
           if (itemTitle.includes(keywords)) {
             item.style.display = "";
           } else {
+            displayOffers--;
             item.style.display = "none";
           }
+        } 
+        const errMsg = offerOutput.querySelector("#err-msg");
+        if (displayOffers == 0) {
+          if(errMsg == undefined) {
+            offerOutput.innerHTML += `
+              <div id="err-msg" class="bg-blue p-3">
+                <h3 class="text-white text-center">Keine Treffer für ${keywords}!</h3>
+              </div>
+            `;
+          } else {
+            errMsg.querySelector("h3").innerText = `Keine Treffer für ${keywords}!`;
+          }
+        } else if(displayOffers > 1 && errMsg != undefined) {
+          errMsg.remove();
         }
       });
     </script>

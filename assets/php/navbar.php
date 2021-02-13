@@ -42,11 +42,11 @@
                       <i class="far fa-address-book"></i> Meine Anzeigen
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a class="dropdown-item" href="./Favoriten">
                       <i class="far fa-star"></i> Favoriten
                     </a>
-                  </li>
+                  </li> -->
                   <li>
                     <button id="signOut" class="dropdown-item" type="button">
                       <i class="fas fa-sign-out-alt"></i> Abmelden
