@@ -4,7 +4,7 @@
     <a class="navbar-brand" href="#">
       <img
         class="d-inline-block align-top"
-        src="assets/img/BBS-Soltau-Logo.svg"
+        src="<?php echo $url . "assets/img/BBS-Soltau-Logo.svg"; ?>"
         alt="BBS Logo"
       />
     </a>
@@ -19,6 +19,9 @@
     </button>
     <div id="navbarNav" class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="../Anzeigen" class="nav-link text-white">Anzeigen</a>
+        </li>
         <li class="nav-item">
           <a href="https://bbssoltau.de" class="nav-link text-white">BBS Soltau</a>
         </li>

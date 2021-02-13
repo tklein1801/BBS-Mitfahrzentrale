@@ -3,7 +3,7 @@
   <div class="top p-4">
     <div class="grid-container">
       <div class="logo-container">
-        <img src="./assets/img/BBS-Soltau-Logo.svg" alt="BBS Logo" />
+        <img src="<?php echo $url . "assets/img/BBS-Soltau-Logo.svg"; ?>" alt="BBS Logo" />
       </div>
 
       <div class="row align-items-center mx-0">

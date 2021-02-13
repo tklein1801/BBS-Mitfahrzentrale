@@ -1,11 +1,20 @@
+<?php
+  $url;
+  if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === "on") {
+    $url = "https://";
+  } else {
+    $url = "http://";
+  }
+  $url.= $_SERVER['HTTP_HOST']."/";
+?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width-device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="id=edge">
 <meta name="theme-color" content="#023846">
-<meta property="og:image" content="./assets/img/BBS-Soltau-Logo.svg">
+<meta property="og:image" content="<?php echo $url . "assets/img/BBS-Soltau-Logo.svg"; ?>">
 <meta name="description" content="Enter an description...">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/svg" sizes="500x500" href="./assets/img/BBS-Soltau-Logo.svg">
+<link rel="icon" type="image/svg" sizes="500x500" href="<?php echo $url . "assets/img/BBS-Soltau-Logo.svg"; ?>">
 <!-- Stylesheets -->
 <!-- Bootstrap v5.0.0-beta1 -->
 <link
@@ -28,4 +37,4 @@
   rel="stylesheet"
 />
 <!-- Custom Stylesheets -->
-<link rel="stylesheet" href="./assets/css/master.css" />
+<link rel="stylesheet" href="<?php echo $url . "assets/css/master.css"; ?>" />
