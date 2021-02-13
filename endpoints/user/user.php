@@ -104,4 +104,41 @@ class User
     $select->close();
     $con->close();
   }
+
+  public function get(int $userId)
+  {
+    require $this->sqlPHP;
+
+    $arr = array();
+    $select = $con->query("SELECT * FROM `cshare_user` WHERE `userId`='".$userId."'");
+    while ($data = $select->fetch_assoc()) {
+      $arr = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function update(int $userId, /*string $email,*/ string $telNumber, string $password)
+  {
+    require $this->sqlPHP;
+
+    // $update = $con->prepare("UPDATE `cshare_user` SET `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
+    // $update->bind_param("sssi", $email, $telNumber, $hashedPassword, $userId);
+    if (is_null($password)) {
+      $update = $con->prepare("UPDATE `cshare_user` SET `telNumber`=? WHERE `userId`=?");
+      $update->bind_param("si", $telNumber, $userId);
+      $update->execute();
+    } else {
+      $hashedPassword = hash("md5", $password);
+      $update = $con->prepare("UPDATE `cshare_user` SET `telNumber`=?, `password`=? WHERE `userId`=?");
+      $update->bind_param("ssi", $telNumber, $hashedPassword, $userId);
+      $update->execute();
+    }
+
+    return $update;
+    $update->close();
+    $con->close();
+  }
 }

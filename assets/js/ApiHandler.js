@@ -64,6 +64,37 @@ class User {
     const data = await response.json();
     return data;
   }
+
+  /**
+   * UserId isn't required because the user is already signed in when the request is send
+   * If the isn't signed in he won't be able to get information about his profile using this function
+   */
+  async get() {
+    const response = await fetch(this.apiHost + "user/get", { method: "POST" });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
+   * UserId isn't required because the user is already signed in when the request is send
+   * If the isn't signed in he won't be able to update his profile information
+   * @param {string} email
+   * @param {string} phone
+   * @param {string} password
+   */
+  async update(/*email,*/ phone, password) {
+    const formData = new FormData();
+    // formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+
+    const response = await fetch(this.apiHost + "update", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    return data;
+  }
 }
 
 class Ride {

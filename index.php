@@ -172,6 +172,55 @@ Route::add($GLOBALS['apiPath']."user/destroySession", function () {
   $result = $user->destroySession($_GET['redirectTo']);
 }, "GET"); // FIXME Maybe change it to POST
 
+Route::add($GLOBALS['apiPath']."user/get", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $logger = new ApiLogger();
+  $user = new User();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_GET['apiKey']) ? $_GET['apiKey'] : null);
+  $logger->create($GLOBALS['apiPath']."ride/user", $GLOBALS['clientIp'], $key);
+  // Check if the key is set
+  // If no key was set the value equals null
+  if(!is_null($key)) {
+    $verifyResult = $user->verifyKey($key);
+    // Check if the key is valid
+    if($verifyResult) {
+      $userId = $verifyResult['userId'];
+      $allRides = $user->get($userId);
+      echo(json_encode($allRides, JSON_PRETTY_PRINT));
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "GET");
+
+Route::add($GLOBALS['apiPath']."user/update", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_POST['apiKey']) ? $_POST['apiKey'] : null);
+  $user = new User();
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."user/update", $GLOBALS['clientIp'], $key);
+  // Check if the key is set
+  // If no key was set the value equals null
+  if(!is_null($key)) {
+    $verifyResult = $user->verifyKey($key);
+    // Check if the key is valid
+    if($verifyResult) {
+      $result = $user->update($verifyResult['userId'], /*$_POST['email'],*/ $_POST['phone'], $_POST['password']);
+      echo(json_encode($result, JSON_PRETTY_PRINT));
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "POST");
+
 Route::add($GLOBALS['apiPath']."ride/create", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
@@ -196,7 +245,7 @@ Route::add($GLOBALS['apiPath']."ride/create", function () {
   }
 }, "POST");
 
-Route::add($apiPath."ride/delete", function () {
+Route::add($GLOBALS['apiPath']."ride/delete", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
@@ -229,7 +278,7 @@ Route::add($apiPath."ride/delete", function () {
   }
 }, "POST");
 
-Route::add($apiPath."ride/all", function () {
+Route::add($GLOBALS['apiPath']."ride/all", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
@@ -241,7 +290,7 @@ Route::add($apiPath."ride/all", function () {
   echo(json_encode($allRides, JSON_PRETTY_PRINT));
 }, "GET");
 
-Route::add($apiPath."ride/favorites", function () {
+Route::add($GLOBALS['apiPath']."ride/favorites", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
@@ -267,7 +316,33 @@ Route::add($apiPath."ride/favorites", function () {
   }
 }, "GET");
 
-Route::add($apiPath."ride/offer", function () {
+Route::add($GLOBALS['apiPath']."ride/user", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $logger = new ApiLogger();
+  $ride = new Ride();
+  $user = new User();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_GET['apiKey']) ? $_GET['apiKey'] : null);
+  $logger->create($GLOBALS['apiPath']."ride/user", $GLOBALS['clientIp'], $key);
+  // Check if the key is set
+  // If no key was set the value equals null
+  if(!is_null($key)) {
+    $verifyResult = $user->verifyKey($key);
+    // Check if the key is valid
+    if($verifyResult) {
+      $userId = $verifyResult['userId'];
+      $allRides = $ride->getUserOffers($userId);
+      echo(json_encode($allRides, JSON_PRETTY_PRINT));
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "GET");
+
+Route::add($GLOBALS['apiPath']."ride/offer", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
@@ -279,7 +354,7 @@ Route::add($apiPath."ride/offer", function () {
   echo(json_encode($allRides, JSON_PRETTY_PRINT));
 }, "GET");
 
-Route::add($apiPath."ride/offers", function () {
+Route::add($GLOBALS['apiPath']."ride/offers", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
@@ -291,7 +366,7 @@ Route::add($apiPath."ride/offers", function () {
   echo(json_encode($allRides, JSON_PRETTY_PRINT));
 }, "GET");
 
-Route::add($apiPath."ride/requests", function () {
+Route::add($GLOBALS['apiPath']."ride/requests", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
   session_start();
