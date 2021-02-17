@@ -128,7 +128,7 @@
                   <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" required>
                     <label class="form-check-label">
-                      Hiermit akzeptiere ich die aktuellen <a href="#">Nutzungsbedingungen</a> und Informationen zu Verarbeitung der Daten findest du in unserer <a href="#">Datenschutzerklärung</a>.
+                      Hiermit akzeptiere ich die aktuelle Datenschutzerklärung und stimme der Verarbeitung meiner Daten zu. Informationen zu Verarbeitung der Daten findest du in unserer <a href="<?php echo $url . "Datenschutz"; ?>">Datenschutzerklärung</a>.
                     </label>
                   </div>
 

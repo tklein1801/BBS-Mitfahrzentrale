@@ -80,6 +80,11 @@ Route::add("/Registrieren", function () {
   require_once "routes/sign-up.php";
 });
 
+Route::add("/Datenschutz", function () {
+  session_start();
+  require_once "routes/data.php";
+});
+
 # Official api documentation
 Route::add("(/(api/|api))", function() {
   echo '

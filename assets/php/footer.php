@@ -64,7 +64,7 @@
 
   <div class="bottom text-center py-3">
     <a href="https://www.bbssoltau.de/impressum">Impressum</a>
-    <a href="https://www.bbssoltau.de/datenschutz">Datenschutz</a>
+    <a href="<?php echo $url  . "Datenschutz"; ?>">Datenschutz</a>
   </div>
 </footer>
 <!-- ./Footer -->
