@@ -9,18 +9,17 @@
       />
     </a>
     <button
-      class="navbar-toggler"
       type="button"
+      class="navbar-toggler border-0"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
     >
-      <!-- TODO Add an custom hamburger -->
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbarNav" class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a href="../Anzeigen" class="nav-link text-white">Anzeigen</a>
+          <a href="<?php echo $url . "Anzeigen"; ?>" class="nav-link text-white">Anzeigen</a>
         </li>
         <li class="nav-item">
           <a href="https://bbssoltau.de" class="nav-link text-white">BBS Soltau</a>
@@ -38,12 +37,12 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                   <li>
-                    <a class="dropdown-item" href="./Profil">
+                    <a class="dropdown-item" href="'.$url.'Profil">
                       <i class="far fa-address-book"></i> Meine Anzeigen
                     </a>
                   </li>
                   <!-- <li>
-                    <a class="dropdown-item" href="./Favoriten">
+                    <a class="dropdown-item" href="'.$url.'Anzeigen">
                       <i class="far fa-star"></i> Favoriten
                     </a>
                   </li> -->
