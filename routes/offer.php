@@ -5,6 +5,16 @@
   $offer = $ride->get($rideId);
 
   function _renderSidebar(array $offer) {
+    $btn = $_SESSION['login']['userId'] != $offer['creatorId'] ? '' : '<div>
+            <button type="button" id="edit" class="btn btn-outline-orange w-100 rounded-0">
+              <i class="far fa-trash-alt"></i>
+              Anzeige löschen        
+            </button>
+            <div role="group" class="w-100 btn-group d-none">
+              <button type="button" id="cancel" class="btn btn-outline-red rounded-0">Abbrechen</button>
+              <button type="submit" id="delete" class="btn btn-orange rounded-0">Löschen</button>
+            </div>
+          </div>';
     return '<div id="sidebar-column" class="col-md-3 col-12">
         <!-- TOOD Maybe change this to an collapseable object for better mobile experience -->
         <div class="profile-container bg-blue p-3">
@@ -114,5 +124,43 @@
     <!-- ./wrapper -->
 
     <?php require_once "assets/php/scripts.php"; ?>
+    <script>
+      let del = false;
+      const ride = new Ride();
+      const sidebar = document.querySelector("#sidebar-column");
+      const editBtn = sidebar.querySelector("#edit");
+      const cancelBtn = sidebar.querySelector("#cancel");
+      const delBtn = sidebar.querySelector("#delete");
+      editBtn.addEventListener("click", function () {
+        if (!del) {
+          del = true;
+          editBtn.classList.add("d-none");
+          sidebar.querySelector(".btn-group").classList.remove("d-none"); 
+        }
+      });
+      cancelBtn.addEventListener("click", function () {
+        if (del) {
+          del = false;
+          editBtn.classList.remove("d-none");
+          sidebar.querySelector(".btn-group").classList.add("d-none"); 
+        }
+      });
+      delBtn.addEventListener("click", function () {
+        if (del) {
+          del = false;
+          const rideId = window.location.pathname.split("/")[2];
+          ride
+            .delete(rideId)
+            .then((result) => {
+              if (result.error == null) {
+                window.location.href = window.location.origin + "/Anzeigen";
+              } else {
+                console.error(result.error);
+              }
+            })
+            .catch((err) => console.error(err));
+        }
+      });
+    </script>
   </body>
 </html>
