@@ -97,6 +97,45 @@ class User {
   }
 }
 
+class PLZ {
+  constructor() {
+    this.apiHost = window.location.origin + "/api/plz/";
+  }
+
+  /**
+   * @param {number} plz
+   */
+  async placesByPlz(plz) {
+    const response = await fetch(this.apiHost + `placesByPlz?plz=${plz}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
+   * @param {number} plz
+   */
+  async placeByPlz(plz) {
+    const response = await fetch(this.apiHost + `placeByPlz?plz=${plz}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
+   * @param {string} cityName
+   */
+  async plzByPlace(cityName) {
+    const response = await fetch(this.apiHost + `plzByName?cityName=${cityName}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  }
+}
+
 class Ride {
   constructor() {
     this.apiHost = window.location.origin + "/api/ride/";

@@ -29,14 +29,34 @@ Response 200 (application/json)
 ```
 GET /get
 Authentification: (string) apiKey
-Params: string(apiKey)
+Params: (string) apiKey
 Response 200 (application/json)
 ```
 
 ```
 POST /update
 Authentification: (string) apiKey
-Params: string(apiKey), (string) phone, (string) password
+Params: (string) apiKey, (string) phone, (string) password
+Response 200 (application/json)
+```
+
+## plz
+
+```
+GET /placesByPlz
+Params: (int) plz
+Response 200 (application/json)
+```
+
+```
+GET /placeByPlz
+Params: (int) plz
+Response 200 (application/json)
+```
+
+```
+GET /plzByName
+Params: (string) cityName
 Response 200 (application/json)
 ```
 
@@ -66,14 +86,14 @@ Response 200 (application/json)
 ```
 GET /favorites
 Authentification: (string) apiKey
-Params: string(apiKey)
+Params: (string) apiKey
 Response 200 (application/json)
 ```
 
 ```
 GET /user
 Authentification: (string) apiKey
-Params: string(apiKey)
+Params: (string) apiKey
 Response 200 (application/json)
 ```
 

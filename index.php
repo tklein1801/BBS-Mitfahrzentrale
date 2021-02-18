@@ -8,10 +8,12 @@ require_once "assets/php/Parsedown.php";
 require_once "assets/php/ApiLogger.php";
 require_once "endpoints/user/user.php";
 require_once "endpoints/ride/ride.php";
+require_once "endpoints/plz/plz.php";
 
 use DulliAG\API\ApiLogger;
 use DulliAG\API\User;
 use DulliAG\API\Ride;
+use DulliAG\API\PLZ;
 
 # Global Paths
 $GLOBALS['apiPath'] = "/api/";
@@ -245,6 +247,42 @@ Route::add($GLOBALS['apiPath']."user/update", function () {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
   }
 }, "POST");
+
+Route::add($GLOBALS['apiPath']."plz/placesByPlz", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."plz/placesByPlz", $GLOBALS['clientIp'], $key);
+  $place = new PLZ();
+  $result = $place->getPlacesByPlz($_GET['plz']);
+  echo(json_encode($result, JSON_PRETTY_PRINT));
+});
+
+Route::add($GLOBALS['apiPath']."plz/placeByPlz", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."plz/placeByPlz", $GLOBALS['clientIp'], $key);
+  $place = new PLZ();
+  $result = $place->getPlaceByPlz($_GET['plz']);
+  echo(json_encode($result, JSON_PRETTY_PRINT));
+}); 	
+
+Route::add($GLOBALS['apiPath']."plz/plzByName", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."plz/plzByName", $GLOBALS['clientIp'], $key);
+  $place = new PLZ();
+  $result = $place->getPlzByName($_GET['cityName']);
+  echo(json_encode($result, JSON_PRETTY_PRINT));
+}); 	
 
 Route::add($GLOBALS['apiPath']."ride/create", function () {
   header('Access-Control-Allow-Origin: *');
