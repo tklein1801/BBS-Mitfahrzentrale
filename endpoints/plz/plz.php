@@ -3,12 +3,9 @@ namespace DulliAG\API;
 
 class PLZ 
 {
-  public $sqlPHP = "C:/xampp/htdocs/endpoints/sql.php";
-  // public $sqlPHP = "/Applications/XAMPP/xamppfiles/htdocs/endpoints/sql.php";
-
   public function getPlacesByPlz(int $plz)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT * FROM `cshare_plz` WHERE `PLZ` LIKE '".$plz."%' ORDER BY name ASC");
@@ -23,7 +20,7 @@ class PLZ
 
   public function getPlaceByPlz(int $plz)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT * FROM `cshare_plz` WHERE `PLZ`='".$plz."'");
@@ -38,7 +35,7 @@ class PLZ
 
   public function getPlzByName(string $name)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT * FROM `cshare_plz` WHERE `name`='".$name."'");

@@ -1,19 +1,16 @@
 <?php
 namespace DulliAG\API;
-require_once "C:/xampp/htdocs/endpoints/user/nanoid/Client.php";
-// require_once "/Applications/XAMPP/xamppfiles/htdocs/endpoints/user/nanoid/Client.php";
+require_once get_defined_constants()['BASEPATH']."endpoints/user/nanoid/Client.php";
 use Hidehalo\Nanoid\Client;
 
 class User 
 {
-  public $sqlPHP = "C:/xampp/htdocs/endpoints/sql.php";
-  // public $sqlPHP = "/Applications/XAMPP/xamppfiles/htdocs/endpoints/sql.php";
   public $alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   public $size = 16;
 
   public function register(string $name, string $surname, string $email, string $password, string $adress, int $plz, string $place, string $telNumber)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
     
     $userExist = $this->exist($email);
     if (!$userExist['registered']) {
@@ -40,7 +37,7 @@ class User
 
   public function checkCredentials(string $email, string $password)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $userExist = $this->exist($email);
     if ($userExist['registered']) {
@@ -75,7 +72,7 @@ class User
 
   public function exist(string $email)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $select = $con->query("SELECT `userId` FROM `cshare_user` WHERE `email`='".$email."'");
     $result = $select->num_rows;
@@ -87,7 +84,7 @@ class User
 
   public function verifyKey(string $apiKey)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $select = $con->query("SELECT `userId` FROM `cshare_user` WHERE `apiKey`='".$apiKey."'");
     $result = $select->num_rows;
@@ -107,7 +104,7 @@ class User
 
   public function get(int $userId)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT * FROM `cshare_user` WHERE `userId`='".$userId."'");
@@ -122,7 +119,7 @@ class User
 
   public function update(int $userId, /*string $email,*/ string $telNumber, string $password)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     // $update = $con->prepare("UPDATE `cshare_user` SET `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
     // $update->bind_param("sssi", $email, $telNumber, $hashedPassword, $userId);

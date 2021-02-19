@@ -1,4 +1,7 @@
 <?php
+define('BASEPATH', __DIR__."/");
+define('CON_PATH', __DIR__."/endpoints/sql.php");
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -17,7 +20,8 @@ use DulliAG\API\PLZ;
 
 # Global Paths
 $GLOBALS['apiPath'] = "/api/";
-$GLOBALS['routesPath'] = "C:/xampp/htdocs/routes/";
+$GLOBALS['routesPath'] = __DIR__."/routes/";
+$GLOBALS['defBASEPATH'] = get_defined_constants()['BASEPATH'];
 
 # Client variables
 $GLOBALS['clientIp'] = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];

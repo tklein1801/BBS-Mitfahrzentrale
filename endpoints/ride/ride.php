@@ -3,9 +3,6 @@ namespace DulliAG\API;
 
 class Ride
 {
-  public $sqlPHP = "C:/xampp/htdocs/endpoints/sql.php";
-  // public $sqlPHP = "/Applications/XAMPP/xamppfiles/htdocs/endpoints/sql.php";
-
   function _renderOffer($offer) {
     $driver = $offer['driver'] == 1 ? "Angebot" : "Gesuch";
     $createdAt = $offer['createdAt'];
@@ -34,7 +31,7 @@ class Ride
           <div class="col-md-3 d-flex align-items-center">
             <div class="card-body">
               <p class="price">Start</p>
-              <p>'.date("d.M.Y • H:m", $offer['startAt']).' Uhr</p>
+              <p>'.date("d.M Y • H:m", $offer['startAt']).' Uhr</p>
               <p>
                 '.$offer['startPlz'].' '.$offer['startCity'].' <br />
                 '.$offer['startAdress'].'
@@ -60,7 +57,7 @@ class Ride
 
   public function create(int $userId, int $driver, string $title, string $information, int $price, int $seats, int $startAt, int $startPlz, string $startCity, string $startAdress, int $destinationPlz, string $destinationCity, string $destinationAdress)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $createdAt = time();
     $insert = $con->prepare("INSERT INTO `cshare_rides` (`creatorId`, `driver`, `title`, `information`, `price`, `seats`, `startAt`, `startPlz`, `startCity`, `startAdress`, `destinationPlz`, `destinationCity`, `destinationAdress`, `createdAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -74,7 +71,7 @@ class Ride
 
   public function delete(int $rideId)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $delete = $con->prepare("DELETE FROM `cshare_rides` WHERE `rideId`=?");
     $delete->bind_param("i", $rideId);
@@ -87,7 +84,7 @@ class Ride
 
   public function getFavorites(int $userId)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT cshare_favorites.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
@@ -106,7 +103,7 @@ class Ride
 
   public function getUserOffers(int $userId)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $now = time();
@@ -127,7 +124,7 @@ class Ride
 
   public function get(int $rideId)
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
@@ -145,7 +142,7 @@ class Ride
 
   public function getAll()
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $now = time();
@@ -164,7 +161,7 @@ class Ride
 
   public function getOffers()
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $now = time();
@@ -183,7 +180,7 @@ class Ride
 
   public function getRequests()
   {
-    require $this->sqlPHP;
+    require get_defined_constants()['CON_PATH'];
 
     $arr = array();
     $now = time();
