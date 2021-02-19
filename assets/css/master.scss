@@ -6,8 +6,11 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  // font-family: "Hind Madurai", sans-serif !important;
-  font-size: 1.05rem;
+  font-family: "Hind Madurai", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: $blue;
+  color: white;
 }
 html ::-moz-selection,
 body ::-moz-selection {
@@ -36,17 +39,24 @@ p {
 }
 a {
   transition: 200ms;
-  text-decoration: none;
   color: white;
+  text-decoration: underline;
+  text-decoration-style: solid;
   &:hover,
   &:focus {
     color: $orange;
   }
 }
+.font-weight-bold {
+  font-weight: bold;
+}
 
 // Background
 .bg-blue {
   background-color: $blue;
+}
+.bg-darkblue {
+  background-color: $blueDark;
 }
 
 // Buttons
@@ -55,12 +65,34 @@ a {
   &:focus {
     box-shadow: none;
   }
-
+  &.btn-orange {
+    border: 2px solid $orange;
+    background-color: $orange;
+    color: white;
+  }
   &.btn-outline-orange {
     border: 2px solid $orange;
     color: $orange !important;
     &:hover {
       background-color: $orange;
+      color: white !important;
+    }
+  }
+  &.btn-outline-white {
+    border: 2px solid white;
+    color: white !important;
+    &:hover {
+      border-color: $orange;
+      background-color: $orange;
+      color: white !important;
+    }
+  }
+  &.btn-outline-red {
+    border: 2px solid $red;
+    color: $red !important;
+    &:hover {
+      border-color: $red;
+      background-color: $red;
       color: white !important;
     }
   }
@@ -119,6 +151,9 @@ a {
     border-color: $orange;
     color: $orange;
   }
+  &::placeholder {
+    color: inherit !important;
+  }
 }
 .input-group {
   .form-control {
@@ -141,6 +176,7 @@ a {
     &:focus {
       background-color: $orange;
       border-color: orange;
+      color: white !important;
     }
     &:disabled {
       opacity: 1;
@@ -174,6 +210,10 @@ a {
 // Footer
 .footer {
   background-color: $blue;
+
+  a {
+    text-decoration: none;
+  }
 
   .grid-container {
     display: grid;
@@ -267,14 +307,15 @@ hr.divider {
 
 // Home Stylesheets
 .search-container {
-  background-color: $blue;
+  background-color: $blueDark;
 }
 .filter-container {
-  background-color: $blue;
+  background-color: $blueDark;
   color: white;
   a {
     display: flex;
     width: 100%;
+    text-decoration: none;
     &.active {
       color: $orange;
     }
@@ -291,19 +332,19 @@ hr.divider {
 .filter-container,
 .search-container*/ {
   transition: 200ms;
-  background-color: $blue;
+  background-color: $blueDark;
   border-radius: 0;
   border: 4px solid $blue;
   color: white;
   &:hover {
-    background-color: $blueDark;
     border-color: $orange;
   }
-
   .price {
     font-weight: bold;
   }
-
+  a {
+    text-decoration: none;
+  }
   .text-muted {
     transition: 100ms;
     color: rgba($color: white, $alpha: 0.85) !important;
@@ -323,5 +364,25 @@ hr.divider {
   #sidebar-column {
     margin-bottom: 1rem;
     padding-right: 0;
+  }
+
+  .offer-card .col-md-3 .card-body {
+    padding-top: 0;
+  }
+}
+
+// Profile Stylesheet
+.profile-container {
+  background-color: $blueDark;
+  .form-control {
+    padding-left: 0.75rem;
+    &:read-only {
+      padding-left: 0;
+      background-color: transparent;
+      border-color: transparent;
+      &:hover {
+        color: white;
+      }
+    }
   }
 }

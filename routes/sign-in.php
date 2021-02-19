@@ -14,13 +14,13 @@
 
           <div class="mb-2 mb-md-3">
             <label class="form-label font-weight-bold mb-0">E-Mail</label>
-            <input type="email" id="email" class="form-control" />
+            <input type="email" id="email" class="form-control" required />
             <div id="validationEmail" class="invalid-feedback"></div>
           </div>
 
           <label class="form-label font-weight-bold mb-0">Passwort</label>
           <div class="input-group mb-4 mb-md-3">
-            <input type="password" id="password" class="form-control" />
+            <input type="password" id="password" class="form-control" required />
             <button type="button" class="btn" id="toggler">
               <i id="icon" class="far fa-eye"></i>
             </button>

@@ -25,8 +25,8 @@
             </div>
             <!-- ./sidebar -->
 
-            <div id="main-column" class="col-md-12 col-12" style="padding: 0">
-              <div class="bg-blue p-3">
+            <div id="main-column" class="col-md-12 col-12 p-0">
+              <div class="bg-darkblue p-3">
                 <h3 class="text-white">Anzeige erstellen</h3>
                 <small class="text-white">* Pflichtfelder</small>
 
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                       <label class="form-label">Abfahrt um*</label>
-                      <input type="datetime-local" name="start-at" id="start-at" class="form-control">
+                      <input type="datetime-local" name="start-at" id="start-at" class="form-control" placeholder="TT.MM.JJJJ HH:MM">
                     </div>
                   </div>
                   <!-- ./row -->
@@ -87,6 +87,7 @@
                             <div class="form-group">
                               <label class="form-label">Ort*</label>
                               <input type="text" name="start-city" id="start-city" class="form-control" maxlength="20" required>
+                              <!-- <select name="start-city" id="start-city" class="form-control" required></select> -->
                             </div>
                           </div>
                         </div>
@@ -112,6 +113,7 @@
                             <div class="form-group">
                               <label class="form-label">Ort*</label>
                               <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="20" required>
+                              <!-- <select name="destination-city" id="destination-city" class="form-control" required></select> -->
                             </div>
                           </div>
                         </div>
@@ -125,6 +127,7 @@
                     
                   </div>
                   <!-- ./row -->
+                  
                   <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" required>
                     <label class="form-check-label">
@@ -156,7 +159,41 @@
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
       const RideAPI = new Ride();
-      const form = document.querySelector("#main-column form")
+      const Places = new PLZ();
+      const form = document.querySelector("#main-column form");
+
+      // form.querySelector("#start-plz").addEventListener("keyup", function () {
+      //   const enteredPlz = this.value;
+      //   Places
+      //     .placesByPlz(enteredPlz)
+      //     .then((list) => {
+      //       form.querySelector("#start-city").innerHTML = ""; // remove all options
+      //       list.map((item) => {
+      //         let element = form.querySelector("#start-city").querySelector(`option[value="${item.name}"]`);
+      //         if (!element) {
+      //           form.querySelector("#start-city").innerHTML += `<option id="place-${item.plzId}" value="${item.name}">${item.name}</option>`;                
+      //         }
+      //       });
+      //     })
+      //     .catch((err) => console.error(err));
+      // });
+
+      // form.querySelector("#destination-plz").addEventListener("keyup", function () {
+      //   const enteredPlz = this.value;
+      //   Places
+      //     .placesByPlz(enteredPlz)
+      //     .then((list) => {
+      //       form.querySelector("#destination-city").innerHTML = ""; // remove all options
+      //       list.map((item) => {
+      //         let element = form.querySelector("#destination-city").querySelector(`option[value="${item.name}"]`);
+      //         if (!element) {
+      //           form.querySelector("#destination-city").innerHTML += `<option id="place-${item.plzId}" value="${item.name}">${item.name}</option>`;
+      //         }
+      //       });
+      //     })
+      //     .catch((err) => console.error(err));
+      // });
+
       form.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -174,11 +211,10 @@
           destinationCity = form.querySelector("#destination-city").value,
           destinationAdress = form.querySelector("#destination-adress").value;
 
-        console.log(startAt);
         RideAPI
           .create(type, title, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
-            console.log(result);
+            window.location.href = window.location.origin + "/Anzeigen";
           })
           .catch((err) => console.error(err));
       });

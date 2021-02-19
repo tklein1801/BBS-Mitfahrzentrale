@@ -6,6 +6,7 @@
 .navbar.scrolled {
   -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+  background-color: rgba(2, 56, 70, 0.95);
 }
 
 .navbar.scrolled .navbar-brand img {
@@ -33,12 +34,61 @@
   background-color: #e27a00;
 }
 
+.navbar .navbar-toggler {
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0;
+}
+
+.navbar .navbar-toggler:hover, .navbar .navbar-toggler:focus {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  background-color: #e27a00;
+}
+
+.navbar .navbar-toggler .navbar-toggler-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url(../img/menu_icon.svg);
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+  .navbar.scrolled .navbar-brand img {
+    height: 50px;
+  }
+  .navbar .navbar-brand img {
+    height: 60px;
+  }
+  .navbar .navbar-nav .nav-item,
+  .navbar .navbar-nav .btn-group {
+    margin-right: 0 !important;
+    margin-top: 0.5rem;
+  }
+  .navbar .navbar-nav .btn-group {
+    -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+    margin-top: 0.5rem;
+  }
+  .navbar .navbar-nav .btn-group #profile-dropdown,
+  .navbar .navbar-nav .btn-group .dropdown-menu {
+    min-width: 100%;
+  }
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-size: 1.05rem;
+  font-family: "Hind Madurai", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: #004253;
+  color: white;
 }
 
 html ::-moz-selection,
@@ -71,16 +121,26 @@ p {
 a {
   -webkit-transition: 200ms;
   transition: 200ms;
-  text-decoration: none;
   color: white;
+  text-decoration: underline;
+  -webkit-text-decoration-style: solid;
+          text-decoration-style: solid;
 }
 
 a:hover, a:focus {
   color: #e27a00;
 }
 
+.font-weight-bold {
+  font-weight: bold;
+}
+
 .bg-blue {
   background-color: #004253;
+}
+
+.bg-darkblue {
+  background-color: #023846;
 }
 
 .btn {
@@ -93,6 +153,12 @@ a:hover, a:focus {
           box-shadow: none;
 }
 
+.btn.btn-orange {
+  border: 2px solid #e27a00;
+  background-color: #e27a00;
+  color: white;
+}
+
 .btn.btn-outline-orange {
   border: 2px solid #e27a00;
   color: #e27a00 !important;
@@ -100,6 +166,28 @@ a:hover, a:focus {
 
 .btn.btn-outline-orange:hover {
   background-color: #e27a00;
+  color: white !important;
+}
+
+.btn.btn-outline-white {
+  border: 2px solid white;
+  color: white !important;
+}
+
+.btn.btn-outline-white:hover {
+  border-color: #e27a00;
+  background-color: #e27a00;
+  color: white !important;
+}
+
+.btn.btn-outline-red {
+  border: 2px solid #dc145a;
+  color: #dc145a !important;
+}
+
+.btn.btn-outline-red:hover {
+  border-color: #dc145a;
+  background-color: #dc145a;
   color: white !important;
 }
 
@@ -162,6 +250,22 @@ a:hover, a:focus {
   color: #e27a00;
 }
 
+.form-control::-webkit-input-placeholder {
+  color: inherit !important;
+}
+
+.form-control:-ms-input-placeholder {
+  color: inherit !important;
+}
+
+.form-control::-ms-input-placeholder {
+  color: inherit !important;
+}
+
+.form-control::placeholder {
+  color: inherit !important;
+}
+
 .input-group .form-control {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -187,6 +291,7 @@ a:hover, a:focus {
 .input-group .btn:hover, .input-group .btn:focus {
   background-color: #e27a00;
   border-color: orange;
+  color: white !important;
 }
 
 .input-group .btn:disabled {
@@ -222,6 +327,10 @@ a:hover, a:focus {
 
 .footer {
   background-color: #004253;
+}
+
+.footer a {
+  text-decoration: none;
 }
 
 .footer .grid-container {
@@ -321,11 +430,11 @@ hr.divider:after {
 }
 
 .search-container {
-  background-color: #004253;
+  background-color: #023846;
 }
 
 .filter-container {
-  background-color: #004253;
+  background-color: #023846;
   color: white;
 }
 
@@ -334,6 +443,7 @@ hr.divider:after {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  text-decoration: none;
 }
 
 .filter-container a.active {
@@ -351,19 +461,22 @@ hr.divider:after {
 .offer-card {
   -webkit-transition: 200ms;
   transition: 200ms;
-  background-color: #004253;
+  background-color: #023846;
   border-radius: 0;
   border: 4px solid #004253;
   color: white;
 }
 
 .offer-card:hover {
-  background-color: #023846;
   border-color: #e27a00;
 }
 
 .offer-card .price {
   font-weight: bold;
+}
+
+.offer-card a {
+  text-decoration: none;
 }
 
 .offer-card .text-muted {
@@ -385,5 +498,36 @@ hr.divider:after {
     margin-bottom: 1rem;
     padding-right: 0;
   }
+  .offer-card .col-md-3 .card-body {
+    padding-top: 0;
+  }
+}
+
+.profile-container {
+  background-color: #023846;
+}
+
+.profile-container .form-control {
+  padding-left: 0.75rem;
+}
+
+.profile-container .form-control:-moz-read-only {
+  padding-left: 0;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.profile-container .form-control:read-only {
+  padding-left: 0;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.profile-container .form-control:-moz-read-only:hover {
+  color: white;
+}
+
+.profile-container .form-control:read-only:hover {
+  color: white;
 }
 /*# sourceMappingURL=master.css.map */

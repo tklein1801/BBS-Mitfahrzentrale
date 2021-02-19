@@ -3,7 +3,7 @@
   use DulliAG\API\Ride;
   $ride = new Ride();
   $offer = $ride->get($rideId);
-
+  
   function _renderSidebar(array $offer) {
     $btn = $_SESSION['login']['userId'] != $offer['creatorId'] ? '' : '<div>
             <button type="button" id="edit" class="btn btn-outline-orange w-100 rounded-0">
@@ -17,7 +17,7 @@
           </div>';
     return '<div id="sidebar-column" class="col-md-3 col-12">
         <!-- TOOD Maybe change this to an collapseable object for better mobile experience -->
-        <div class="profile-container bg-blue p-3">
+        <div class="profile-container bg-darkblue p-3">
           <p class="text-center text-white mb-1">
             <i class="far fa-user-circle" style="font-size: 7rem;"></i>
           </p>
@@ -37,10 +37,11 @@
             Anrufen
           </a>
 
-          <a href="mailto:'.$offer['email'].'" class="btn btn-outline-orange rounded-0 w-100">
+          <a href="mailto:'.$offer['email'].'" class="btn btn-outline-orange rounded-0 w-100 mb-2">
             <i class="far fa-paper-plane"></i>
             E-Mail schreiben
           </a>
+          '.$btn.'
         </div>
         <!-- ./filter-container -->
       </div>
@@ -51,7 +52,7 @@
     $type = $offer['driver'] == 1 ? "Angebot" : "Gesuche";
     $seats = $offer['seats'] > 1 ? $offer['seats']." Plätze" : $offer['seats']." Platz";
     echo '<div id="main-column" class="col-md-9 col-12" style="padding: 0">
-        <div class="bg-blue p-3">
+        <div class="bg-darkblue p-3">
           <h3 class="text-white mb-1">'.$offer['title'].'</h3>
                 
           <span class="badge bg-orange">'.$offer['price'].' €</span>
@@ -62,7 +63,7 @@
           <p class="text-white">'.$offer['information'].'</p>
           
           <p class="text-white font-weight-bold mb-0 mt-2">Start</p>
-          <p class="text-white">'.date("d.M.Y • H:m", $offer['startAt']).' Uhr</p>
+          <p class="text-white">'.date("d.M Y • H:m", $offer['startAt']).' Uhr</p>
           <p class="text-white">'.$offer['startPlz'].' '.$offer['startCity'].' • '.$offer['startAdress'].'</p>
 
           <p class="text-white font-weight-bold mb-0 mt-2">Ziel</p>
@@ -77,7 +78,7 @@
   }
 
   function _renderErrorMessage(int $rideId) {
-    echo '<div class="bg-blue p-3">
+    echo '<div class="bg-darkblue p-3">
         <h3 class="text-white text-center">Anzeige '.$rideId.' nicht gefunden!</h3>
       </div>';
   }

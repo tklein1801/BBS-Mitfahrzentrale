@@ -15,29 +15,29 @@
           <div class="row mb-0">
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Vorname</label>
-              <input type="text" id="name" class="form-control" />
+              <input type="text" id="name" class="form-control" required />
             </div>
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Nachname</label>
-              <input type="text" id="surname" class="form-control" />
+              <input type="text" id="surname" class="form-control" required />
             </div>
           </div>
 
           <div class="row mb-0">
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">E-Mail</label>
-              <input type="email" id="email" class="form-control" />
+              <input type="email" id="email" class="form-control" required />
               <div id="validationEmail" class="invalid-feedback"></div>
             </div>
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Telefon</label>
-              <input type="tel" id="phone" class="form-control" />
+              <input type="tel" id="phone" class="form-control" required />
             </div>
           </div>
 
           <label class="form-label">Passwort</label>
           <div class="input-group mb-2 mb-md-3">
-            <input type="password" id="password" class="form-control" />
+            <input type="password" id="password" class="form-control" required />
             <button type="button" class="btn" id="toggler">
               <i id="icon" class="far fa-eye"></i>
             </button>
@@ -46,15 +46,16 @@
           <div class="row">
             <div class="col-12 col-md-3 mb-2 mb-md-3">
               <label class="form-label">PLZ</label>
-              <input type="text" id="plz" class="form-control" />
+              <input type="text" id="plz" class="form-control" required />
             </div>
             <div class="col-12 col-md-4 mb-2 mb-md-3">
               <label class="form-label">Ort</label>
-              <input type="text" id="place" class="form-control" />
+              <input type="text" id="place" class="form-control" required />
+              <!-- <select name="place" id="place" class="form-control" required></select> -->
             </div>
             <div class="col-12 col-md-5 mb-4 mb-md-3">
               <label class="form-label">Straße</label>
-              <input type="text" id="adress" class="form-control" />
+              <input type="text" id="adress" class="form-control" required />
             </div>
           </div>
 
@@ -86,6 +87,7 @@
     <script src="./assets/js/ApiHandler.js"></script>
     <script>
       const UserAPI = new User();
+      const Places = new PLZ();
       const form = document.querySelector("body #signUpForm"),
         name = form.querySelector("#name"),
         surname = form.querySelector("#surname"),
@@ -97,6 +99,22 @@
         plz = form.querySelector("#plz"),
         place = form.querySelector("#place"),
         adress = form.querySelector("#adress");
+      // plz.addEventListener("keyup", function () {
+      //   const enteredPlz = this.value;
+      //   Places
+      //     .placesByPlz(enteredPlz)
+      //     .then((list) => {
+      //       // place.innerHTML += `<option id="place-${p.plzId}" value="${p.name}">${p.name}</option>`;
+      //       place.innerHTML = ""; // remove all options
+      //       list.map((item) => {
+      //         let element = place.querySelector(`option[value="${item.name}"]`);
+      //         if (!element) {
+      //           place.innerHTML += `<option id="place-${item.plzId}" value="${item.name}">${item.name}</option>`;
+      //         }
+      //       });
+      //     })
+      //     .catch((err) => console.error(err));
+      // });
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();

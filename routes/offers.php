@@ -151,7 +151,7 @@
         if (displayOffers == 0) {
           if(errMsg == undefined) {
             offerOutput.innerHTML += `
-              <div id="err-msg" class="bg-blue p-3">
+              <div id="err-msg" class="bg-darkblue p-3">
                 <h3 class="text-white text-center">Keine Treffer für ${keywords}!</h3>
               </div>
             `;
