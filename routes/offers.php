@@ -91,27 +91,43 @@
                 <?php
                   switch ($slug) {
                     case "Angebote":
-                      foreach ($offers as $key => $offer) {
-                        echo $ride->_renderOffer($offer);
+                      if (count($offers) > 0) {
+                        foreach ($offers as $key => $offer) {
+                          echo $ride->_renderOffer($offer);
+                        }
+                      } else {
+                        echo $ride->_renderNoOffers();
                       }
                       break;
                     
-                    case "Gesuche":
-                      foreach ($requests as $key => $offer) {
-                        echo $ride->_renderOffer($offer);
-                      }
+                    case "Gesuche":                      
+                      if (count($requests) > 0) {
+                        foreach ($requests as $key => $offer) {
+                          echo $ride->_renderOffer($offer);
+                        }
+                      } else {
+                        echo $ride->_renderNoOffers();
+                      } 
                       break;
 
                     case "Favoriten":
-                      foreach ($favoriteOffers as $key => $offer) {
-                        echo $ride->_renderOffer($offer);
-                      }
+                      if (count($favoriteOffers) > 0) {
+                        foreach ($favoriteOffers as $key => $offer) {
+                          echo $ride->_renderOffer($offer);
+                        }
+                      } else {
+                        echo $ride->_renderNoOffers();
+                      } 
                       break;
 
                     default:
-                      foreach ($all as $key => $offer) {
-                        echo $ride->_renderOffer($offer);
-                      }   
+                      if (count($all) > 0) {
+                        foreach ($all as $key => $offer) {
+                          echo $ride->_renderOffer($offer);
+                        }
+                      } else {
+                        echo $ride->_renderNoOffers();
+                      } 
                       break;
                   }
                 ?>

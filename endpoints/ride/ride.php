@@ -55,6 +55,14 @@ class Ride
       </div>';
   }
 
+  function _renderNoOffers() {
+    return '<div class="card bg-darkblue">
+        <div class="card-body">
+          <h3 class="text-white text-center">Keine Anzeigen gefunden!</h3>
+        </div>
+      </div>';
+  }
+
   public function create(int $userId, int $driver, string $title, string $information, int $price, int $seats, int $startAt, int $startPlz, string $startCity, string $startAdress, int $destinationPlz, string $destinationCity, string $destinationAdress)
   {
     require get_defined_constants()['CON_PATH'];
