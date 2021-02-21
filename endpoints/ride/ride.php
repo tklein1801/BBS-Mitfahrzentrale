@@ -31,7 +31,7 @@ class Ride
           <div class="col-md-3 d-flex align-items-center">
             <div class="card-body">
               <p class="price">Start</p>
-              <p>'.date("d.M Y • H:m", $offer['startAt']).' Uhr</p>
+              <p>'.date("d.m.Y • H:i", $offer['startAt']).' Uhr</p>
               <p>
                 '.$offer['startPlz'].' '.$offer['startCity'].' <br />
                 '.$offer['startAdress'].'

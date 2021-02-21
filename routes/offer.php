@@ -63,7 +63,7 @@
           <p class="text-white">'.$offer['information'].'</p>
           
           <p class="text-white font-weight-bold mb-0 mt-2">Start</p>
-          <p class="text-white">'.date("d.M Y • H:m", $offer['startAt']).' Uhr</p>
+          <p class="text-white">'.date("d.M Y • H:i", $offer['startAt']).' Uhr</p>
           <p class="text-white">'.$offer['startPlz'].' '.$offer['startCity'].' • '.$offer['startAdress'].'</p>
 
           <p class="text-white font-weight-bold mb-0 mt-2">Ziel</p>

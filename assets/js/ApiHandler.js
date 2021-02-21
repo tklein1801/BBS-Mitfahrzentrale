@@ -142,66 +142,81 @@ class Ride {
   }
 
   _renderOffer(offer) {
-    const today = new Date(),
-      createdAt = parseInt(offer.createdAt * 1000), // convert timestamp(in secs) to timestamp(in millis) for JavaScript
-      createDate = new Date(createdAt),
-      createDay =
-        createDate.getDate() == today.getDate()
+    const driver = offer.driver == 1 ? "Angebot" : "Gesuch";
+    const seats = offer.seats > 1 ? `${offer.seats} Plätze` : `1 Platz`;
+    const price = `${offer.price} €`;
+
+    const now = new Date(),
+      startAt = new Date(offer.startAt * 1000),
+      createdAt = new Date(offer.createdAt * 1000);
+    const createDate = {
+      day:
+        createdAt.getDate() == now.getDate()
           ? "Heute"
-          : createDate.getDate() == today.getDate() - 1
+          : createdAt.getDate() == now.getDate() - 1
           ? "Gestern"
-          : `${createDate.getDate() > 9 ? createDate.getDate() : `0${createDate.getDate()}`}.${
-              createDate.getMonth() + 1 > 9
-                ? createDate.getMonth() + 1
-                : `0${createDate.getMonth() + 1}`
+          : `${createdAt.getDate() > 9 ? createdAt.getDate() : `0${createdAt.getDate()}`}.${
+              createdAt.getMonth() + 1 > 9
+                ? createdAt.getMonth() + 1
+                : `0${createdAt.getMonth() + 1}`
             }`,
-      createHours = createDate.getHours() > 9 ? createDate.getHours() : `0${createDate.getHours()}`,
-      createMinutes =
-        createDate.getMinutes() > 9 ? createDate.getMinutes() : `0${createDate.getMinutes()}`;
+      month:
+        createdAt.getMonth() + 1 > 9 ? createdAt.getMonth() + 1 : `0${createdAt.getMonth() + 1}`,
+      year: createdAt.getFullYear(),
+      hours: createdAt.getHours() > 9 ? createdAt.getHours() : `0${createdAt.getHours()}`,
+      minutes: createdAt.getMinutes() > 9 ? createdAt.getMinutes() : `0${createdAt.getMinutes()}`,
+    };
+    const startDate = {
+      day: startAt.getDate() > 9 ? startAt.getDate() : `0${startAt.getDate()}`,
+      month: startAt.getMonth() + 1 > 9 ? startAt.getMonth() + 1 : `0${startAt.getMonth() + 1}`,
+      year: startAt.getFullYear(),
+      hours: startAt.getHours() > 9 ? startAt.getHours() : `0${startAt.getHours()}`,
+      minutes: startAt.getMinutes() > 9 ? startAt.getMinutes() : `0${startAt.getMinutes()}`,
+    };
+
     return `<div id="offer-${offer.rideId}" class="card offer-card mb-3">
-                  <div class="row g-0">
-                    <div class="col-md-6">
-                      <div class="card-body">
-                        <a href="Angebot/${offer.rideId}" class="stretched-link text-white">
-                          <h5 class="card-title">${offer.title}</h5>
-                        </a>
-                        <!-- <h5 class="card-title">Card title</h5> -->
-                        <p class="card-text">
-                          ${offer.information}
-                        </p>
-                        <p class="card-text">
-                          <small class="text-muted">${createDay}, ${createHours}:${createMinutes} Uhr</small>
-                        </p>
-                        <span class="badge bg-orange">${offer.price} €</span>
-                        <span class="badge bg-orange">${
-                          offer.driver == "1" ? "Angebot" : "Gesuch"
-                        }</span>
-                      </div>
-                    </div>
-                    <!-- ./1st-col -->
-                    <div class="col-md-3 d-flex align-items-center">
-                      <div class="card-body">
-                        <p class="price">Start</p>
-                        <p>
-                          ${offer.startPlz} ${offer.startCity} <br />
-                          ${offer.startAdress}
-                        </p>
-                      </div>
-                    </div>
-                    <!-- ./2nd-col -->
-                    <div class="col-md-3 d-flex align-items-center">
-                      <div class="card-body">
-                        <p class="price">Ziel</p>
-                        <p>
-                          ${offer.destinationPlz} ${offer.destinationCity} <br />
-                          ${offer.destinationAdress}
-                        </p>
-                      </div>
-                    </div>
-                    <!-- ./3rd-col -->
-                  </div>
-                  <!-- ./row -->
-                </div>`;
+          <div class="row g-0">
+            <div class="col-md-6">
+              <div class="card-body">
+                <a href="Angebot/${offer.rideId}" class="stretched-link text-white">
+                  <h5 class="card-title">${offer.title}</h5>
+                </a>
+                <p class="card-text">${offer.information}</p>
+                <p class="card-text">
+                  <small class="text-muted">${createDate.day}, ${createDate.hours}:${createDate.minutes} Uhr</small>
+                </p>
+                <span class="badge bg-orange">${price}</span>
+                <span class="badge bg-orange">${driver}</span>
+                <span class="badge bg-orange">${seats}</span>
+              </div>
+            </div>
+            <!-- ./1st-col -->
+                    
+            <div class="col-md-3 d-flex align-items-center">
+              <div class="card-body">
+                <p class="price">Start</p>
+                <p>${startDate.day}.${startDate.month}.${startDate.year} • ${startDate.hours}:${startDate.minutes} Uhr</p>
+                <p>
+                  ${offer.startPlz} ${offer.startCity} <br />
+                  ${offer.startAdress}
+                </p>
+              </div>
+            </div>
+            <!-- ./2nd-col -->
+
+            <div class="col-md-3 d-flex align-items-center">
+              <div class="card-body">
+                <p class="price">Ziel</p>
+                <p>
+                  ${offer.destinationPlz} ${offer.destinationCity} <br />
+                  ${offer.destinationAdress}
+                </p>
+              </div>
+            </div>
+            <!-- ./3rd-col -->
+          </div>
+          <!-- ./row -->
+        </div>`;
   }
 
   /**
