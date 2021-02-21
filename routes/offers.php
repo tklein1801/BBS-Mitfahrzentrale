@@ -46,9 +46,40 @@
                   </button>
                 </div>
                 <!-- ./input-group -->
-                <a href="./Erstellen" class="btn btn-outline-orange rounded-0">
+                <a href="./Erstellen" id="create-btn" class="btn btn-outline-orange rounded-0">
                   <i class="fas fa-ticket-alt"></i> Anzeige erstellen
                 </a>
+                
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    id="sort-by"
+                    class="btn btn-outline-orange dropdown-toggle rounded-0"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="fas fa-sort"></i> Sortieren nach
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                    <li>
+                      <button type="button" id="newest" class="dropdown-item">Neuste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="oldest" class="dropdown-item">Älteste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="cheapest" class="dropdown-item">Günstigste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="most-expensive" class="dropdown-item">Teuerste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="seats-ascending" class="dropdown-item">Sitze aufwärts</button>
+                    </li>
+                    <li>
+                      <button type="button" id="seats-descending" class="dropdown-item">Sitze abwärts</button>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <!-- ./search-container -->
             </div>
@@ -146,8 +177,18 @@
 
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
+      const slug = "<?php echo $slug ?>"; // I know this is very bad :o
       const offerOutput = document.querySelector("#main-column #offer-output");
       const searchOffer = document.querySelector("#search-offer");
+      const sortBy = document.querySelector("#sort-by");
+      const sortOptions = {
+        newest: document.querySelector("#newest"),
+        oldest: document.querySelector("#oldest"),
+        cheapest: document.querySelector("#cheapest"),
+        mostExpensive: document.querySelector("#most-expensive"),
+        seastAsc: document.querySelector("#seats-ascending"),
+        seatsDesc: document.querySelector("#seats-descending"),
+      };
       searchOffer.addEventListener("keyup", function (event) {
         var keywords = this.value.toLowerCase();
         var items = offerOutput.querySelectorAll(".offer-card");
@@ -178,6 +219,173 @@
           errMsg.remove();
         }
       });
+
+      function oldToNew(data) {
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(a.createdAt) > parseInt(b.createdAt)) {
+            return 1;
+          }
+          if (parseInt(a.createdAt) < parseInt(b.createdAt)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      };
+      function newToOld (data) {
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(b.createdAt) > parseInt(a.createdAt)) {
+            return 1;
+          }
+          if (parseInt(b.createdAt) < parseInt(a.createdAt)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      }
+      function cheapToMostExpensive(data) {
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(a.price) > parseInt(b.price)) {
+            return 1;
+          }
+          if (parseInt(a.price) < parseInt(b.price)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      }
+      function mostExpensiveToCheap(data) {
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(b.price) > parseInt(a.price)) {
+            return 1;
+          }
+          if (parseInt(b.price) < parseInt(a.price)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      }
+      function seatsAsc (data) { 
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(a.seats) > parseInt(b.seats)) {
+            return 1;
+          }
+          if (parseInt(a.seats) < parseInt(b.seats)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      };
+      function seatsDesc(data) { 
+        var temp = data;
+        temp.sort((a, b) => {
+          if (parseInt(b.seats) > parseInt(a.seats)) {
+            return 1;
+          }
+          if (parseInt(b.seats) < parseInt(a.seats)) {
+            return -1;
+          }
+          return 0;
+        });
+        return temp;
+      };
+
+      const runSort = (data) => {
+        sortOptions.newest.addEventListener("click", function () {
+          let sorted = newToOld(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+
+        sortOptions.oldest.addEventListener("click", function () {
+          let sorted = oldToNew(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+
+        sortOptions.cheapest.addEventListener("click", function () {
+          let sorted = cheapToMostExpensive(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+
+        sortOptions.mostExpensive.addEventListener("click", function () {
+          let sorted = mostExpensiveToCheap(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+
+        sortOptions.seastAsc.addEventListener("click", function () {
+          let sorted = seatsAsc(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+
+        sortOptions.seatsDesc.addEventListener("click", function () {
+          let sorted = seatsDesc(data);
+          offerOutput.innerHTML = "";
+          sorted.map((offer) => {
+            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+          });
+        });
+      }
+
+      switch (slug) {
+        case "Angebote":
+          new Ride()
+            .getOffers()
+            .then((offerList) => {
+              runSort(offerList);
+            })
+            .catch((err) => console.error(err));
+          break;
+
+        case "Gesuche":
+          new Ride()
+            .getRequests()
+            .then((offerList) => {
+              runSort(offerList);
+            })
+            .catch((err) => console.error(err));
+          break;
+
+        case "Favoriten":
+          new Ride()
+            .getFavorites()
+            .then((offerList) => {
+              runSort(offerList);
+            })
+            .catch((err) => console.error(err));
+          break;
+
+        default:
+          new Ride()
+            .getAll()
+            .then((offerList) => {
+              runSort(offerList);
+            })
+            .catch((err) => console.error(err));
+          break;
+      }
     </script>
   </body>
 </html>

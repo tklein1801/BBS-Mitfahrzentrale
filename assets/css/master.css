@@ -191,6 +191,10 @@ a:hover, a:focus {
   color: white !important;
 }
 
+#create-btn {
+  margin-right: 1.5rem;
+}
+
 .badge {
   padding: 0.45rem 0.75rem;
 }
@@ -493,6 +497,14 @@ hr.divider:after {
   .search-container .input-group {
     min-width: 100%;
     margin-bottom: 1rem;
+  }
+  .search-container #create-btn {
+    width: 100%;
+    margin-right: 0;
+  }
+  .search-container .btn-group {
+    width: 100%;
+    margin-top: 1rem;
   }
   #sidebar-column {
     margin-bottom: 1rem;

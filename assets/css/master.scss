@@ -97,6 +97,9 @@ a {
     }
   }
 }
+#create-btn {
+  margin-right: 1.5rem;
+}
 
 // Bagde
 .badge {
@@ -358,6 +361,14 @@ hr.divider {
     .input-group {
       min-width: 100%;
       margin-bottom: 1rem;
+    }
+    #create-btn {
+      width: 100%;
+      margin-right: 0;
+    }
+    .btn-group {
+      width: 100%;
+      margin-top: 1rem;
     }
   }
 
