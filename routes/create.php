@@ -129,8 +129,8 @@
                   <!-- ./row -->
                   
                   <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" required>
-                    <label class="form-check-label">
+                    <input type="checkbox" id="data-protection" class="form-check-input" required>
+                    <label for="data-protection" class="form-check-label">
                       Hiermit akzeptiere ich die aktuelle Datenschutzerklärung und stimme der Verarbeitung meiner Daten zu. Informationen zu Verarbeitung der Daten findest du in unserer <a href="<?php echo $url . "Datenschutz"; ?>">Datenschutzerklärung</a>.
                     </label>
                   </div>
