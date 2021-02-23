@@ -397,3 +397,47 @@ hr.divider {
     }
   }
 }
+
+// Error pages
+.err-page {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .err-container {
+    padding: 2rem;
+    background-color: $blueDark;
+    font-family: monospace;
+    img {
+      width: 75%;
+      margin-left: calc(25% / 2);
+      margin-bottom: 1rem;
+    }
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      .btn {
+        margin-top: 1rem;
+        margin-right: 1rem;
+        font-size: 0.95rem;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+@media (max-width: $brXs) {
+  .err-container {
+    width: calc(100% - 1rem);
+    padding: 1rem !important;
+    .btn {
+      width: 100%;
+      margin-right: 0 !important;
+      font-weight: 1rem;
+    }
+  }
+}

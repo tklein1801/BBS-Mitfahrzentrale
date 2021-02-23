@@ -446,5 +446,12 @@ Route::add($GLOBALS['apiPath']."ride/requests", function () {
 }, "GET");
 
 # Error routes
+Route::add("/404", function () {
+  require_once "routes/404.php";
+});
+
+Route::add("/405", function () {
+  require_once "routes/405.php";
+});
 
 Route::run("/");

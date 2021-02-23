@@ -542,4 +542,65 @@ hr.divider:after {
 .profile-container .form-control:read-only:hover {
   color: white;
 }
+
+.err-page .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.err-page .err-container {
+  padding: 2rem;
+  background-color: #023846;
+  font-family: monospace;
+}
+
+.err-page .err-container img {
+  width: 75%;
+  margin-left: calc(25% / 2);
+  margin-bottom: 1rem;
+}
+
+.err-page .err-container .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.err-page .err-container .btn-container .btn {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  font-size: 0.95rem;
+}
+
+.err-page .err-container .btn-container .btn:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 576px) {
+  .err-container {
+    width: calc(100% - 1rem);
+    padding: 1rem !important;
+  }
+  .err-container .btn {
+    width: 100%;
+    margin-right: 0 !important;
+    font-weight: 1rem;
+  }
+}
 /*# sourceMappingURL=master.css.map */
