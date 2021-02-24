@@ -72,6 +72,13 @@ Response 200 (application/json)
 ```
 
 ```
+POST /update
+Authentification: (string) apiKey
+Params: (string) apiKey, (int) rideId, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
+Response 200 (application/json)
+```
+
+```
 POST /delete
 Authentification: (string) apiKey
 Params: (string) apiKey, (int) rideId

@@ -77,6 +77,20 @@ class Ride
     $con->close();
   }
 
+  public function update(int $rideId, string $information, int $price, int $seats, int $startAt, int $startPlz, string $startCity, string $startAdress, int $destinationPlz, string $destinationCity, string $destinationAdress)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $createdAt = time();
+    $update = $con->prepare("UPDATE `cshare_rides` SET `information`=?, `price`=?, `seats`=?, `startAt`=?, `startPlz`=?, `startCity`=?, `startAdress`=?, `destinationPlz`=?, `destinationCity`=?, `destinationAdress`=?, `createdAt`=? WHERE `rideId`=?");
+    $update->bind_param("siiiississii", $information, $price, $seats, $startAt, $startPlz, $startCity, $startAdress, $destinationPlz, $destinationCity, $destinationAdress, $createdAt, $rideId);
+    $update->execute();
+
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $upda->error);
+    $insert->close();
+    $con->close();
+  }
+
   public function delete(int $rideId)
   {
     require get_defined_constants()['CON_PATH'];

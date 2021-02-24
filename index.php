@@ -306,6 +306,31 @@ Route::add($GLOBALS['apiPath']."ride/create", function () {
       echo(json_encode($result, JSON_PRETTY_PRINT));
     } else {
       echo(json_encode(array('authentificated' => false, 'error' => 'auth/invalid-key'), JSON_PRETTY_PRINT));
+
+Route::add($GLOBALS['apiPath']."ride/update", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_POST['apiKey']) ? $_POST['apiKey'] : null);
+  $user = new User();
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."ride/update", $GLOBALS['clientIp'], $key);
+  // Check if the key is set
+  // If no key was set the value equals null
+  if(!is_null($key)) {
+    $verifyResult = $user->verifyKey($key);
+    if($verifyResult['authentificated'] == true) {
+      $ride = new Ride();
+      $requestedRide = $_POST['rideId'];
+      $rideData = $ride->get($requestedRide);
+      if ($rideData['creatorId'] == $verifyResult['userId']) {
+        $result = $ride->update($_POST['rideId'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else {
+        echo(json_encode(array('authentificated' => true, 'error' => 'ride/not-the-creator'), JSON_PRETTY_PRINT));
+      }
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));

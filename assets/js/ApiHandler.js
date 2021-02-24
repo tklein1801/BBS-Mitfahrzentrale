@@ -271,6 +271,53 @@ class Ride {
 
   /**
    * @param {number} rideId
+   * @param {string} information
+   * @param {number} price
+   * @param {number} seats
+   * @param {number} startAt
+   * @param {number} startPlz
+   * @param {string} startCity
+   * @param {string} startAdress
+   * @param {number} destinationPlz
+   * @param {string} destinationCity
+   * @param {string} destinationAdress
+   */
+  async update(
+    rideId,
+    information,
+    price,
+    seats,
+    startAt,
+    startPlz,
+    startCity,
+    startAdress,
+    destinationPlz,
+    destinationCity,
+    destinationAdress
+  ) {
+    const form = new FormData();
+    form.append("rideId", rideId);
+    form.append("information", information);
+    form.append("price", price);
+    form.append("seats", seats);
+    form.append("startAt", startAt);
+    form.append("startPlz", startPlz);
+    form.append("startCity", startCity);
+    form.append("startAdress", startAdress);
+    form.append("destinationPlz", destinationPlz);
+    form.append("destinationCity", destinationCity);
+    form.append("destinationAdress", destinationAdress);
+
+    const response = await fetch(this.apiHost + "update", {
+      method: "POST",
+      body: form,
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
+   * @param {number} rideId
    */
   async delete(rideId) {
     const form = new FormData();
