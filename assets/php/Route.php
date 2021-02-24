@@ -81,14 +81,14 @@ class Route{
       if ($path_match_found) {
         header("HTTP/1.0 405 Method Not Allowed");
         # TODO Enable redirect
-        # header("Location: ../404");
+        header("Location: ../404");
         if (self::$methodNotAllowed) {
           call_user_func_array(self::$methodNotAllowed, Array($path,$method));
         }
       } else {
         header("HTTP/1.0 404 Not Found");
         # TODO Enable redirect
-        # header("Location: ../404");
+        header("Location: ../404");
         if (self::$pathNotFound) {
           call_user_func_array(self::$pathNotFound, Array($path));
         }
