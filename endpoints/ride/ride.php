@@ -56,8 +56,8 @@ class Ride
   }
 
   function _renderNoOffers() {
-    return '<div class="card bg-darkblue">
-        <div class="card-body">
+    return '<div class="bg-darkblue">
+        <div class="p-3">
           <h3 class="text-white text-center">Keine Anzeigen gefunden!</h3>
         </div>
       </div>';

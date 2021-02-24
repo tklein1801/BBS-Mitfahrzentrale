@@ -52,7 +52,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-12 col-md-4 mb3">
+                    <div class="col-12 col-md-4 mb-3">
                       <label class="form-label">Preis*</label>
                       <div class="input-group">
                         <input type="number" name="price" id="price" class="form-control" required />
@@ -62,7 +62,7 @@
                       </div>
                     </div>
                     <div class="col-12 col-md-4 mb-3">
-                      <label class="form-label">Sitze*</label>
+                      <label class="form-label">Freie Plätze*</label>
                       <input type="number" name="seats" id="seats" class="form-control" required />
                     </div>
                     <div class="col-12 col-md-4 mb-3">
@@ -86,7 +86,7 @@
                           <div class="col-md-8 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Ort*</label>
-                              <input type="text" name="start-city" id="start-city" class="form-control" maxlength="20" required>
+                              <input type="text" name="start-city" id="start-city" class="form-control" maxlength="40" required>
                               <!-- <select name="start-city" id="start-city" class="form-control" required></select> -->
                             </div>
                           </div>
@@ -112,7 +112,7 @@
                           <div class="col-md-8 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Ort*</label>
-                              <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="20" required>
+                              <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="40" required>
                               <!-- <select name="destination-city" id="destination-city" class="form-control" required></select> -->
                             </div>
                           </div>

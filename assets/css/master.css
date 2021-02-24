@@ -143,6 +143,11 @@ a:hover, a:focus {
   background-color: #023846;
 }
 
+.btn-close:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .btn {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -270,6 +275,11 @@ a:hover, a:focus {
   color: inherit !important;
 }
 
+.form-control:disabled {
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
 .input-group .form-control {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -327,6 +337,25 @@ a:hover, a:focus {
 
 .form-check .form-check-label a {
   color: #e27a00;
+}
+
+.modal .modal-content {
+  background-color: #023846;
+  border-radius: 0;
+}
+
+.modal .modal-content .modal-header {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.modal .modal-content .modal-body {
+  padding-bottom: 0 !important;
+}
+
+.modal .modal-content .modal-footer {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .footer {

@@ -60,6 +60,9 @@ a {
 }
 
 // Buttons
+.btn-close:focus {
+  box-shadow: none;
+}
 .btn {
   transition: 200ms;
   &:focus {
@@ -157,6 +160,10 @@ a {
   &::placeholder {
     color: inherit !important;
   }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: transparent;
+  }
 }
 .input-group {
   .form-control {
@@ -207,6 +214,23 @@ a {
     a {
       color: $orange;
     }
+  }
+}
+
+// Modal
+.modal .modal-content {
+  background-color: $blueDark;
+  border-radius: 0;
+  .modal-header {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .modal-body {
+    padding-bottom: 0 !important;
+  }
+  .modal-footer {
+    padding-top: 0;
+    border-top: 0;
   }
 }
 
