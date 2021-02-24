@@ -86,8 +86,12 @@
               <div id="offer-output">
                 <?php 
                   $userOffers = $ride->getUserOffers($_SESSION['login']['userId']);
-                  foreach ($userOffers as $key => $offer) {
-                    echo $ride->_renderOffer($offer);
+                  if (count($userOffers) > 0) {
+                    foreach ($userOffers as $key => $offer) {
+                      echo $ride->_renderOffer($offer);
+                    }
+                  } else {
+                    echo $ride->_renderNoOffers();
                   }
                 ?>
               </div>
