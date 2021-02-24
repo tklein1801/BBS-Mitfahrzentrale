@@ -91,11 +91,11 @@ class User
     if($result == 1) {
       $response = array();
       while ($data = $select->fetch_assoc()) {
-        $response = array('userId' => $data['userId'], 'error' => null);
+        $response = array('authentificated' => true, 'userId' => $data['userId'], 'error' => null);
       }
       return $response;
     } else {
-      return array('error' => 'auth/key-invalid');
+      return array('authentificated' => false, 'error' => 'auth/key-invalid');
     }
 
     $select->close();

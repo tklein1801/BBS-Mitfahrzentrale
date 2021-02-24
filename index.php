@@ -216,12 +216,12 @@ Route::add($GLOBALS['apiPath']."user/get", function () {
   if(!is_null($key)) {
     $verifyResult = $user->verifyKey($key);
     // Check if the key is valid
-    if($verifyResult) {
+    if($verifyResult['authentificated'] == true) {
       $userId = $verifyResult['userId'];
       $allRides = $user->get($userId);
       echo(json_encode($allRides, JSON_PRETTY_PRINT));
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
@@ -241,11 +241,11 @@ Route::add($GLOBALS['apiPath']."user/update", function () {
   if(!is_null($key)) {
     $verifyResult = $user->verifyKey($key);
     // Check if the key is valid
-    if($verifyResult) {
+    if($verifyResult['authentificated'] == true) {
       $result = $user->update($verifyResult['userId'], /*$_POST['email'],*/ $_POST['phone'], $_POST['password']);
       echo(json_encode($result, JSON_PRETTY_PRINT));
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
@@ -305,7 +305,12 @@ Route::add($GLOBALS['apiPath']."ride/create", function () {
       $result = $ride->create($verifyResult['userId'], $_POST['driver'], $_POST['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
       echo(json_encode($result, JSON_PRETTY_PRINT));
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/invalid-key'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "POST");
 
 Route::add($GLOBALS['apiPath']."ride/update", function () {
   header('Access-Control-Allow-Origin: *');
@@ -360,10 +365,10 @@ Route::add($GLOBALS['apiPath']."ride/delete", function () {
         $result = $ride->delete($_POST['rideId']);
         echo(json_encode($result, JSON_PRETTY_PRINT));
       } else {
-        echo(json_encode(array('authentificated' => false, 'error' => 'auth/invalid-key'), JSON_PRETTY_PRINT));
+        echo(json_encode(array('authentificated' => false, 'error' => 'ride/not-the-creator'), JSON_PRETTY_PRINT));
       }
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
@@ -401,7 +406,7 @@ Route::add($GLOBALS['apiPath']."ride/favorites", function () {
       $allRides = $ride->getFavorites($userId);
       echo(json_encode($allRides, JSON_PRETTY_PRINT));
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
@@ -427,7 +432,7 @@ Route::add($GLOBALS['apiPath']."ride/user", function () {
       $allRides = $ride->getUserOffers($userId);
       echo(json_encode($allRides, JSON_PRETTY_PRINT));
     } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-found'), JSON_PRETTY_PRINT));
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));

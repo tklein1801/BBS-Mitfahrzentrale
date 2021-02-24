@@ -1,5 +1,16 @@
 # Endpoints
 
+## Fehlermeldungen
+
+| Fehlermeldung             | Bedeutung                                                      |
+| ------------------------- | -------------------------------------------------------------- |
+| `auth/user-already-exist` | Der Benutzer existiert bereits                                 |
+| `auth/user-not-found`     | Der Benutzer existiert bereits                                 |
+| `auth/password-invalid`   | Das Passwort passt nicht zur angegeben E-Mail                  |
+| `auth/key-invalid`        | `RestAPI` Der angegebene API-Key existiert nicht               |
+| `auth/key-not-set`        | `RestAPI` Es wurde kein API-Key zur authentifizierung gefunden |
+| `ride/not-the-creator`    | Du bist nicht der Ersteller der Anzeiger                       |
+
 ## user
 
 ```
