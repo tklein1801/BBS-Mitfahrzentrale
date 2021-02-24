@@ -6,12 +6,16 @@
   
   function _renderSidebar(array $offer) {
     $btn = $_SESSION['login']['userId'] != $offer['creatorId'] ? '' : '<div>
-            <button type="button" id="edit" class="btn btn-outline-orange w-100 rounded-0">
+            <button type="button" class="btn btn-outline-orange w-100 rounded-0 mb-2" data-bs-toggle="modal" data-bs-target="#editModal">
+              <i class="fas fa-pencil-alt"></i>
+              Anzeige bearbeiten
+            </button>
+            <button type="button" id="wanna-delete" class="btn btn-outline-orange w-100 rounded-0">
               <i class="far fa-trash-alt"></i>
               Anzeige löschen        
             </button>
             <div role="group" class="w-100 btn-group d-none">
-              <button type="button" id="cancel" class="btn btn-outline-red rounded-0">Abbrechen</button>
+              <button type="button" id="cancel-delete" class="btn btn-outline-red rounded-0">Abbrechen</button>
               <button type="submit" id="delete" class="btn btn-orange rounded-0">Löschen</button>
             </div>
           </div>';
@@ -54,7 +58,6 @@
     echo '<div id="main-column" class="col-md-9 col-12" style="padding: 0">
         <div class="bg-darkblue p-3">
           <h3 class="text-white mb-1">'.$offer['title'].'</h3>
-                
           <span class="badge bg-orange">'.$offer['price'].' €</span>
           <span class="badge bg-orange">'.$type.'</span>
           <span class="badge bg-orange">'.$seats.'</span>
@@ -118,6 +121,128 @@
           <!-- ./row -->
         </div>
         <!-- ./container -->
+
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Anzeige bearbeiten</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form>
+                <input type="hidden" id="offer" value="<?php echo $offer['rideId']; ?>" />
+                <div class="modal-body">
+                  <div class="row mb-3">
+                    <label for="title" class="col-sm-2 form-label">Titel</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="title" class="form-control" value="<?php echo $offer['title']; ?>" disabled />
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+                    <label for="type" class="col-sm-2 form-label">Typ</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="type" class="form-control" value="<?php echo $offer['driver'] == 1 ? "Angebot" : "Gesuche"; ?>" disabled />
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+                    <label for="information" class="col-sm-2 form-label">Beschreibung</label>
+                    <div class="col-sm-10">
+                      <textarea id="information" class="form-control" cols="30" rows="5"><?php echo $offer['information']; ?></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="description" class="col-sm-2 form-label">Preis</label>
+                    <div class="col-sm-10">
+                      <div class="input-group">
+                        <input type="number" name="price" id="price" class="form-control" value="<?php echo $offer['price']; ?>" required />
+                        <button type="button" class="btn px-3" disabled>
+                          <i class="fas fa-euro-sign"></i>
+                        </button>
+                      </div>                    
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="seats" class="col-sm-2 form-label">Freie Plätze</label>
+                    <div class="col-sm-10">
+                      <input type="number" id="seats" class="form-control" value="<?php echo $offer['seats']; ?>" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="start-at" class="col-sm-2 form-label">Start um</label>
+                    <div class="col-sm-10">
+                      <input type="datetime-local" id="start-at" class="form-control" value="<?php echo date("Y-m-d", $offer['startAt']); ?>T<?php echo date("H:i", $offer['startAt']); ?>">
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6 col-12">
+                      <div>
+                        <h5 class="text-white">Start</h5>
+                        <div class="row">
+                          <div class="col-md-4 col-12 mb-3">
+                            <div class="form-group">
+                              <label class="form-label">Postleitzahl</label>
+                              <input type="number" name="start-plz" id="start-plz" class="form-control" value="<?php echo $offer['startPlz']; ?>" required />
+                            </div>
+                          </div>
+                          <div class="col-md-8 col-12 mb-3">
+                            <div class="form-group">
+                              <label class="form-label">Ort</label>
+                              <input type="text" name="start-city" id="start-city" class="form-control" maxlength="40" value="<?php echo $offer['startCity']; ?>" required />
+                              <!-- <select name="start-city" id="start-city" class="form-control" required></select> -->
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label class="form-label">Straße</label>
+                          <input type="text" name="start-adress" id="start-adress" class="form-control" maxlength="40" value="<?php echo $offer['startAdress']; ?>" required />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div>
+                        <h5 class="text-white">Ziel</h5>
+                        <div class="row">
+                          <div class="col-md-4 col-12 mb-3">
+                            <div class="form-group">
+                              <label class="form-label">Postleitzahl</label>
+                              <input type="number" name="destination-plz" id="destination-plz" class="form-control" value="<?php echo $offer['destinationPlz']; ?>" required />
+                            </div>
+                          </div>
+                          <div class="col-md-8 col-12 mb-3">
+                            <div class="form-group">
+                              <label class="form-label">Ort</label>
+                              <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="40" value="<?php echo $offer['destinationCity']; ?>" required />
+                              <!-- <select name="destination-city" id="destination-city" class="form-control" required></select> -->
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label class="form-label">Straße</label>
+                          <input type="text" name="destination-adress" id="destination-adress" class="form-control" maxlength="40" value="<?php echo $offer['destinationAdress']; ?>" required />
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-red rounded-0" data-bs-dismiss="modal">Abbrechen</button>
+                  <button type="submit" class="btn btn-outline-orange rounded-0">Speichern</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </section>
 
       <?php require_once "assets/php/footer.php"; ?>
@@ -129,20 +254,22 @@
       let del = false;
       const ride = new Ride();
       const sidebar = document.querySelector("#sidebar-column");
-      const editBtn = sidebar.querySelector("#edit");
-      const cancelBtn = sidebar.querySelector("#cancel");
+      const wannaDelBtn = sidebar.querySelector("#wanna-delete");
+      const cancelDelBtn = sidebar.querySelector("#cancel-delete");
       const delBtn = sidebar.querySelector("#delete");
-      editBtn.addEventListener("click", function () {
+      const editModal = document.getElementById("editModal"),
+        editForm = editModal.querySelector("form");
+      wannaDelBtn.addEventListener("click", function () {
         if (!del) {
           del = true;
-          editBtn.classList.add("d-none");
+          wannaDelBtn.classList.add("d-none");
           sidebar.querySelector(".btn-group").classList.remove("d-none"); 
         }
       });
-      cancelBtn.addEventListener("click", function () {
+      cancelDelBtn.addEventListener("click", function () {
         if (del) {
           del = false;
-          editBtn.classList.remove("d-none");
+          wannaDelBtn.classList.remove("d-none");
           sidebar.querySelector(".btn-group").classList.add("d-none"); 
         }
       });
@@ -161,6 +288,35 @@
             })
             .catch((err) => console.error(err));
         }
+      });
+
+      editForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const rideId = editForm.querySelector("#offer").value,
+          title = editForm.querySelector("#title").value,
+          type = editForm.querySelector("#type").value,
+          information = editForm.querySelector("#information").value,
+          price = editForm.querySelector("#price").value,
+          seats = editForm.querySelector("#seats").value,
+          startAtDate = editForm.querySelector("#start-at").value,
+          startAt = Date.parse(startAtDate) / 1000, // bcause we wan't timestamp in seconds not in millis
+          startPlz = editForm.querySelector("#start-plz").value,
+          startCity = editForm.querySelector("#start-city").value,
+          startAdress = editForm.querySelector("#start-adress").value,
+          destinationPlz = editForm.querySelector("#destination-plz").value,
+          destinationCity = editForm.querySelector("#destination-city").value,
+          destinationAdress = editForm.querySelector("#destination-adress").value;
+
+        ride
+          .update(rideId, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
+          .then((result) => {
+            if (result.error == null) {
+              location.reload();
+            } else {
+              console.error(result.error);
+            }
+          })
+          .catch((err) => console.error(err));
       });
     </script>
   </body>
