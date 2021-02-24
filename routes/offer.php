@@ -135,7 +135,7 @@
                   <div class="row mb-3">
                     <label for="title" class="col-sm-2 form-label">Titel</label>
                     <div class="col-sm-10">
-                      <input type="text" id="title" class="form-control" value="<?php echo $offer['title']; ?>" disabled />
+                      <input type="text" id="title" class="form-control" maxlength="50" value="<?php echo $offer['title']; ?>" disabled />
                     </div>
                   </div>
                   
@@ -149,7 +149,7 @@
                   <div class="row mb-3">
                     <label for="information" class="col-sm-2 form-label">Beschreibung</label>
                     <div class="col-sm-10">
-                      <textarea id="information" class="form-control" cols="30" rows="5"><?php echo $offer['information']; ?></textarea>
+                      <textarea id="information" class="form-control" cols="30" rows="5" maxlength="250"><?php echo $offer['information']; ?></textarea>
                     </div>
                   </div>
 
@@ -187,13 +187,13 @@
                           <div class="col-md-4 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Postleitzahl</label>
-                              <input type="number" name="start-plz" id="start-plz" class="form-control" value="<?php echo $offer['startPlz']; ?>" required />
+                              <input type="number" name="start-plz" id="start-plz" class="form-control" value="<?php echo $offer['startPlz']; ?>" maxlength="5" required />
                             </div>
                           </div>
                           <div class="col-md-8 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Ort</label>
-                              <input type="text" name="start-city" id="start-city" class="form-control" maxlength="40" value="<?php echo $offer['startCity']; ?>" required />
+                              <input type="text" name="start-city" id="start-city" class="form-control" maxlength="40" value="<?php echo $offer['startCity']; ?>" maxlength="40" required />
                               <!-- <select name="start-city" id="start-city" class="form-control" required></select> -->
                             </div>
                           </div>
@@ -201,7 +201,7 @@
 
                         <div class="form-group mb-3">
                           <label class="form-label">Straße</label>
-                          <input type="text" name="start-adress" id="start-adress" class="form-control" maxlength="40" value="<?php echo $offer['startAdress']; ?>" required />
+                          <input type="text" name="start-adress" id="start-adress" class="form-control" maxlength="40" value="<?php echo $offer['startAdress']; ?>" maxlength="40" required />
                         </div>
                       </div>
                     </div>
@@ -213,13 +213,13 @@
                           <div class="col-md-4 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Postleitzahl</label>
-                              <input type="number" name="destination-plz" id="destination-plz" class="form-control" value="<?php echo $offer['destinationPlz']; ?>" required />
+                              <input type="number" name="destination-plz" id="destination-plz" class="form-control" value="<?php echo $offer['destinationPlz']; ?>" maxlength="5" required />
                             </div>
                           </div>
                           <div class="col-md-8 col-12 mb-3">
                             <div class="form-group">
                               <label class="form-label">Ort</label>
-                              <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="40" value="<?php echo $offer['destinationCity']; ?>" required />
+                              <input type="text" name="destination-city" id="destination-city" class="form-control" maxlength="40" value="<?php echo $offer['destinationCity']; ?>" maxlength="40" required />
                               <!-- <select name="destination-city" id="destination-city" class="form-control" required></select> -->
                             </div>
                           </div>
@@ -227,7 +227,7 @@
 
                         <div class="form-group mb-3">
                           <label class="form-label">Straße</label>
-                          <input type="text" name="destination-adress" id="destination-adress" class="form-control" maxlength="40" value="<?php echo $offer['destinationAdress']; ?>" required />
+                          <input type="text" name="destination-adress" id="destination-adress" class="form-control" maxlength="40" value="<?php echo $offer['destinationAdress']; ?>" maxlength="40" required />
                         </div>
                       </div>
                     </div>

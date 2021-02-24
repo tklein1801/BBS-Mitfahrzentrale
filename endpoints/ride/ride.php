@@ -81,9 +81,8 @@ class Ride
   {
     require get_defined_constants()['CON_PATH'];
 
-    $createdAt = time();
-    $update = $con->prepare("UPDATE `cshare_rides` SET `information`=?, `price`=?, `seats`=?, `startAt`=?, `startPlz`=?, `startCity`=?, `startAdress`=?, `destinationPlz`=?, `destinationCity`=?, `destinationAdress`=?, `createdAt`=? WHERE `rideId`=?");
-    $update->bind_param("siiiississii", $information, $price, $seats, $startAt, $startPlz, $startCity, $startAdress, $destinationPlz, $destinationCity, $destinationAdress, $createdAt, $rideId);
+    $update = $con->prepare("UPDATE `cshare_rides` SET `information`=?, `price`=?, `seats`=?, `startAt`=?, `startPlz`=?, `startCity`=?, `startAdress`=?, `destinationPlz`=?, `destinationCity`=?, `destinationAdress`=? WHERE `rideId`=?");
+    $update->bind_param("siiiississi", $information, $price, $seats, $startAt, $startPlz, $startCity, $startAdress, $destinationPlz, $destinationCity, $destinationAdress, $rideId);
     $update->execute();
 
     return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $upda->error);
