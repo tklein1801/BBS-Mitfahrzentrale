@@ -194,29 +194,31 @@
         var items = offerOutput.querySelectorAll(".offer-card");
         var itemAmount = items.length;
         let displayOffers = itemAmount;
-        for (let i = 0; i < itemAmount; i++) {
-          const item = items[i];
-          const itemTitle = item.querySelector(".card-title").innerText.toLowerCase();
-          if (itemTitle.includes(keywords)) {
-            item.style.display = "";
-          } else {
-            displayOffers--;
-            item.style.display = "none";
+        if (itemAmount > 0) {
+          for (let i = 0; i < itemAmount; i++) {
+            const item = items[i];
+            const itemTitle = item.querySelector(".card-title").innerText.toLowerCase();
+            if (itemTitle.includes(keywords)) {
+              item.style.display = "";
+            } else {
+              displayOffers--;
+              item.style.display = "none";
+            }
+          } 
+          const errMsg = offerOutput.querySelector("#err-msg");
+          if (displayOffers == 0) {
+            if(errMsg == undefined) {
+              offerOutput.innerHTML += `
+                <div id="err-msg" class="bg-darkblue p-3">
+                  <h3 class="text-white text-center">Keine Treffer für ${keywords}!</h3>
+                </div>
+              `;
+            } else {
+              errMsg.querySelector("h3").innerText = `Keine Treffer für ${keywords}!`;
+            }
+          } else if(displayOffers > 1 && errMsg != undefined) {
+            errMsg.remove();
           }
-        } 
-        const errMsg = offerOutput.querySelector("#err-msg");
-        if (displayOffers == 0) {
-          if(errMsg == undefined) {
-            offerOutput.innerHTML += `
-              <div id="err-msg" class="bg-darkblue p-3">
-                <h3 class="text-white text-center">Keine Treffer für ${keywords}!</h3>
-              </div>
-            `;
-          } else {
-            errMsg.querySelector("h3").innerText = `Keine Treffer für ${keywords}!`;
-          }
-        } else if(displayOffers > 1 && errMsg != undefined) {
-          errMsg.remove();
         }
       });
 
@@ -300,53 +302,55 @@
       };
 
       const runSort = (data) => {
-        sortOptions.newest.addEventListener("click", function () {
-          let sorted = newToOld(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+        if (data.length > 0) {
+          sortOptions.newest.addEventListener("click", function () {
+            let sorted = newToOld(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
-
-        sortOptions.oldest.addEventListener("click", function () {
-          let sorted = oldToNew(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+  
+          sortOptions.oldest.addEventListener("click", function () {
+            let sorted = oldToNew(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
-
-        sortOptions.cheapest.addEventListener("click", function () {
-          let sorted = cheapToMostExpensive(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+  
+          sortOptions.cheapest.addEventListener("click", function () {
+            let sorted = cheapToMostExpensive(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
-
-        sortOptions.mostExpensive.addEventListener("click", function () {
-          let sorted = mostExpensiveToCheap(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+  
+          sortOptions.mostExpensive.addEventListener("click", function () {
+            let sorted = mostExpensiveToCheap(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
-
-        sortOptions.seastAsc.addEventListener("click", function () {
-          let sorted = seatsAsc(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+  
+          sortOptions.seastAsc.addEventListener("click", function () {
+            let sorted = seatsAsc(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
-
-        sortOptions.seatsDesc.addEventListener("click", function () {
-          let sorted = seatsDesc(data);
-          offerOutput.innerHTML = "";
-          sorted.map((offer) => {
-            offerOutput.innerHTML += new Ride()._renderOffer(offer);
+  
+          sortOptions.seatsDesc.addEventListener("click", function () {
+            let sorted = seatsDesc(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
           });
-        });
+        }
       }
 
       switch (slug) {
