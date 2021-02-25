@@ -5,7 +5,7 @@
 1. [Allgemeines](#allgemeines)
 2. [Bedienungsanleitung](#page_facing_up-bedienungsanleitung)
 3. [Installation](#wrench-installation)
-4. [Verwendete Ressourcen](#link-umgesetzt-mithilfe-von)
+4. [Umgesetzt mithilfe von](#link-umgesetzt-mithilfe-von)
 
 ---
 
