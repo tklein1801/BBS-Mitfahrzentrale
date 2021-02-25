@@ -38,8 +38,10 @@ _Eine bebilderte Installationsanleitung findest du [hier](./assets/doc/Installie
 
 2. Eintragen der Zugangsdaten(Host, Username, Password) für die Datenbank in der Datei [`./endpoints/sql.php`](endpoints/sql.php)
    _(Der Datenbankname wurde bereits voreingestellt und muss nicht mehr angepasst werden)_
+   
    2.1 Erstellen der Tabellen und Beziehungen mithilfe der [`./database/database.sql`](database/database.sql).
    _(Alternativ können die Tabellen und Beziehungen auf in phpMyAdmin über die 'Importieren' funktion erstellt werden)_
+   
    _2.2 Eintragen der Postleitzahlen mittels [`./database/plz.sql`](database/plz.sql)._
    _(Auch diese kann in phpMyAdmin durch die 'Importieren' funktion importiert werden. **Für das Nutzen der BBS-Mitfahrzentrale sind die Daten der plz.sql jedoch nicht erforderlich da dieses Feature noch nicht für den Benutzer verfügbar ist!**)_
 3. Die aktuelle Zeitzone kann in der [`index.php`](index.php#L9) eingestellt werden.
