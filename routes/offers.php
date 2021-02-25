@@ -216,7 +216,9 @@
             } else {
               errMsg.querySelector("h3").innerText = `Keine Treffer für ${keywords}!`;
             }
-          } else if(displayOffers > 1 && errMsg != undefined) {
+          } else if(displayOffers > 1 && errMsg != null) {
+            errMsg.remove();
+          } else if(errMsg != null) {
             errMsg.remove();
           }
         }
