@@ -123,7 +123,7 @@ class User
 
     // $update = $con->prepare("UPDATE `cshare_user` SET `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
     // $update->bind_param("sssi", $email, $telNumber, $hashedPassword, $userId);
-    if (is_null($password)) {
+    if (is_null($password) || $password == "null") {
       $update = $con->prepare("UPDATE `cshare_user` SET `telNumber`=? WHERE `userId`=?");
       $update->bind_param("si", $telNumber, $userId);
       $update->execute();
@@ -134,7 +134,7 @@ class User
       $update->execute();
     }
 
-    return $update;
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $upda->error);
     $update->close();
     $con->close();
   }
