@@ -5,7 +5,7 @@
 | Fehlermeldung             | Bedeutung                                                      |
 | ------------------------- | -------------------------------------------------------------- |
 | `auth/user-already-exist` | Der Benutzer existiert bereits                                 |
-| `auth/user-not-found`     | Der Benutzer existiert bereits                                 |
+| `auth/user-not-found`     | Der Benutzer existiert nicht                                   |
 | `auth/password-invalid`   | Das Passwort passt nicht zur angegeben E-Mail                  |
 | `auth/key-invalid`        | `RestAPI` Der angegebene API-Key existiert nicht               |
 | `auth/key-not-set`        | `RestAPI` Es wurde kein API-Key zur authentifizierung gefunden |
