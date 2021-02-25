@@ -11,9 +11,15 @@
 
 ## 🧐 Allgemeines
 
+**Die BBS-MItfahrzentrale** kann als eine **Testversion** [hier](https://bbs.dulliag.de) aufgerufen werden. Informationen zum Webserver, Datenbank und PHP-Version sind unten zu finden.
+
+
 **Server Betriebsystem**: Debian 9.13
+
 **Datenbank**: 10.1.45-MariaDB
+
 **Webserver**: nginx/1.18.0
+
 **PHP Version**: 7.3.26
 
 ---
