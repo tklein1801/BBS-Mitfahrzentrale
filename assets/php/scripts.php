@@ -4,6 +4,7 @@
   crossorigin="anonymous"
 ></script>
 <script src="<?php echo $url . "assets/js/ApiHandler.js"; ?>"></script>
+<script src="<?php echo $url . "assets/js/sort.js"; ?>"></script>
 <script>
   const navbar = document.querySelector(".navbar");
   window.addEventListener("scroll", () => {

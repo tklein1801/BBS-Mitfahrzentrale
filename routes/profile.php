@@ -26,15 +26,46 @@
                 style="display: flex; flex-direction: row; flex-wrap: wrap"
               >
                 <div class="input-group col" style="margin-right: 1.5rem">
-                  <input type="text" id="search-offer" class="form-control" />
+                  <input type="text" id="search-offer" class="form-control" maxlength="50" />
                   <button type="button" class="btn px-3">
                     <i class="fas fa-search"></i>
                   </button>
                 </div>
                 <!-- ./input-group -->
-                <a href="./Erstellen" class="btn btn-outline-orange rounded-0">
+                <a href="./Erstellen" id="create-btn" class="btn btn-outline-orange rounded-0">
                   <i class="fas fa-ticket-alt"></i> Anzeige erstellen
                 </a>
+                
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    id="sort-by"
+                    class="btn btn-outline-orange dropdown-toggle rounded-0"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="fas fa-sort"></i> Sortieren nach
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                    <li>
+                      <button type="button" id="newest" class="dropdown-item">Neuste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="oldest" class="dropdown-item">Älteste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="cheapest" class="dropdown-item">Günstigste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="most-expensive" class="dropdown-item">Teuerste zuerst</button>
+                    </li>
+                    <li>
+                      <button type="button" id="seats-ascending" class="dropdown-item">Sitze aufwärts</button>
+                    </li>
+                    <li>
+                      <button type="button" id="seats-descending" class="dropdown-item">Sitze abwärts</button>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <!-- ./search-container -->
             </div>
@@ -109,8 +140,18 @@
 
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
+      const sort = new Sort();
       const offerOutput = document.querySelector("#main-column #offer-output");
       const searchOffer = document.querySelector("#search-offer");
+      const sortBy = document.querySelector("#sort-by");
+      const sortOptions = {
+        newest: document.querySelector("#newest"),
+        oldest: document.querySelector("#oldest"),
+        cheapest: document.querySelector("#cheapest"),
+        mostExpensive: document.querySelector("#most-expensive"),
+        seastAsc: document.querySelector("#seats-ascending"),
+        seatsDesc: document.querySelector("#seats-descending"),
+      };
       searchOffer.addEventListener("keyup", function (event) {
         var keywords = this.value.toLowerCase();
         var items = offerOutput.querySelectorAll(".offer-card");
@@ -126,6 +167,65 @@
           }
         }
       });
+
+      const runSort = (data) => {
+        if (data.length > 0) {
+          sortOptions.newest.addEventListener("click", function () {
+            let sorted = sort.newToOld(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+  
+          sortOptions.oldest.addEventListener("click", function () {
+            let sorted = sort.oldToNew(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+  
+          sortOptions.cheapest.addEventListener("click", function () {
+            let sorted = sort.cheapToMostExpensive(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+  
+          sortOptions.mostExpensive.addEventListener("click", function () {
+            let sorted = sort.mostExpensiveToCheap(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+  
+          sortOptions.seastAsc.addEventListener("click", function () {
+            let sorted = sort.seatsAsc(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+  
+          sortOptions.seatsDesc.addEventListener("click", function () {
+            let sorted = sort.seatsDesc(data);
+            offerOutput.innerHTML = "";
+            sorted.map((offer) => {
+              offerOutput.innerHTML += new Ride()._renderOffer(offer);
+            });
+          });
+        }
+      }
+
+      new Ride()
+        .getUserOffers()
+        .then((offerList) => {
+          runSort(offerList);
+        })
+        .catch((err) => console.error(err));
 
       let editProfile = false;
       const user = new User();

@@ -347,6 +347,14 @@ class Ride {
     return data;
   }
 
+  async getUserOffers() {
+    const response = await fetch(this.apiHost + "user", {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  }
+
   /**
    * @param {*} rideId
    */

@@ -177,6 +177,7 @@
 
     <?php require_once "assets/php/scripts.php"; ?>
     <script>
+      const sort = new Sort();
       const slug = "<?php echo $slug ?>"; // I know this is very bad :o
       const offerOutput = document.querySelector("#main-column #offer-output");
       const searchOffer = document.querySelector("#search-offer");
@@ -224,89 +225,10 @@
         }
       });
 
-      function oldToNew(data) {
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(a.createdAt) > parseInt(b.createdAt)) {
-            return 1;
-          }
-          if (parseInt(a.createdAt) < parseInt(b.createdAt)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      };
-      function newToOld (data) {
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(b.createdAt) > parseInt(a.createdAt)) {
-            return 1;
-          }
-          if (parseInt(b.createdAt) < parseInt(a.createdAt)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      }
-      function cheapToMostExpensive(data) {
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(a.price) > parseInt(b.price)) {
-            return 1;
-          }
-          if (parseInt(a.price) < parseInt(b.price)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      }
-      function mostExpensiveToCheap(data) {
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(b.price) > parseInt(a.price)) {
-            return 1;
-          }
-          if (parseInt(b.price) < parseInt(a.price)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      }
-      function seatsAsc (data) { 
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(a.seats) > parseInt(b.seats)) {
-            return 1;
-          }
-          if (parseInt(a.seats) < parseInt(b.seats)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      };
-      function seatsDesc(data) { 
-        var temp = data;
-        temp.sort((a, b) => {
-          if (parseInt(b.seats) > parseInt(a.seats)) {
-            return 1;
-          }
-          if (parseInt(b.seats) < parseInt(a.seats)) {
-            return -1;
-          }
-          return 0;
-        });
-        return temp;
-      };
-
       const runSort = (data) => {
         if (data.length > 0) {
           sortOptions.newest.addEventListener("click", function () {
-            let sorted = newToOld(data);
+            let sorted = sort.newToOld(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
@@ -314,7 +236,7 @@
           });
   
           sortOptions.oldest.addEventListener("click", function () {
-            let sorted = oldToNew(data);
+            let sorted = sort.oldToNew(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
@@ -322,7 +244,7 @@
           });
   
           sortOptions.cheapest.addEventListener("click", function () {
-            let sorted = cheapToMostExpensive(data);
+            let sorted = sort.cheapToMostExpensive(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
@@ -330,7 +252,7 @@
           });
   
           sortOptions.mostExpensive.addEventListener("click", function () {
-            let sorted = mostExpensiveToCheap(data);
+            let sorted = sort.mostExpensiveToCheap(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
@@ -338,7 +260,7 @@
           });
   
           sortOptions.seastAsc.addEventListener("click", function () {
-            let sorted = seatsAsc(data);
+            let sorted = sort.seatsAsc(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
@@ -346,7 +268,7 @@
           });
   
           sortOptions.seatsDesc.addEventListener("click", function () {
-            let sorted = seatsDesc(data);
+            let sorted = sort.seatsDesc(data);
             offerOutput.innerHTML = "";
             sorted.map((offer) => {
               offerOutput.innerHTML += new Ride()._renderOffer(offer);
