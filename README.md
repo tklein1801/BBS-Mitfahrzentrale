@@ -9,6 +9,33 @@
 
 ---
 
+## Todo
+
+- [ ] Benutzer verifizieren
+      Verifizierungs E-Mail nach dem registrieren verschicken
+- [x] Adresse beim Registrieren entfernen _(Derzeit kein Nutzen für diese Daten daher nicht benötigt)_
+  - [x] Datenbank anpassen
+  - [x] database.sql anpassen
+  - [x] Formular anpassen
+  - [x] API anpassen
+- [ ] ACP
+  - [ ] Benutzer bearbeiten & sperren
+  - [ ] Anzeigen verwalten
+  - [ ] Logs einsehen
+  - [ ] Administratoren ernennen und verwalten
+- [x] Adminfeatures
+  - [x] Anzeigen löschen
+  - [x] Anzeigen bearbeiten
+- [x] Anzeigen auch im Profil sortieren
+
+_**Eventuelle Features**_
+
+- [ ] Autocomplete für Postleitzahlen & Straßen
+- [ ] Passwort zurücksetzen
+- [ ] E-Mail Benachrichtigungen beim erstellen, bearbeiten & löschen einer Anzeige
+
+---
+
 ## 🧐 Allgemeines
 
 **Die BBS-MItfahrzentrale** kann als eine **Testversion** [hier](https://bbs.dulliag.de) aufgerufen werden. Informationen zum Webserver, Datenbank und PHP-Version sind unten zu finden.
