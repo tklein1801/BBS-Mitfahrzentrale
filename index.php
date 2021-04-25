@@ -174,6 +174,21 @@ Route::add($GLOBALS['apiPath']."user/register", function () {
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
 
+Route::add($GLOBALS['apiPath']."user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
+  $logger = new ApiLogger();
+  $logger->create($GLOBALS['apiPath']."user/verify/".$apiKey, $GLOBALS['clientIp'], $apiKey);
+  
+  $user = new User();
+  $verifyResult = $user->verifyKey($apiKey);
+  if($verifyResult['authentificated'] == true) {
+    $userData = $user->get($verifyResult['userId']);
+    echo "Deine E-Mail <strong>".$userData['email']."</strong> wurde bestätigt!";
+    echo(json_encode($user->verify($verifyResult['userId'], JSON_PRETTY_PRINT)));
+  } else {
+    echo "<h1>Der Link ist ungültig!</h1>";
+  }
+}, "GET");
+
 Route::add($GLOBALS['apiPath']."user/checkCredentials", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');

@@ -35,6 +35,31 @@ class User
     $con->close();
   }
 
+  public function sendVerificationEmail(string $userId)
+  {
+    $userData = $this->get($userId);
+    // TODO Research what these headers mean
+    // $headers = "From: " . strip_tags($_POST['req-email']) . "\r\n";
+    // $headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
+    // $headers .= "CC: susan@example.com\r\n";
+    // $headers .= "MIME-Version: 1.0\r\n";
+    // $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    mail($userData['email'], "BBS-Mitfahrzentrale", "This is the message!"/*, $headers*/);
+  }
+
+  public function verify(int $userId)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $update = $con->prepare("UPDATE `cshare_user` SET `verified`=1 WHERE `userId`=?");
+    $update->bind_param("i", $userId);
+    $update->execute();
+
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
+    $update->close();
+    $con->close();
+  }
+
   public function checkCredentials(string $email, string $password)
   {
     require get_defined_constants()['CON_PATH'];
