@@ -15,7 +15,7 @@
 
 ```
 POST /register
-Params: (string) name, (string) surname, (string) email, (string) password, (string) adress, (int) plz, (string) place, (string) telNumber
+Params: (string) name, (string) surname, (string) email, (string) password, (string) telNumber
 Response 200 (application/json)
 ```
 

@@ -9,22 +9,15 @@ class User {
    * @param {string} surname
    * @param {string} email
    * @param {string} password
-   * @param {string} adress
-   * @param {number} plz
-   * @param {string} place
    * @param {string} telNumber
    */
-  async register(name, surname, email, password, adress, plz, place, telNumber) {
+  async register(name, surname, email, password, telNumber) {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("surname", surname);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("adress", adress);
-    formData.append("plz", plz);
-    formData.append("place", place);
     formData.append("telNumber", telNumber);
-
     const response = await fetch(this.apiHost + "register", {
       method: "POST",
       body: formData,

@@ -167,7 +167,7 @@ Route::add($GLOBALS['apiPath']."user/register", function () {
   $logger = new ApiLogger();
   $logger->create($GLOBALS['apiPath']."user/register", $GLOBALS['clientIp'], $key);
   $user = new User();
-  $result = $user->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['adress'], $_POST['plz'], $_POST['place'], $_POST['telNumber']);
+  $result = $user->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['telNumber']);
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
 

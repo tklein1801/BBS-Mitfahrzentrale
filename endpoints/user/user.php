@@ -8,7 +8,7 @@ class User
   public $alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   public $size = 16;
 
-  public function register(string $name, string $surname, string $email, string $password, string $adress, int $plz, string $place, string $telNumber)
+  public function register(string $name, string $surname, string $email, string $password, string $telNumber)
   {
     require get_defined_constants()['CON_PATH'];
     
@@ -23,8 +23,8 @@ class User
        */
       $client = new Client();
       $apiKey = $client->formattedId($this->alphabet, $this->size);
-      $insert = $con->prepare("INSERT INTO `cshare_user` (name, surname, email, password, adress, plz, city, telNumber, apiKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      $insert->bind_param("sssssisss", $name, $surname, $email, $hashedPassword, $adress, $plz, $place, $telNumber, $apiKey);
+      $insert = $con->prepare("INSERT INTO `cshare_user` (name, surname, email, password, telNumber, apiKey) VALUES (?, ?, ?, ?, ?, ?)");
+      $insert->bind_param("ssssss", $name, $surname, $email, $hashedPassword, $telNumber, $apiKey);
       $insert->execute();
       return array('inserted_id' => $insert->insert_id, 'error' => $insert->error == "" ? null : $insert->error);
     } else {

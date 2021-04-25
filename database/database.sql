@@ -20,17 +20,16 @@ create table if not exists cshare_plz
 
 create table if not exists cshare_user
 (
-    userId    int auto_increment
+    userId int(11) not null auto_increment
         primary key,
-    name      varchar(30) not null,
-    surname   varchar(30) not null,
-    email     varchar(40) not null,
-    password  varchar(50) not null,
-    plz       int(5)      not null,
-    city      varchar(40) not null,
-    adress    varchar(40) not null,
+    verified int(1) not null DEFAULT '0',
+    isAdmin int(1) not null DEFAULT '0',
+    name varchar(30) not null,
+    surname varchar(30) not null,
+    email varchar(40) not null,
+    password varchar(50) not null,
     telNumber varchar(18) not null,
-    apiKey    varchar(16) not null
+    apiKey varchar(16) not null
 );
 
 create table if not exists cshare_rides

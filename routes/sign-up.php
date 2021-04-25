@@ -15,52 +15,36 @@
           <div class="row mb-0">
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Vorname</label>
-              <input type="text" id="name" class="form-control" required />
+              <input type="text" name="name" id="name" class="form-control" required />
             </div>
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Nachname</label>
-              <input type="text" id="surname" class="form-control" required />
+              <input type="text" name="surname" id="surname" class="form-control" required />
             </div>
           </div>
 
           <div class="row mb-0">
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">E-Mail</label>
-              <input type="email" id="email" class="form-control" required />
+              <input type="email" name="email" id="email" class="form-control" required />
               <div id="validationEmail" class="invalid-feedback"></div>
             </div>
             <div class="col-12 col-md-6 mb-2 mb-md-3">
               <label class="form-label">Telefon</label>
-              <input type="tel" id="phone" class="form-control" required />
+              <input type="tel" name="phone" id="phone" class="form-control" required />
             </div>
           </div>
 
           <label class="form-label">Passwort</label>
           <div class="input-group mb-2 mb-md-3">
-            <input type="password" id="password" class="form-control" required />
+            <input type="password" name="password" id="password" class="form-control" required />
             <button type="button" class="btn" id="toggler">
               <i id="icon" class="far fa-eye"></i>
             </button>
           </div>
 
-          <div class="row">
-            <div class="col-12 col-md-3 mb-2 mb-md-3">
-              <label class="form-label">PLZ</label>
-              <input type="text" id="plz" class="form-control" required />
-            </div>
-            <div class="col-12 col-md-4 mb-2 mb-md-3">
-              <label class="form-label">Ort</label>
-              <input type="text" id="place" class="form-control" required />
-              <!-- <select name="place" id="place" class="form-control" required></select> -->
-            </div>
-            <div class="col-12 col-md-5 mb-4 mb-md-3">
-              <label class="form-label">Straße</label>
-              <input type="text" id="adress" class="form-control" required />
-            </div>
-          </div>
-
           <div class="form-check mb-3">
-            <input type="checkbox" id="data-protection" class="form-check-input" required>
+            <input type="checkbox" name="data-protection" id="data-protection" class="form-check-input" required>
             <label for="data-protection" class="form-check-label">
               Hiermit akzeptiere ich die aktuelle Datenschutzerklärung und stimme der Verarbeitung meiner Daten zu. Informationen zu Verarbeitung der Daten findest du in unserer <a href="<?php echo $url . "Datenschutz"; ?>">Datenschutzerklärung</a>.
             </label>
@@ -95,10 +79,8 @@
         phone = form.querySelector("#phone"),
         password = form.querySelector("#password"),
         passwordToggler = form.querySelector("#toggler"),
-        togglerIcon = form.querySelector("#icon"),
-        plz = form.querySelector("#plz"),
-        place = form.querySelector("#place"),
-        adress = form.querySelector("#adress");
+        togglerIcon = form.querySelector("#icon");
+
       // plz.addEventListener("keyup", function () {
       //   const enteredPlz = this.value;
       //   Places
@@ -123,9 +105,6 @@
           surname.value,
           email.value,
           password.value,
-          adress.value,
-          plz.value,
-          place.value,
           phone.value
         )
           .then((result) => {
