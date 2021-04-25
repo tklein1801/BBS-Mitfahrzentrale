@@ -13,12 +13,11 @@
 
 **Die BBS-MItfahrzentrale** kann als eine **Testversion** [hier](https://bbs.dulliag.de) aufgerufen werden. Informationen zum Webserver, Datenbank und PHP-Version sind unten zu finden.
 
-
 **Server Betriebsystem**: Debian 9.13
 
 **Datenbank**: 10.1.45-MariaDB
 
-**Webserver**: nginx/1.18.0
+**Webserver**: apache/2.4.25
 
 **PHP Version**: 7.3.26
 
@@ -38,12 +37,13 @@ _Eine bebilderte Installationsanleitung findest du [hier](./assets/doc/Installie
 
 2. Eintragen der Zugangsdaten(Host, Username, Password) für die Datenbank in der Datei [`./endpoints/sql.php`](endpoints/sql.php)
    _(Der Datenbankname wurde bereits voreingestellt und muss nicht mehr angepasst werden)_
-   
+
    2.1 Erstellen der Tabellen und Beziehungen mithilfe der [`./database/database.sql`](database/database.sql).
    _(Alternativ können die Tabellen und Beziehungen auf in phpMyAdmin über die 'Importieren' funktion erstellt werden)_
-   
+
    _2.2 Eintragen der Postleitzahlen mittels [`./database/plz.sql`](database/plz.sql)._
    _(Auch diese kann in phpMyAdmin durch die 'Importieren' funktion importiert werden. **Für das Nutzen der BBS-Mitfahrzentrale sind die Daten der plz.sql jedoch nicht erforderlich da dieses Feature noch nicht für den Benutzer verfügbar ist!**)_
+
 3. Die aktuelle Zeitzone kann in der [`index.php`](index.php#L9) eingestellt werden.
    _(Die Zeitzone beim Download beträgt automatisch 'Europe/Berlin' und muss nur angepasst werden wenn man sich in einer anderen Zeitzone befindet.)_
 
