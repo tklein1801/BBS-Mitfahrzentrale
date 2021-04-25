@@ -5,20 +5,29 @@
   $offer = $ride->get($rideId);
   
   function _renderSidebar(array $offer) {
-    $btn = $_SESSION['login']['userId'] != $offer['creatorId'] ? '' : '<div>
-            <button type="button" class="btn btn-outline-orange w-100 rounded-0 mb-2" data-bs-toggle="modal" data-bs-target="#editModal">
-              <i class="fas fa-pencil-alt"></i>
-              Anzeige bearbeiten
-            </button>
-            <button type="button" id="wanna-delete" class="btn btn-outline-orange w-100 rounded-0">
-              <i class="far fa-trash-alt"></i>
-              Anzeige löschen        
-            </button>
-            <div role="group" class="w-100 btn-group d-none">
-              <button type="button" id="cancel-delete" class="btn btn-outline-red rounded-0">Abbrechen</button>
-              <button type="submit" id="delete" class="btn btn-orange rounded-0">Löschen</button>
-            </div>
-          </div>';
+    $btn = ""; $adminBadge = "";
+
+    if ($_SESSION['login']['isAdmin'] || $_SESSION['login']['userId'] == $offer['creatorId']) {
+      $btn = '<div>
+        <button type="button" class="btn btn-outline-orange w-100 rounded-0 mb-2" data-bs-toggle="modal" data-bs-target="#editModal">
+          <i class="fas fa-pencil-alt"></i>
+          Anzeige bearbeiten
+        </button>
+        <button type="button" id="wanna-delete" class="btn btn-outline-orange w-100 rounded-0">
+          <i class="far fa-trash-alt"></i>
+          Anzeige löschen        
+        </button>
+        <div role="group" class="w-100 btn-group d-none">
+          <button type="button" id="cancel-delete" class="btn btn-outline-red rounded-0">Abbrechen</button>
+          <button type="submit" id="delete" class="btn btn-orange rounded-0">Löschen</button>
+        </div>
+      </div>';
+    }
+
+    if ($offer['isAdmin']) {
+      $adminBadge = '<span class="badge bg-orange">Admin</span>';
+    }
+    
     return '<div id="sidebar-column" class="col-md-3 col-12">
         <!-- TOOD Maybe change this to an collapseable object for better mobile experience -->
         <div class="profile-container bg-darkblue p-3">
@@ -26,6 +35,11 @@
             <i class="far fa-user-circle" style="font-size: 7rem;"></i>
           </p>
           <h5 class="text-white text-center mb-2">'.$offer['name'].' '.$offer['surname'].'</h5>
+          
+          <div class="role-container d-flex mb-2 justify-content-center">
+            '.$adminBadge.'
+          </div>
+          
           <!-- <a class="btn btn-outline-orange rounded-0 w-100 mb-2">
             <i class="far fa-star"></i>
             Favorit hinzufügen

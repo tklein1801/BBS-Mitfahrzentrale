@@ -79,15 +79,25 @@
                   </p>
 
                   <h5 class="text-white text-center mb-2">
-                    <?php echo $userData['name']." ".$userData['surname']; ?>
+                    <?php 
+                      echo $userData['name']." ".$userData['surname']; 
+                    ?>
                   </h5>
 
+                  <div class="role-container mb-2 d-flex justify-content-center">
+                    <?php
+                      if ($_SESSION['login']['isAdmin']) {
+                        echo '<span class="badge bg-orange">Admin</span>';
+                      }
+                    ?>
+                  </div>
+
                   <div>
-                    <button type="button" id="edit" class="btn btn-outline-orange w-100 rounded-0">
+                    <button type="button" id="edit" class="btn btn-outline-orange w-100 mb-2 rounded-0">
                       <i class="fas fa-user-edit"></i>
                       Bearbeiten
                     </button>
-                    <div role="group" class="w-100 btn-group d-none">
+                    <div role="group" class="w-100 mb-2 btn-group d-none">
                       <button type="button" id="cancel" class="btn btn-outline-red rounded-0">Abbrechen</button>
                       <button type="submit" id="save" class="btn btn-orange rounded-0">Speichern</button>
                     </div>

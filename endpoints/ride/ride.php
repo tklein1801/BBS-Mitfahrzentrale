@@ -108,7 +108,7 @@ class Ride
     require get_defined_constants()['CON_PATH'];
 
     $arr = array();
-    $select = $con->query("SELECT cshare_favorites.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_favorites.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           INNER JOIN cshare_favorites ON cshare_rides.rideId = cshare_favorites.rideId
@@ -128,7 +128,7 @@ class Ride
 
     $arr = array();
     $now = time();
-    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           WHERE cshare_rides.startAt >= '".$now."' 
@@ -148,7 +148,7 @@ class Ride
     require get_defined_constants()['CON_PATH'];
 
     $arr = array();
-    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           WHERE cshare_rides.rideId = '".$rideId."' ORDER BY cshare_rides.createdAt DESC");
@@ -167,7 +167,7 @@ class Ride
 
     $arr = array();
     $now = time();
-    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           WHERE cshare_rides.startAt >= '".$now."' ORDER BY cshare_rides.createdAt DESC");
@@ -186,7 +186,7 @@ class Ride
 
     $arr = array();
     $now = time();
-    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '1' ORDER BY cshare_rides.createdAt DESC");
@@ -205,7 +205,7 @@ class Ride
 
     $arr = array();
     $now = time();
-    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '0' ORDER BY cshare_rides.createdAt DESC");

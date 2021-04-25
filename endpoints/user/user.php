@@ -42,7 +42,7 @@ class User
     $userExist = $this->exist($email);
     if ($userExist['registered']) {
       $hashedPassword = hash("md5", $password);
-      $select = $con->query("SELECT `userId`, `email`, `apiKey` FROM `cshare_user` WHERE `email`='".$email."' AND `password`='".$hashedPassword."'");
+      $select = $con->query("SELECT `userId`, `isAdmin`, `email`, `apiKey` FROM `cshare_user` WHERE `email`='".$email."' AND `password`='".$hashedPassword."'");
       $result = $select->num_rows;
       if ($result == 1) {
         while ($data = $select->fetch_assoc()) {
@@ -50,9 +50,14 @@ class User
           $userId = $data['userId'];
           $username = $data['email'];
           $apiKey = $data['apiKey'];
-          $_SESSION['login'] = array('userId' => $userId, 'email' => $username, 'apiKey' => $apiKey);
+          if ($data['isAdmin'] == 1) {
+            $isAdmin = true;
+          } else {
+            $isAdmin = false;
+          }
+          $_SESSION['login'] = array('isAdmin' => $isAdmin, 'userId' => $userId, 'email' => $username, 'apiKey' => $apiKey);
         }
-        return array('loggedIn' => true, 'email' => $email, 'error' => null);
+        return array('loggedIn' => true, 'isAdmin' => $isAdmin, 'email' => $email, 'error' => null);
       } else {
       return array('loggedIn' => false, 'email' => $email, 'error' => 'auth/password-invalid');
       }
@@ -102,6 +107,29 @@ class User
     $con->close();
   }
 
+  public function isAdmin(int $userId)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $result = array();
+    $select = $con->query("SELECT `isAdmin` from `cshare_user` WHERE `userId`='".$userId."' ");
+    if ($select->num_rows > 0) {
+      while ($row = $select->fetch_assoc()) {
+        $isAdmin = $row['isAdmin'];
+        if ($isAdmin == 1) {
+          $isAdmin = true;
+        } else {
+          $isAdmin = false;
+        }
+        $result = array('userId' => $userId, 'isAdmin' => $isAdmin, 'error' => null);
+      }
+    } else {
+      $result = array('userId' => $userId, 'isAdmin' => false, 'error' => 'auth/user-not-found');
+    }
+
+    return $result;
+  }
+
   public function get(int $userId)
   {
     require get_defined_constants()['CON_PATH'];
@@ -134,7 +162,7 @@ class User
       $update->execute();
     }
 
-    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $upda->error);
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
     $update->close();
     $con->close();
   }

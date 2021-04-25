@@ -159,6 +159,9 @@ Route::add("(/(api/|api))", function() {
 });
 
 # Endpoints
+/**
+ * User
+ */
 Route::add($GLOBALS['apiPath']."user/register", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
@@ -254,6 +257,9 @@ Route::add($GLOBALS['apiPath']."user/update", function () {
   }
 }, "POST");
 
+/**
+ * Places
+ */
 Route::add($GLOBALS['apiPath']."plz/placesByPlz", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
@@ -290,6 +296,9 @@ Route::add($GLOBALS['apiPath']."plz/plzByName", function () {
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }); 	
 
+/**
+ * Ride
+ */
 Route::add($GLOBALS['apiPath']."ride/create", function () {
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
@@ -326,19 +335,27 @@ Route::add($GLOBALS['apiPath']."ride/update", function () {
   // If no key was set the value equals null
   if(!is_null($key)) {
     $verifyResult = $user->verifyKey($key);
-    if($verifyResult['authentificated'] == true) {
+    $verifiedUserId = $verifyResult['userId'];
+    $userIsAdmin = $user->isAdmin($verifiedUserId);
+    if($verifyResult['authentificated']) {
       $ride = new Ride();
       $requestedRide = $_POST['rideId'];
       $rideData = $ride->get($requestedRide);
-      if ($rideData['creatorId'] == $verifyResult['userId']) {
+
+      if ($userIsAdmin['isAdmin']) {
+        $result = $ride->update($_POST['rideId'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else if ($rideData['creatorId'] == $verifiedUserId) {
         $result = $ride->update($_POST['rideId'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
         echo(json_encode($result, JSON_PRETTY_PRINT));
       } else {
         echo(json_encode(array('authentificated' => true, 'error' => 'ride/not-the-creator'), JSON_PRETTY_PRINT));
       }
+
     } else {
       echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
+
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
   }
@@ -358,20 +375,28 @@ Route::add($GLOBALS['apiPath']."ride/delete", function () {
   // If no key was set the value equals null
   if(!is_null($key)) {
     $verifyResult = $user->verifyKey($key);
+    $verifiedUserId = $verifyResult['userId'];
+    $userIsAdmin = $user->isAdmin($verifiedUserId);
     // Check if the key is valid
     if($verifyResult) {
       // After we have validated the key we're gonna check if the key is bound to the user who have created the offer
       $rideInformation = $ride->get($rideId);
-      // If the $rideInformation['creatorId'] is equal to $verifyResult['userId'] the user(verified by key) is the same as the offer owner
-      if($rideInformation['creatorId'] == $verifyResult['userId']) {
+      // If the $rideInformation['creatorId'] is equal to $verifiedUserId the user(verified by key) is the same as the offer owner
+      // If the user isn't the creator we're gonna check if the user is an admin which is capable to delete rides
+      if ($userIsAdmin['isAdmin']) {
+        $result = $ride->delete($_POST['rideId']);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else if ($rideInformation['creatorId'] == $verifiedUserId) {
         $result = $ride->delete($_POST['rideId']);
         echo(json_encode($result, JSON_PRETTY_PRINT));
       } else {
         echo(json_encode(array('authentificated' => false, 'error' => 'ride/not-the-creator'), JSON_PRETTY_PRINT));
       }
+
     } else {
       echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }
+
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
   }
