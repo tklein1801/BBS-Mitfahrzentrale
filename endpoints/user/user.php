@@ -35,7 +35,7 @@ class User
     $con->close();
   }
 
-  public function sendVerificationEmail(string $userId)
+  public function sendVerificationEmail(int $userId)
   {
     $userData = $this->get($userId);
     // TODO Research what these headers mean
@@ -146,13 +146,28 @@ class User
         } else {
           $isAdmin = false;
         }
-        $result = array('userId' => $userId, 'isAdmin' => $isAdmin, 'error' => null);
+        $result = $isAdmin;
       }
     } else {
       $result = array('userId' => $userId, 'isAdmin' => false, 'error' => 'auth/user-not-found');
     }
 
     return $result;
+  }
+
+  public function getAll()
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $arr = array();
+    $select = $con->query("SELECT * FROM `cshare_user` WHERE 1");
+    while ($data = $select->fetch_assoc()) {
+      $arr[] = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
   }
 
   public function get(int $userId)
@@ -170,20 +185,18 @@ class User
     $con->close();
   }
 
-  public function update(int $userId, /*string $email,*/ string $telNumber, string $password)
+  public function update(int $userId, int $isAdmin, int $isVerified, string $name, string $surname, string $email, string $telNumber, string $password)
   {
     require get_defined_constants()['CON_PATH'];
 
-    // $update = $con->prepare("UPDATE `cshare_user` SET `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
-    // $update->bind_param("sssi", $email, $telNumber, $hashedPassword, $userId);
     if (is_null($password) || $password == "null") {
-      $update = $con->prepare("UPDATE `cshare_user` SET `telNumber`=? WHERE `userId`=?");
-      $update->bind_param("si", $telNumber, $userId);
+      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin`=?, `name`=?, `surname`=?, `email`=?, `telNumber`=? WHERE `userId`=?");
+      $update->bind_param("iissssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $userId);
       $update->execute();
     } else {
       $hashedPassword = hash("md5", $password);
-      $update = $con->prepare("UPDATE `cshare_user` SET `telNumber`=?, `password`=? WHERE `userId`=?");
-      $update->bind_param("ssi", $telNumber, $hashedPassword, $userId);
+      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin=?, `name`=?, `surname`=?, `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
+      $update->bind_param("iisssssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $hashedPassword, $userId);
       $update->execute();
     }
 
