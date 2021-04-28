@@ -548,6 +548,14 @@ hr.divider:after {
   background-color: #023846;
 }
 
+.profile-container .profile-image {
+  width: 7rem;
+  height: 7rem;
+  margin-left: calc(50% - 3.5rem);
+  border-radius: 50%;
+  border: 3px solid #e27a00;
+}
+
 .profile-container .form-control {
   padding-left: 0.75rem;
 }

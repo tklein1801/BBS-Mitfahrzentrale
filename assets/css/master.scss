@@ -409,6 +409,14 @@ hr.divider {
 // Profile Stylesheet
 .profile-container {
   background-color: $blueDark;
+  .profile-image {
+    width: 7rem;
+    height: 7rem;
+    margin-left: calc(50% - 3.5rem);
+    border-radius: 50%;
+    border: 3px solid $orange;
+  }
+
   .form-control {
     padding-left: 0.75rem;
     &:read-only {

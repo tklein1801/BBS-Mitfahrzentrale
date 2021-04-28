@@ -7,6 +7,12 @@ class User
 {
   public $alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   public $size = 16;
+  public $avatar = array('size' => 256, 'backgroundColor' => '023846', 'color' => 'e27a00');
+
+  public function getAvatarUrl(string $username)
+  {
+    return "https://eu.ui-avatars.com/api/?name=".$username."&size=".$this->avatar['size']."&background=".$this->avatar['backgroundColor']."&color=".$this->avatar['color']."";
+  }
 
   public function register(string $name, string $surname, string $email, string $password, string $telNumber)
   {

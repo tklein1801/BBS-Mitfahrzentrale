@@ -6,6 +6,7 @@
   $ride = new Ride();
   $user = new User();
   $userData = $user->get($_SESSION['login']['userId']);
+  $avatarUrl = $user->getAvatarUrl($userData['name']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,9 +75,10 @@
             <div id="sidebar-column" class="col-md-3 col-12">
               <div class="profile-container bg-blue p-3">
                 <form id="profile-form">
-                  <p class="text-center text-white mb-1">
+                  <!-- <p class="text-center text-white mb-1">
                     <i class="far fa-user-circle" style="font-size: 7rem;"></i>
-                  </p>
+                  </p> -->
+                  <img class="profile-image mb-1" src="<?php echo $avatarUrl ?>" alt="Profile picture of <?php echo $userData['name'].$userData['surname']; ?>" />
 
                   <h5 class="text-white text-center mb-2">
                     <?php 
