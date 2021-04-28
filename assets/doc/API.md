@@ -38,9 +38,8 @@ Response 200 (application/json)
 ```
 
 ```
-GET /get
+POST /get
 Authentification: (string) apiKey
-Params: (string) apiKey
 Response 200 (application/json)
 ```
 

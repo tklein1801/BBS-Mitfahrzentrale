@@ -229,7 +229,7 @@ Route::add($GLOBALS['apiPath'] . "user/get", function () {
   session_start();
   $logger = new ApiLogger();
   $user = new User();
-  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_GET['apiKey']) ? $_GET['apiKey'] : null);
+  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_POST['apiKey']) ? $_POST['apiKey'] : null);
   $logger->create($GLOBALS['apiPath'] . "user/get", $GLOBALS['clientIp'], $key);
   // Check if the key is set
   // If no key was set the value equals null
@@ -246,7 +246,7 @@ Route::add($GLOBALS['apiPath'] . "user/get", function () {
   } else {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
   }
-}, "GET");
+}, "POST");
 
 Route::add($GLOBALS['apiPath'] . "user/update", function () {
   header('Access-Control-Allow-Origin: *');
