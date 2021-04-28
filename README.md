@@ -58,3 +58,4 @@ _Eine bebilderte Installationsanleitung findest du [hier](./assets/doc/Installie
 [Fontawesome v5.6.3](https://fontawesome.com)
 [PHP Router](https://github.com/steampixel/simplePHPRouter/tree/master)
 [NanoID](https://github.com/ai/nanoid)
+[eu.ui-avatars.com](eu.ui-avatars.com)

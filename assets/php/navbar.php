@@ -21,6 +21,13 @@
         <li class="nav-item">
           <a href="<?php echo $url . "Anzeigen"; ?>" class="nav-link text-white">Anzeigen</a>
         </li>
+        <?php
+          if (isset($_SESSION['login']) && $_SESSION['login']['isAdmin']) {
+            echo '<li class="nav-item">
+              <a href="' .$url . 'Admin" class="nav-link text-white">Adminbereich</a>
+            </li>';
+          }
+        ?>
         <li class="nav-item">
           <a href="https://bbssoltau.de" class="nav-link text-white">BBS Soltau</a>
         </li>

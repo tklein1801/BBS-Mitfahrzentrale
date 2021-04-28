@@ -1,6 +1,16 @@
 class User {
   constructor() {
     this.apiHost = window.location.origin + "/api/user/";
+    this.avatar = { size: 256, backgroundColor: "023846", color: "e27a00" };
+  }
+
+  /**
+   * Get an image URL
+   * @param {string} username
+   * @returns {string}
+   */
+  getAvatarUrl(username) {
+    return `https://eu.ui-avatars.com/api/?name=${username}&size=${this.avatar.size}&background=${this.avatar.backgroundColor}&color=${this.avatar.color}`;
   }
 
   /**
@@ -63,7 +73,7 @@ class User {
    * If the isn't signed in he won't be able to get information about his profile using this function
    */
   async get() {
-    const response = await fetch(this.apiHost + "user/get", { method: "POST" });
+    const response = await fetch(this.apiHost + "get", { method: "POST" });
     const data = await response.json();
     return data;
   }
@@ -71,13 +81,11 @@ class User {
   /**
    * UserId isn't required because the user is already signed in when the request is send
    * If the isn't signed in he won't be able to update his profile information
-   * @param {string} email
    * @param {string} phone
    * @param {string} password
    */
-  async update(/*email,*/ phone, password) {
+  async update(phone, password) {
     const formData = new FormData();
-    // formData.append("email", email);
     formData.append("phone", phone);
     formData.append("password", password);
 
@@ -86,6 +94,143 @@ class User {
       body: formData,
     });
     const data = await response.json();
+    return data;
+  }
+}
+
+/**
+ * Be aware that not every function from the User-class is compatible with the Admin-class
+ */
+class Admin {
+  constructor() {
+    this.apiHost = window.location.origin + "/api/admin/";
+  }
+
+  /**
+   *
+   * @param {number} userId
+   * @returns {object}
+   */
+  async getUser(userId) {
+    const form = new FormData();
+    form.append("userId", userId);
+
+    var response = await fetch(this.apiHost + "user/get", {
+      method: "POST",
+      body: form,
+    });
+    var data = await response.json();
+    return data;
+  }
+
+  /**
+   *
+   * @param {number} userId
+   * @param {number} isVerified
+   * @param {number} isAdmin
+   * @param {string} email
+   * @param {string} phone
+   * @param {string} password
+   */
+  async updateUser(userId, isVerified, isAdmin, name, surname, email, phone, password) {
+    const form = new FormData();
+    form.append("userId", userId);
+    form.append("verified", isVerified);
+    form.append("admin", isAdmin);
+    form.append("name", name);
+    form.append("surname", surname);
+    form.append("email", email);
+    form.append("phone", phone);
+    form.append("password", password);
+
+    var response = await fetch(this.apiHost + "user/update", {
+      method: "POST",
+      body: form,
+    });
+    var data = await response.json();
+    return data;
+  }
+
+  /**
+   *
+   * @param {number} userId
+   * @returns {[object]}
+   */
+  async getUserOffers(userId) {
+    const form = new FormData();
+    form.append("userId", userId);
+
+    var response = await fetch(this.apiHost + "ride/user", {
+      method: "POST",
+      body: form,
+    });
+    var data = await response.json();
+    return data;
+  }
+
+  /**
+   *
+   * @param {number} rideId
+   */
+  async getOffer(rideId) {
+    const form = new FormData();
+    form.append("rideId", rideId);
+
+    var response = await fetch(this.apiHost + "ride/offer", {
+      method: "POST",
+      body: form,
+    });
+    var data = await response.json();
+    return data;
+  }
+
+  /**
+   * @param {number} rideId
+   * @param {string} title
+   * @param {string} information
+   * @param {number} price
+   * @param {number} seats
+   * @param {number} startAt
+   * @param {number} startPlz
+   * @param {string} startCity
+   * @param {string} startAdress
+   * @param {number} destinationPlz
+   * @param {string} destinationCity
+   * @param {string} destinationAdress
+   */
+  async updateOffer(
+    rideId,
+    title,
+    information,
+    price,
+    seats,
+    startAt,
+    startPlz,
+    startCity,
+    startAdress,
+    destinationPlz,
+    destinationCity,
+    destinationAdress
+  ) {
+    const form = new FormData();
+    form.append("rideId", rideId);
+    form.append("title", title);
+    form.append("information", information);
+    form.append("price", price);
+    form.append("seats", seats);
+    form.append("startAt", startAt);
+    form.append("startPlz", startPlz);
+    form.append("startCity", startCity);
+    form.append("startAdress", startAdress);
+    form.append("destinationPlz", destinationPlz);
+    form.append("destinationCity", destinationCity);
+    form.append("destinationAdress", destinationAdress);
+
+    var response = await fetch(this.apiHost + "ride/update", {
+      method: "POST",
+      body: form,
+    });
+    var data = await response.json();
     return data;
   }
 }
@@ -349,10 +494,10 @@ class Ride {
   }
 
   /**
-   * @param {*} rideId
+   * @param {number} rideId
    */
   async getOffer(rideId) {
-    const response = await fetch(this.apiHost + `all?rideId=${rideId}`, {
+    const response = await fetch(this.apiHost + `offer?rideId=${rideId}`, {
       method: "GET",
     });
     const data = await response.json();

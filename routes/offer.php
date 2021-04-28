@@ -1,10 +1,12 @@
   <?php
   require_once "./endpoints/ride/ride.php";
+  use DulliAG\API\User;
   use DulliAG\API\Ride;
   $ride = new Ride();
   $offer = $ride->get($rideId);
   
   function _renderSidebar(array $offer) {
+    $user = new User();
     $btn = ""; $adminBadge = "";
 
     if ($_SESSION['login']['isAdmin'] || $_SESSION['login']['userId'] == $offer['creatorId']) {
@@ -27,13 +29,13 @@
     if ($offer['isAdmin']) {
       $adminBadge = '<span class="badge bg-orange">Admin</span>';
     }
-    
+    $avatarUrl = $user->getAvatarUrl($offer['name']);
     return '<div id="sidebar-column" class="col-md-3 col-12">
-        <!-- TOOD Maybe change this to an collapseable object for better mobile experience -->
         <div class="profile-container bg-darkblue p-3">
-          <p class="text-center text-white mb-1">
+          <!-- <p class="text-center text-white mb-1">
             <i class="far fa-user-circle" style="font-size: 7rem;"></i>
-          </p>
+          </p> -->
+          <img class="profile-image mb-1" src="'.$avatarUrl.'" alt="Profile picture of '.$offer['name'].' '.$offer['surname'].'" />
           <h5 class="text-white text-center mb-2">'.$offer['name'].' '.$offer['surname'].'</h5>
           
           <div class="role-container d-flex mb-2 justify-content-center">

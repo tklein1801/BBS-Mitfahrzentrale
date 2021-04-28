@@ -47,6 +47,13 @@ a {
     color: $orange;
   }
 }
+a.badge.bg-orange {
+  text-decoration: none;
+  &:hover {
+    color: white;
+    background-color: rgba($color: $orange, $alpha: 0.9);
+  }
+}
 .font-weight-bold {
   font-weight: bold;
 }
@@ -129,6 +136,27 @@ a {
     &:focus {
       background-color: $orange;
       color: white;
+    }
+  }
+}
+
+// Table
+table {
+  background-color: $blueDark;
+  tr {
+    border: transparent;
+    &:hover {
+      background-color: rgba($color: $blue, $alpha: 0.95);
+    }
+
+    th {
+      border-bottom-width: 0 !important;
+    }
+
+    th,
+    td {
+      vertical-align: middle;
+      white-space: nowrap;
     }
   }
 }
@@ -409,6 +437,14 @@ hr.divider {
 // Profile Stylesheet
 .profile-container {
   background-color: $blueDark;
+  .profile-image {
+    width: 7rem;
+    height: 7rem;
+    margin-left: calc(50% - 3.5rem);
+    border-radius: 50%;
+    border: 3px solid $orange;
+  }
+
   .form-control {
     padding-left: 0.75rem;
     &:read-only {

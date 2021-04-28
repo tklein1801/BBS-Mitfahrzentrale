@@ -77,12 +77,12 @@ class Ride
     $con->close();
   }
 
-  public function update(int $rideId, string $information, int $price, int $seats, int $startAt, int $startPlz, string $startCity, string $startAdress, int $destinationPlz, string $destinationCity, string $destinationAdress)
+  public function update(int $rideId, string $title, string $information, int $price, int $seats, int $startAt, int $startPlz, string $startCity, string $startAdress, int $destinationPlz, string $destinationCity, string $destinationAdress)
   {
     require get_defined_constants()['CON_PATH'];
 
-    $update = $con->prepare("UPDATE `cshare_rides` SET `information`=?, `price`=?, `seats`=?, `startAt`=?, `startPlz`=?, `startCity`=?, `startAdress`=?, `destinationPlz`=?, `destinationCity`=?, `destinationAdress`=? WHERE `rideId`=?");
-    $update->bind_param("siiiississi", $information, $price, $seats, $startAt, $startPlz, $startCity, $startAdress, $destinationPlz, $destinationCity, $destinationAdress, $rideId);
+    $update = $con->prepare("UPDATE `cshare_rides` SET `title`=?, `information`=?, `price`=?, `seats`=?, `startAt`=?, `startPlz`=?, `startCity`=?, `startAdress`=?, `destinationPlz`=?, `destinationCity`=?, `destinationAdress`=? WHERE `rideId`=?");
+    $update->bind_param("ssiiiississi", $title, $information, $price, $seats, $startAt, $startPlz, $startCity, $startAdress, $destinationPlz, $destinationCity, $destinationAdress, $rideId);
     $update->execute();
 
     return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $upda->error);
@@ -136,6 +136,26 @@ class Ride
                           ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr[] = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function getAllStored()
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $arr = array();
+    $now = time();
+    $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
+                          FROM cshare_rides
+                          INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
+                          WHERE cshare_rides.startAt >= '".$now."' 
+                          ORDER BY cshare_rides.createdAt DESC");
+    while ($row = $select->fetch_assoc()) {
+      $arr[] = $row;
     }
 
     return $arr;
