@@ -47,6 +47,13 @@ a {
     color: $orange;
   }
 }
+a.badge.bg-orange {
+  text-decoration: none;
+  &:hover {
+    color: white;
+    background-color: rgba($color: $orange, $alpha: 0.9);
+  }
+}
 .font-weight-bold {
   font-weight: bold;
 }
@@ -129,6 +136,27 @@ a {
     &:focus {
       background-color: $orange;
       color: white;
+    }
+  }
+}
+
+// Table
+table {
+  background-color: $blueDark;
+  tr {
+    border: transparent;
+    &:hover {
+      background-color: rgba($color: $blue, $alpha: 0.95);
+    }
+
+    th {
+      border-bottom-width: 0 !important;
+    }
+
+    th,
+    td {
+      vertical-align: middle;
+      white-space: nowrap;
     }
   }
 }

@@ -131,6 +131,15 @@ a:hover, a:focus {
   color: #e27a00;
 }
 
+a.badge.bg-orange {
+  text-decoration: none;
+}
+
+a.badge.bg-orange:hover {
+  color: white;
+  background-color: rgba(226, 122, 0, 0.9);
+}
+
 .font-weight-bold {
   font-weight: bold;
 }
@@ -228,6 +237,28 @@ a:hover, a:focus {
 .dropdown-menu a:focus {
   background-color: #e27a00;
   color: white;
+}
+
+table {
+  background-color: #023846;
+}
+
+table tr {
+  border: transparent;
+}
+
+table tr:hover {
+  background-color: rgba(0, 66, 83, 0.95);
+}
+
+table tr th {
+  border-bottom-width: 0 !important;
+}
+
+table tr th,
+table tr td {
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .form-label {

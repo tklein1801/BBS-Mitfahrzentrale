@@ -78,6 +78,23 @@ Route::add("/Profil", function () {
   }
 });
 
+# Secured admin space
+Route::add("/(Admin|ACP)", function () {
+  session_start();
+  if (isset($_SESSION['login'])) {
+    $user = new User();
+    $userId = $_SESSION['login']['userId'];
+    $isAdmin = $user->isAdmin($userId);
+    if ($isAdmin) {
+      require_once $GLOBALS['routesPath'] . "admin.php";
+    } else {
+      header("Location: ./Anzeigen");
+    }
+  } else {
+    header("Location: ./Anzeigen");
+  }
+});
+
 # Sign in
 Route::add("/Anmelden", function () {
   require_once "routes/sign-in.php";
