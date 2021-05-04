@@ -38,3 +38,4 @@
 />
 <!-- Custom Stylesheets -->
 <link rel="stylesheet" href="<?php echo $url . "assets/css/master.css"; ?>" /><link rel="stylesheet" href="<?php echo $url . "assets/css/master.css"; ?>" />
+<link rel="stylesheet" href="<?php echo $url . "assets/css/snackbar.css"; ?>" />
