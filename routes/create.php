@@ -214,7 +214,10 @@
         RideAPI
           .create(type, title, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
-            window.location.href = window.location.origin + "/Anzeigen";
+            new Snackbar("Die Anzeige wurde erstellt!").success();
+            setTimeout(() => {
+              window.location.href = window.location.origin + "/Anzeigen";
+            }, 500);
           })
           .catch((err) => console.error(err));
       });

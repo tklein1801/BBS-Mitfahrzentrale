@@ -1,0 +1,241 @@
+:root {
+  --maxWidth: 350px;
+  --width: 350px;
+  --backgroundColor: #023846;
+  --success: #e27a00;
+  --info: #e27a00;
+  --error: #e27a00;
+  --borderRadius: 8px;
+  --text: #fff;
+  --buttonHover: #004253;
+  --animationInName: fadeInToLeft;
+  --animationOutName: fadeOutToRight;
+  --animationFillMode: both;
+  --animationDuration: 0.3s;
+}
+
+@-webkit-keyframes fadeInToLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+}
+@-moz-keyframes fadeInToLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+}
+@keyframes fadeInToLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+}
+
+@-webkit-keyframes fadeOutToRight {
+  from {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+}
+@-moz-keyframes fadeOutToRight {
+  from {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+}
+@keyframes fadeOutToRight {
+  from {
+    opacity: 1;
+    -webkit-transform: translatex(0);
+    -moz-transform: translatex(0);
+    -o-transform: translatex(0);
+    transform: translatex(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translatex(100px);
+    -moz-transform: translatex(100px);
+    -o-transform: translatex(100px);
+    transform: translatex(100px);
+  }
+}
+
+.snackbar {
+  z-index: 1200 !important;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  width: var(--width) !important;
+  max-width: var(--maxWidth) !important;
+  padding: 0.6rem !important;
+  font-family: "Hind Madurai", sans-serif !important;
+  background-color: var(--backgroundColor) !important;
+  border-radius: var(--borderRadius) !important;
+  -webkit-animation-name: var(--animationInName);
+  -moz-animation-name: var(--animationInName);
+  -o-animation-name: var(--animationInName);
+  animation-name: var(--animationInName);
+  -webkit-animation-fill-mode: var(--animationFillMode);
+  -moz-animation-fill-mode: var(--animationFillMode);
+  -o-animation-fill-mode: var(--animationFillMode);
+  animation-fill-mode: var(--animationFillMode);
+  -webkit-animation-duration: var(--animationDuration);
+  -moz-animation-duration: var(--animationDuration);
+  -o-animation-duration: var(--animationDuration);
+  animation-duration: var(--animationDuration);
+  -webkit-animation-delay: var(--animationDuration);
+  -moz-animation-delay: var(--animationDuration);
+  -o-animation-duration: var(--animationDuration);
+  animation-delay: var(--animationDuration);
+}
+.snackbar.fadeOut {
+  -webkit-animation-name: var(--animationOutName);
+  -moz-animation-name: var(--animationOutName);
+  -o-animation-name: var(--animationOutName);
+  animation-name: var(--animationOutName);
+  -webkit-animation-fill-mode: var(--animationFillMode);
+  -moz-animation-fill-mode: var(--animationFillMode);
+  -o-animation-fill-mode: var(--animationFillMode);
+  animation-fill-mode: var(--animationFillMode);
+  -webkit-animation-duration: var(--animationDuration);
+  -moz-animation-duration: var(--animationDuration);
+  -o-animation-duration: var(--animationDuration);
+  animation-duration: var(--animationDuration);
+  -webkit-animation-delay: var(--animationDuration);
+  -moz-animation-delay: var(--animationDuration);
+  -o-animation-duration: var(--animationDuration);
+  animation-delay: var(--animationDuration);
+}
+
+.snackbar.top-left {
+  top: 1rem;
+  left: 1rem;
+}
+.snackbar.bottom-left {
+  left: 1rem;
+  bottom: 1rem;
+}
+.snackbar.top-right {
+  top: 1rem;
+  right: 1rem;
+}
+.snackbar.bottom-right {
+  right: 1rem;
+  bottom: 1rem;
+}
+.snackbar .button-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 0.25rem;
+}
+
+.snackbar.snackbar-success .snackbar-icon,
+.snackbar.snackbar-success .dismiss {
+  color: var(--success) !important;
+}
+.snackbar.snackbar-info .snackbar-icon,
+.snackbar.snackbar-info .dismiss {
+  color: var(--info) !important;
+}
+.snackbar.snackbar-error .snackbar-icon,
+.snackbar.snackbar-error .dismiss {
+  color: var(--error) !important;
+}
+
+.snackbar-icon {
+  margin-right: 0.75rem;
+  font-size: 1.5rem;
+  color: var(--success) !important;
+}
+.snackbar-text {
+  margin: 0.5rem 0 !important;
+  font-size: 1rem;
+  color: var(--text) !important;
+}
+.snackbar button {
+  transition: 150ms;
+  background-color: transparent;
+  border: none !important;
+  outline: none !important;
+}
+.snackbar button:hover {
+  cursor: pointer;
+  background-color: var(--buttonHover) !important;
+}
+.snackbar .dismiss {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  color: var(--success) !important;
+  border-radius: var(--borderRadius) !important;
+}
+
+@media (max-width: 689px) {
+  .snackbar {
+    max-width: unset !important;
+    width: unset !important;
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    bottom: 1rem !important;
+  }
+  /* Which style should we use for mobile devices? */
+  /* .snackbar {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    border-radius: 0;
+  } */
+}

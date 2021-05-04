@@ -297,8 +297,12 @@
             .delete(rideId)
             .then((result) => {
               if (result.error == null) {
-                window.location.href = window.location.origin + "/Anzeigen";
+                new Snackbar("Die Anzeige wurde gelöscht!").success();
+                setTimeout(() => {
+                  window.location.href = window.location.origin + "/Anzeigen";
+                }, 500);
               } else {
+                new Snackbar("Die Anzeige konnte nicht gelöscht werden!").error();
                 console.error(result.error);
               }
             })
@@ -327,8 +331,12 @@
           .update(rideId, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
             if (result.error == null) {
-              location.reload();
+              new Snackbar("Die Änderungen wurden gespeichert!").success();
+              setTimeout(() => {
+                location.reload();
+              }, 500);
             } else {
+              new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
               console.error(result.error);
             }
           })

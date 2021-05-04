@@ -68,6 +68,7 @@
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
+    <script src="./assets/js/snackbar.js"></script>
     <script src="./assets/js/ApiHandler.js"></script>
     <script>
       const UserAPI = new User();
@@ -117,7 +118,10 @@
               // Everything should be fine...
               // Now we're gonna call the checkCredentials-function to sign the user in
               UserAPI.checkCredentials(email.value, password.value).then(() => {
-                window.location.href = "../Anzeigen";
+                new Snackbar("Du wurdest registriert!").success();
+                setTimeout(() => {
+                  window.location.href = "../Anzeigen";
+                }, 500);
               });
             } else {
               // Something went wrong
@@ -127,6 +131,7 @@
                   email.classList.add("is-invalid");
                   form.querySelector("#validationEmail").innerHTML =
                     "Der Benutzer ist bereits registriert!";
+                  new Snackbar("Der Benutzer ist bereits registriert!").error();
                   break;
               }
             }
