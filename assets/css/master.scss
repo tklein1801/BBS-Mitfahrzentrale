@@ -26,6 +26,18 @@ body ::selection {
   width: 100%;
   min-height: 100%;
 }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+  background-color: $blue;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $blueDark;
+  border-radius: $borderRadius;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: $orange;
+}
 
 // Typography
 h1,

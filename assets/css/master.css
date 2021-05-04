@@ -108,6 +108,21 @@ body ::selection {
   min-height: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+  background-color: #004253;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #023846;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e27a00;
+}
+
 h1,
 h2,
 h3,
