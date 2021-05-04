@@ -24,6 +24,10 @@ use DulliAG\API\PLZ;
 $GLOBALS['apiPath'] = "/api/";
 $GLOBALS['routesPath'] = __DIR__."/routes/";
 $GLOBALS['defBASEPATH'] = get_defined_constants()['BASEPATH'];
+$GLOBALS['settings'] = array(
+  'host' => $host,
+  'logo' => $host . 'assets/img/BBS-Soltau-Logo.svg'
+);
 
 # Client variables
 $GLOBALS['clientIp'] = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
@@ -38,7 +42,17 @@ Route::add("/", function () {
   }
 }); 
 
-# Landingpage
+// HTTP 404 - Path not found
+Route::pathNotFound(function () {
+  require_once "routes/404.php";
+});
+
+// HTTP 405 - Method now allowed
+Route::methodNotAllowed(function () {
+  require_once "routes/405.php";
+});
+
+// Landingpage
 Route::add("/(Anzeigen|Angebote|Gesuche|Favoriten)", function ($slug) {
   session_start();
   if(isset($_SESSION['login'])) {
@@ -760,14 +774,5 @@ Route::add($GLOBALS['apiPath'] . "ride/requests", function () {
   $allRides = $ride->getRequests();
   echo(json_encode($allRides, JSON_PRETTY_PRINT));
 }, "GET");
-
-# Error routes
-Route::add("/404", function () {
-  require_once "routes/404.php";
-});
-
-Route::add("/405", function () {
-  require_once "routes/405.php";
-});
 
 Route::run("/");
