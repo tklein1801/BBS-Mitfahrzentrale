@@ -1,15 +1,23 @@
 <?php
-class Route{
+require_once  get_defined_constants()['BASEPATH'] . "assets/php/ApiLogger.php";
+
+use DulliAG\System\ApiLogger;
+
+class Route {
   private static $routes = Array();
   private static $pathNotFound = null;
   private static $methodNotAllowed = null;
 
-  public static function add($expression, $function, $method = 'get') {
+  public static function add($expression, $function, $method = 'GET') {
     array_push(self::$routes,Array(
       'expression' => $expression,
       'function' => $function,
       'method' => $method
     ));
+  }
+
+  public static function getAll() {
+    return self::$routes;
   }
 
   public static function pathNotFound($function)  {
@@ -21,6 +29,7 @@ class Route{
   }
 
   public static function run($basepath = '/') {
+    $logger = new ApiLogger();
     // Parse current url
     $parsed_url = parse_url($_SERVER['REQUEST_URI']);//Parse Uri
 
@@ -41,7 +50,7 @@ class Route{
       // If the method matches check the path
 
       // Add basepath to matching string
-      if($basepath!=''&&$basepath!='/') {
+      if ($basepath!=''&&$basepath!='/') {
         $route['expression'] = '('.$basepath.')'.$route['expression'];
       }
 
@@ -75,25 +84,31 @@ class Route{
       }
     }
 
+    $isAnApiRoute = str_contains($parsed_url['path'], "api") && $parsed_url['path'] !== "/api";
     // No matching route was found
     if (!$route_match_found) {
       // But a matching path exists
       if ($path_match_found) {
         header("HTTP/1.0 405 Method Not Allowed");
-        # TODO Enable redirect
-        header("Location: ../404");
+        if($isAnApiRoute) {
+          $logger->createLog($parsed_url['path']);
+        }
         if (self::$methodNotAllowed) {
           call_user_func_array(self::$methodNotAllowed, Array($path,$method));
         }
       } else {
         header("HTTP/1.0 404 Not Found");
-        # TODO Enable redirect
-        header("Location: ../404");
+        if($isAnApiRoute) {
+          $logger->createLog($parsed_url['path']);
+        }       
         if (self::$pathNotFound) {
           call_user_func_array(self::$pathNotFound, Array($path));
         }
       }
-
     }
+    
+    if($isAnApiRoute) {
+      $logger->createLog($parsed_url['path']);
+    } 
   }
 }
