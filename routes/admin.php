@@ -219,7 +219,7 @@
               </div>
             </section>
             <!-- ./offer -->
-
+            
           </div>
           <!-- ./row -->
         </div>
@@ -498,8 +498,12 @@
                 .updateUser(userId, isVerified, isAdmin, name, surname, email, phone, password !== "" ? password : null)
                 .then((result) => {
                   if (result.error == null) {
-                    window.location.reload(); // Reload the website to refresh the table content
+                    new Snackbar("Die Änderungen wurden gespeichert!").success();
+                    setTimeout(() => {
+                      window.location.reload(); // Reload the website to refresh the table content
+                    }, 500);
                   } else {
+                    new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
                     console.error(result.error);
                   }
                 })
@@ -618,8 +622,12 @@
           )
           .then((result) => {
             if (result.error == null) {
-              window.location.reload();
+              new Snackbar("Die Änderungen wurden gespeichert!").success();
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
             } else {
+              new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
               console.error(result.error);
             }
           })

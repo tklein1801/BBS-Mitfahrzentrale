@@ -590,17 +590,15 @@ Route::add($GLOBALS['apiPath'] . "ride/update", function () {
     $verifiedUserId = $verifyResult['userId'];
     $userIsAdmin = $user->isAdmin($verifiedUserId);
     if($verifyResult['authentificated']) {
-      $ride = new Ride();
-      $requestedRide = $_POST['rideId'];
-      $rideData = $ride->get($requestedRide);
-
-      if ($user->isAdmin($verifiedUserId)) {
-        $currentOfferData = $ride->get($_POST['rideId']);
-        $result = $ride->update($_POST['rideId'], $currentOfferData['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
+      $rideId = $_POST['rideId'];
+      $rideData = $ride->get($rideId);
+      if ($userIsAdmin) {
+        $currentOfferData = $ride->get($rideId);
+        $result = $ride->update($rideId, $currentOfferData['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
         echo(json_encode($result, JSON_PRETTY_PRINT));
       } else if ($rideData['creatorId'] == $verifiedUserId) {
-        $currentOfferData = $ride->get($_POST['rideId']);
-        $result = $ride->update($_POST['rideId'], $currentOfferData['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
+        $currentOfferData = $ride->get($rideId);
+        $result = $ride->update($rideId, $currentOfferData['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
         echo(json_encode($result, JSON_PRETTY_PRINT));
       } else {
         echo(json_encode(array('authentificated' => true, 'error' => 'ride/not-the-creator'), JSON_PRETTY_PRINT));

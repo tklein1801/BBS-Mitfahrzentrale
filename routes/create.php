@@ -16,14 +16,6 @@
       <section class="mx-2 mx-md-4">
         <div class="container py-4">
           <div class="row">
-            <div id="sidebar-column" class="col-md-3 col-12 d-none">
-              <div class="bg-blue p-3">
-                <form>
-                  <img class="w-25" src="https://files.dulliag.de/share/Blobbo.png" alt="User avatar" />
-                </form>
-              </div>
-            </div>
-            <!-- ./sidebar -->
 
             <div id="main-column" class="col-md-12 col-12 p-0">
               <div class="bg-darkblue p-3">
