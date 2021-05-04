@@ -1,5 +1,19 @@
 # Endpoints
 
+## Allgemeine Informationen
+
+**Logs**
+
+> Es werden nur Anfragen an die API geloggt und in der Datenbank gespeichert
+
+**Authentifizierung**
+
+> Der API-Key welcher für bestimmte Endpoints mitgeschickt werden muss (erkenntlich gemacht durch Authentification: (string) apiKey) muss mit der Anfrage verschickt werden und wird nicht extra bei den Parametern der Anfrage aufgelistet!
+
+> Sollte der Benutzer angemeldet sein muss kein API-Key für die Authentifizierung mitgeschickt werden
+
+---
+
 ## Fehlermeldungen
 
 | Fehlermeldung             | Bedeutung                                                      |
@@ -12,162 +26,221 @@
 | `auth/key-not-set`        | `RestAPI` Es wurde kein API-Key zur authentifizierung gefunden |
 | `ride/not-the-creator`    | Du bist nicht der Ersteller der Anzeiger                       |
 
-> Der API-Key welcher für bestimmte Endpoints mitgeschickt werden muss (erkenntlich gemacht durch Authentification: (string) apiKey) muss als POST-Parameter mit der Anfrage verschickt werden und wird nicht extra bei den Parametern der Anfrage aufgelistet!
+---
 
 ## user
 
+**Registrieren eines neuen Benutzers**
+
 ```
-POST /register
+POST /api/user/register
 Params: (string) name, (string) surname, (string) email, (string) password, (string) telNumber
 Response 200 (application/json)
 ```
 
+**Überprüfen der Anmeldedaten eines Benutzers**
+
 ```
-GET /checkCredentials
+GET /api/user/checkCredentials
 Params: (string) email, (string) password
 Response 200 (application/json)
 ```
 
+**Prüfen ob ein Benutzer bereits existiert**
+
 ```
-GET /exist
+GET /api/user/exist
 Params: (string) email
 Response 200 (application/json)
 ```
 
+**Abmelden eines Benutzers durch beenden der Sitzung**
+
 ```
-GET /destroySession
+GET /api/user/destroySession
 Params: (string) redirectTo
 Response 200 (application/json)
 ```
 
+**Abrufen der Benutzerinformationen eines spezifischen Benutzers**
+
 ```
-POST /get
+POST /api/user/get
 Authentification: (string) apiKey
 Response 200 (application/json)
 ```
 
+**Updaten der Benutzerinformationen eines Benutzers**
+
 ```
-POST /update
+POST /api/user/update
 Authentification: (string) apiKey
 Params: (string) phone, (string|null) password
 Response 200 (application/json)
 ```
 
+---
+
 ## admin
 
+> Sämtliche admin-Endpoints sind durch den API-Key geschützt und können nur erfolgreich von einem Admin-Account angefragt werden
+
+**Abrufen der Benutzerinformationen eines spezifischen Benutzers**
+
 ```
-POST /user/get
+POST /api/admin/user/get
 Authentification: (string) apiKey
 Params: (int) userId
 Response 200 (application/json)
 ```
 
+**Bearbeiten eines Benutzers**
+
 ```
-POST /user/update
+POST /api/admin/user/update
 Authentification: (string) apiKey
 Params: (int) userId, (int) verified, (int) admin, (string) name, (string) surname, (string) email, (string) phone, (string|null) password
 Response 200 (application/json)
 ```
 
+**Abrufen aller aktiven Anzeigen eines Benutzers**
+
 ```
-POST /ride/user
+POST /api/admin/ride/user
 Authentification: (string) apiKey
 Params: (int) userId
 Response 200 (application/json)
 ```
 
+**Abrufen aller aktiven Anzeigen**
+
 ```
-POST /ride/all
+POST /api/admin/ride/all
 Authentification: (string) apiKey
 Response 200 (application/json)
 ```
 
+**Abrufen einer bestimmten Anzeige**
+
 ```
-POST /ride/offer
+POST /api/admin/ride/offer
 Authentification: (int) rideId
 Response 200 (application/json)
 ```
 
+**Bearbeiten einer bestehenden Anzeige**
+
 ```
-POST /ride/update
+POST /api/admin/ride/update
 Authentification: (int) rideId, (string) title, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
 Response 200 (application/json)
 ```
 
+---
+
 ## plz
 
+> Die plz-Endpoints sind derzeit nicht erreichbar.
+> Die Endpoints können in der [`index.php`](../../index.php) wieder aktiviert werden
+
+**Abrufen aller Orte mit Namensübereinstimmung**
+
 ```
-GET /placesByPlz
+GET /api/plz/placesByPlz
 Params: (int) plz
 Response 200 (application/json)
 ```
 
+**Abrufen eines Ortes mittels Postleitzahl**
+
 ```
-GET /placeByPlz
+GET /api/plz/placeByPlz
 Params: (int) plz
 Response 200 (application/json)
 ```
 
+**Abrufen eines Ortes mittels Name**
+
 ```
-GET /plzByName
+GET /api/plz/plzByName
 Params: (string) cityName
 Response 200 (application/json)
 ```
 
+---
+
 ## ride
 
-> _If the user is signed in the api-key is set by default_
+**Erstellen einer neuen Anzeige**
 
 ```
-POST /create
+POST /api/ride/create
 Authentification: (string) apiKey
 Params: (int) driver, (string) title, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
 Response 200 (application/json)
 ```
 
+**Bearbeiten einer bestehenden Anzeige**
+
 ```
-POST /update
+POST /api/ride/update
 Authentification: (string) apiKey
 Params: (int) rideId, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
 Response 200 (application/json)
 ```
 
+**Löschen einer bestehenden Anzeige**
+
 ```
-POST /delete
+POST /api/ride/delete
 Authentification: (string) apiKey
 Params: (int) rideId
 Response 200 (application/json)
 ```
 
+**Abrufen aller aktiven Anzeigen**
+
 ```
-GET /all
+GET /api/ride/all
 Response 200 (application/json)
 ```
 
-```
-GET /favorites
-Authentification: (string) apiKey
-Response 200 (application/json)
-```
+**Abrufen einer Anzeige**
 
 ```
-POST /user
-Authentification: (string) apiKey
-Response 200 (application/json)
-```
-
-```
-GET /offer
+GET /api/ride/offer
 Params: (int) rideId
 Response 200 (application/json)
 ```
 
+**Abrufen aller aktiven Fahrangebote**
+
 ```
-GET /offers
+GET /api/ride/offers
 Response 200 (application/json)
 ```
 
+**Abrufen aller aktiven Fahrgesuche**
+
 ```
-GET /requests
+GET /api/ride/requests
+Response 200 (application/json)
+```
+
+**Abrufen aller aktiven Anzeigen eines Benutzers**
+
+```
+POST /api/ride/user
+Authentification: (string) apiKey
+Response 200 (application/json)
+```
+
+**Abrufen aller aktiven favorisierten Anzeigen eines Benutzers**
+
+> Dieser Endpoint ist derzeit nicht erreichbar da die Funktion der Favoriten derzeit noch nicht implementiert wurde
+
+```
+GET /api/ride/favorites
+Authentification: (string) apiKey
 Response 200 (application/json)
 ```
