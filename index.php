@@ -145,19 +145,22 @@ Route::add($GLOBALS['apiPath'] . "user/register", function () {
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
 
-Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
 // Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
+//   header('Access-Control-Allow-Origin: *');
+//   header('Content-Type: application/json; charset=utf-8');
+//   $logger = new ApiLogger();
+//   $logger->create($GLOBALS['apiPath'] . "user/verify/".$apiKey, $GLOBALS['clientIp'], $apiKey);
   
-  $user = new User();
-  $verifyResult = $user->verifyKey($apiKey);
-  if($verifyResult['authentificated'] == true) {
-    $userData = $user->get($verifyResult['userId']);
-    echo "Deine E-Mail <strong>".$userData['email']."</strong> wurde bestätigt!";
-    echo(json_encode($user->verify($verifyResult['userId'], JSON_PRETTY_PRINT)));
-  } else {
-    echo "<h1>Der Link ist ungültig!</h1>";
-  }
-}, "GET");
+//   $user = new User();
+//   $verifyResult = $user->verifyKey($apiKey);
+//   if($verifyResult['authentificated'] == true) {
+//     $userData = $user->get($verifyResult['userId']);
+//     echo "Deine E-Mail <strong>".$userData['email']."</strong> wurde bestätigt!";
+//     echo(json_encode($user->verify($verifyResult['userId'], JSON_PRETTY_PRINT)));
+//   } else {
+//     echo "<h1>Der Link ist ungültig!</h1>";
+//   }
+// }, "GET");
 
 Route::add($GLOBALS['apiPath'] . "user/checkCredentials", function () {
   header('Access-Control-Allow-Origin: *');
@@ -448,35 +451,38 @@ Route::add($GLOBALS['apiPath'] . "admin/ride/update", function () {
 /**
  * Places
  */
-Route::add($GLOBALS['apiPath'] . "plz/placesByPlz", function () {
-  header('Access-Control-Allow-Origin: *');
-  header('Content-Type: application/json; charset=utf-8');
-  session_start();
-  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
-  $place = new PLZ();
-  $result = $place->getPlacesByPlz($_GET['plz']);
-  echo(json_encode($result, JSON_PRETTY_PRINT));
-});
+// Route::add($GLOBALS['apiPath'] . "plz/placesByPlz", function () {
+//   header('Access-Control-Allow-Origin: *');
+//   header('Content-Type: application/json; charset=utf-8');
+//   session_start();
+  
+//   $apiKey = getApiKey();
+//   $place = new PLZ();
+//   $result = $place->getPlacesByPlz($_GET['plz']);
+//   echo(json_encode($result, JSON_PRETTY_PRINT));
+// });
 
-Route::add($GLOBALS['apiPath'] . "plz/placeByPlz", function () {
-  header('Access-Control-Allow-Origin: *');
-  header('Content-Type: application/json; charset=utf-8');
-  session_start();
-  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
-  $place = new PLZ();
-  $result = $place->getPlaceByPlz($_GET['plz']);
-  echo(json_encode($result, JSON_PRETTY_PRINT));
-});
+// Route::add($GLOBALS['apiPath'] . "plz/placeByPlz", function () {
+//   header('Access-Control-Allow-Origin: *');
+//   header('Content-Type: application/json; charset=utf-8');
+//   session_start();
+  
+//   $apiKey = getApiKey();
+//   $place = new PLZ();
+//   $result = $place->getPlaceByPlz($_GET['plz']);
+//   echo(json_encode($result, JSON_PRETTY_PRINT));
+// });
 
-Route::add($GLOBALS['apiPath'] . "plz/plzByName", function () {
-  header('Access-Control-Allow-Origin: *');
-  header('Content-Type: application/json; charset=utf-8');
-  session_start();
-  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : null;
-  $place = new PLZ();
-  $result = $place->getPlzByName($_GET['cityName']);
-  echo(json_encode($result, JSON_PRETTY_PRINT));
-});
+// Route::add($GLOBALS['apiPath'] . "plz/plzByName", function () {
+//   header('Access-Control-Allow-Origin: *');
+//   header('Content-Type: application/json; charset=utf-8');
+//   session_start();
+
+//   $apiKey = getApiKey();
+//   $place = new PLZ();
+//   $result = $place->getPlzByName($_GET['cityName']);
+//   echo(json_encode($result, JSON_PRETTY_PRINT));
+// });
 
 /**
  * Ride
@@ -592,29 +598,31 @@ Route::add($GLOBALS['apiPath'] . "ride/all", function () {
   echo(json_encode($allRides, JSON_PRETTY_PRINT));
 }, "GET");
 
-Route::add($GLOBALS['apiPath'] . "ride/favorites", function () {
-  header('Access-Control-Allow-Origin: *');
-  header('Content-Type: application/json; charset=utf-8');
-  session_start();
-  $ride = new Ride();
-  $user = new User();
-  $key = isset($_SESSION['login']) ? $_SESSION['login']['apiKey'] : (isset($_GET['apiKey']) ? $_GET['apiKey'] : null);
-  // Check if the key is set
-  // If no key was set the value equals null
-  if(!is_null($key)) {
-    $verifyResult = $user->verifyKey($key);
-    // Check if the key is valid
-    if($verifyResult) {
-      $userId = $verifyResult['userId'];
-      $allRides = $ride->getFavorites($userId);
-      echo(json_encode($allRides, JSON_PRETTY_PRINT));
-    } else {
-      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
-    }
-  } else {
-    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
-  }
-}, "GET");
+// Route::add($GLOBALS['apiPath'] . "ride/favorites", function () {
+//   header('Access-Control-Allow-Origin: *');
+//   header('Content-Type: application/json; charset=utf-8');
+//   session_start();
+
+//   $ride = new Ride();
+//   $user = new User();
+//   $apiKey = getApiKey();
+
+//   // Check if the key is set
+//   // If no key was set the value equals null
+//   if(!is_null($apiKey)) {
+//     $verifyResult = $user->verifyKey($apiKey);
+//     // Check if the key is valid
+//     if($verifyResult) {
+//       $userId = $verifyResult['userId'];
+//       $allRides = $ride->getFavorites($userId);
+//       echo(json_encode($allRides, JSON_PRETTY_PRINT));
+//     } else {
+//       echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
+//     }
+//   } else {
+//     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+//   }
+// }, "GET");
 
 Route::add($GLOBALS['apiPath'] . "ride/user", function () {
   header('Access-Control-Allow-Origin: *');
