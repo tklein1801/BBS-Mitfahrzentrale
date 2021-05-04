@@ -213,7 +213,9 @@
                       }
 
                       $issues_amount = "";
-                      if ($issuesCount > 0) $isses_amount = '<span class="badge bg-secondary">'.$issuesCount.' Offen</span></p>';
+                      if ($issuesCount > 0) {
+                        $issues_amount = '<span class="badge bg-secondary">'.$issuesCount.' Offen</span></p>';
+                      }
                       $issues = '<p class="fw-bold">Fehler melden: <a href="'.$REPO_ISSUES_URL.'" class="badge bg-orange">Hier</a> ' . $issues_amount;
                       echo '<div class="col-md-5 order-1 order-md-2 mb-3 mb-md-0">
                         <div class="bg-darkblue p-3">
