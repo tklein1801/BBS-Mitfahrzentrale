@@ -12,8 +12,7 @@
 - API-Dokumentation überarbeiten
 - Kleinere Änderungen am Design vorgenommen
 - Ein paar ungenutze API-Endpoints wurden vorübergehend deaktiviert
-- [ ] [DB] Neue datenbank.sql erstellen
-  - Adminaccount erstellen
+- [DB] Neue datenbank.sql erstellen
 - Logs überarbeiten
   - Methode zum erstellen eines Logs in der `index.php`
   - [ ] Logs informativ verbessern
