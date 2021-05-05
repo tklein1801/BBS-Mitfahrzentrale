@@ -84,7 +84,10 @@ class Route {
       }
     }
 
-    $isAnApiRoute = str_contains($parsed_url['path'], "api") && $parsed_url['path'] !== "/api";
+    // Check if the requested path is an RestAPI-endpoint but not the api-documentation website 
+    // If the path contains the word api & have more than 4 characters it should be an real endpoint
+    // $isAnApiRoute = str_contains($parsed_url['path'], "api") && $parsed_url['path'] !== "/api"; Use this for PHP 8.0
+    $isAnApiRoute = strlen($parsed_url['path']) > 4 && substr($parsed_url['path'], 1, 3) == "api";
     // No matching route was found
     if (!$route_match_found) {
       // But a matching path exists
@@ -107,7 +110,7 @@ class Route {
       }
     }
     
-    if($isAnApiRoute) {
+    if($isAnApiRoute && $route_match_found) {
       $logger->createLog($parsed_url['path']);
     } 
   }
