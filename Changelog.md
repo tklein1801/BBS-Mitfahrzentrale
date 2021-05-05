@@ -5,7 +5,7 @@
 #### Hinzugefügt
 
 - [DulliAG Snackbar](https://github.com/DulliAG/Snackbar) für Benutzeraktionen als Feedback eingeführt
-- [ ] Nur bestimme Emailadresse beim Registrieren zulassen
+- Nur bestimme Emailadresse beim Registrieren zulassen
 
 #### Geändert
 

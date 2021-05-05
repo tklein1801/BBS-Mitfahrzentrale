@@ -1,6 +1,17 @@
 <?php
+if (isset($_SERVER['HTTPS_HOST'])) {
+  $host = "https://" . $_SERVER['HTTPS_HOST'] . "/";
+} else {
+  $host = "http://" . $_SERVER['HTTP_HOST'] . "/";
+}
+
 define('BASEPATH', __DIR__."/");
 define('CON_PATH', __DIR__."/endpoints/sql.php");
+define('SETTINGS', array(
+  'host' => $host,
+  'email' => array('bbssoltau.eu', 'bbssoltau.de'),
+  'logo' => $host . 'assets/img/BBS-Soltau-Logo.svg'
+));
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -22,20 +33,11 @@ use DulliAG\API\User;
 use DulliAG\API\Ride;
 // use DulliAG\API\PLZ;
 
-if (isset($_SERVER['HTTPS_HOST'])) {
-  $host = "https://" . $_SERVER['HTTPS_HOST'] . "/";
-} else {
-  $host = "http://" . $_SERVER['HTTP_HOST'] . "/";
-}
-
 // Global variables
 $GLOBALS['apiPath'] = "/api/";
 $GLOBALS['routesPath'] = __DIR__."/routes/";
 $GLOBALS['defBASEPATH'] = get_defined_constants()['BASEPATH'];
-$GLOBALS['settings'] = array(
-  'host' => $host,
-  'logo' => $host . 'assets/img/BBS-Soltau-Logo.svg'
-);
+$GLOBALS['settings'] = get_defined_constants()['SETTINGS'];
 
 // Client variables
 if (isset($_SERVER['HTTP_CLIENT_IP'])) {
