@@ -1,12 +1,8 @@
 <?php
-  use DulliAG\API\User;
   use DulliAG\API\Ride;
+  use DulliAG\API\User;
   $user = new User();
   $ride = new Ride();
-
-  $rideList = $ride->getAll();
-  $rideCount = count($rideList);
-
   $userList = $user->getAll();
   $userCount = count($userList);
   $adminList = array_filter($userList, function ($user) {
@@ -50,6 +46,7 @@
                           <thead>
                             <tr>
                               <th class="text-center">ID</th>
+                              <th class="text-center">Verifiziert</th>
                               <th class="text-center">Rang</th>
                               <th>Name</th>
                               <th>Email</th>
@@ -59,38 +56,46 @@
                           <tbody>
                           <?php
                             if ($userCount > 0) {
-                              foreach ($userList as $user) {
-                                $userOfferList = $ride->getUserOffers($user['userId']);
+                              foreach ($userList as $u) {
+                                $userOfferList = $ride->getUserOffers($u['userId']);
                                 $userOfferCount = count($userOfferList);
                                 if ($userOfferCount < 10) {
                                   $userOfferCount = "0" . $userOfferCount;
                                 }
   
-                                // FIXME Use the $user->isAdmin() method
-                                if ($user['isAdmin'] == 1) {
+                                if ($user->isAdmin($u['userId'])) {
                                   $badge = '<span class="badge bg-orange">Admin<span>';
                                 } else {
                                   $badge = '<span class="badge bg-blue">Benutzer<span>';
                                 }
+
+                                if ($u['verified'] == 1) {
+                                  $verified = '<span class="badge bg-orange">Verifiziert</span>';
+                                } else {
+                                  $verified = '<span class="badge bg-blue">Nicht Verifiziert</span>';
+                                }
   
                                 echo '<tr>
                                   <td>
-                                    <p class="text-white text-center"># '.$user['userId'].'</p>
+                                    <p class="text-white text-center"># '.$u['userId'].'</p>
+                                  </td>
+                                  <td class="text-center">
+                                    '.$verified.'
                                   </td>
                                   <td class="text-center">
                                     '.$badge.'
                                   </td>
                                   <td>
-                                    <p class="text-white">'.$user['name'] .' '. $user['surname'].'</p>
+                                    <p class="text-white">'.$u['name'] .' '. $u['surname'].'</p>
                                   </td>
                                   <td>
-                                    <a href="mailto:'.$user['email'].'">'.$user['email'].'</a>
+                                    <a href="mailto:'.$u['email'].'">'.$u['email'].'</a>
                                   </td>
                                   <td>
-                                    <a href="#" data-user="'.$user['userId'].'" data-bs-toggle="modal" data-bs-target="#user-offer-modal">Anzeigen ('.$userOfferCount.')</a>
+                                    <a href="#" data-user="'.$u['userId'].'" data-bs-toggle="modal" data-bs-target="#user-offer-modal">Anzeigen ('.$userOfferCount.')</a>
                                   </td>
                                   <td class="d-flex justify-content-end">
-                                    <button class="btn btn-outline-orange rounded-0 mr-auto px-3" data-user="'.$user['userId'].'" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
+                                    <button class="btn btn-outline-orange rounded-0 mr-auto px-3" data-user="'.$u['userId'].'" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
                                       <i class="fas fa-user-edit"></i>
                                       Bearbeiten
                                     </button>

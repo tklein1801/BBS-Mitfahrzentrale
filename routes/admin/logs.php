@@ -38,7 +38,7 @@
                           <thead>
                             <tr>
                               <th class="text-center">ID</th>
-                              <th class="text-center">HTTP Statuscode</th>
+                              <th class="text-center">Statuscode</th>
                               <th>Pfad</th>
                               <th>IP-Adresse</th>
                               <th colspan="2">API-Key</th>

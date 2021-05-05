@@ -169,7 +169,7 @@
                                 if ($u['verified'] == 1) {
                                   $badge = '<span class="badge bg-orange">Verifiziert</span>';
                                 } else {
-                                  $badge = '<span class="badge bg-secondary">Unverifiziert</span>';
+                                  $badge = '<span class="badge bg-blue">Nicht Verifiziert</span>';
                                 }
 
                                 echo '<tr>
