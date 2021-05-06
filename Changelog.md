@@ -14,21 +14,22 @@
 - Ein paar ungenutze API-Endpoints wurden vorübergehend deaktiviert
 - [DB] Neue datenbank.sql erstellen
 - Logs überarbeiten
-  - Methode zum erstellen eines Logs in der `index.php`
-  - [ ] Logs informativ verbessern
+  - Methode zum erstellen eines Logs in der `index.php` verwenden
+  - Statuscode speichern
+  - Nur noch Rest-API werden geloggt
 - Adminbereich umstrukturiert
   - Neues Layout
-  - Bereiche gliedern
-  - Performance verbessern
-  - [ ] Suchleiste einbauen
-- PHP-Komponenten überarbeitet & erweitert
-  - [ ] Neue Komponenten erstellt
-  - [ ] HTML-Scripte werden automatisch mit importiert
+    - Sidebar auf kleineren Desktopgeräten angepasst
+  - Bereiche aufgeteilt
+  - Performance verbessert
+  - Suchleiste einbauen _(Mittels Stichwörter nach bestimmten Anzeigen oder Benutzern suchen)_
+- [PHP] Prüfen des abgefragten Pfads abwärtskompatibel gemacht
+- PHP-Komponenten für den Adminbereich erstellt _(Um die mehrfache Nutzung gleicher HTML-Strukturen zu erleichtern)_
 
 #### Entfernt
 
+- Ehemaliger Adminbereich wurde entfernt
 - [PHP] Nested-Statements entfernt um 8.0 kompatibel zu machen
-- [ ] **Können wir die Admin-Endpoints entfernen und die normalen Endpoints verwenden falls dieser von einem Admin abgerufen wird?**
 
 ---
 
