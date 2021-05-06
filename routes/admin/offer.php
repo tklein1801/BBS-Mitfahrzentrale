@@ -100,102 +100,12 @@
 
     <?php 
       require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/editOfferModal.php";
+      require_once get_defined_constants()['BASEPATH'] . "assets/php/scripts.php";
     ?>
+    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>    
+    <script>
+      document.querySelector(".sidebar #offers").classList.add("active");
 
-    <!-- BootstrapJS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/ApiHandler.js" ?>"></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/snackbar.js" ?>"></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>    <script>
-      sidebar.querySelector("#offers").classList.add("active");
-      
-      const AdminAPI = new Admin();
-      const UserAPI = new User();
-      const editOfferModal = document.querySelector("#edit-offer-modal");
-      const editOfferForm = editOfferModal.querySelector("form");
-      const signOutBtn = document.querySelector(".navbar #signOut");
-
-      signOutBtn.addEventListener("click", function () {
-        UserAPI.destroySession().then(() => {
-          window.location.href = window.location.origin + "/Anmelden";
-        }).catch(err => console.error(err));
-      });
-
-      editOfferModal.addEventListener("show.bs.modal", function (e) {
-        const trigger = e.relatedTarget;
-        const rideId = trigger.getAttribute("data-ride");
-        
-        AdminAPI
-          .getOffer(rideId)
-          .then((data) => {
-            var startAt = new Date(parseInt(data.startAt) * 1000);
-            startAt.setMinutes(startAt.getMinutes() - startAt.getTimezoneOffset());
-            editOfferModal.querySelector("#offer").value = data.rideId;
-            editOfferModal.querySelector("#title").value = data.title;
-            editOfferModal.querySelector("#type").value = data.driver;
-            editOfferModal.querySelector("#information").value = data.information;
-            editOfferModal.querySelector("#price").value = data.price;
-            editOfferModal.querySelector("#seats").value = data.seats;
-            editOfferModal.querySelector("#start-at").value = startAt.toISOString().slice(0, 16);
-            editOfferModal.querySelector("#start-plz").value = data.startPlz;
-            editOfferModal.querySelector("#start-city").value = data.startCity;
-            editOfferModal.querySelector("#start-adress").value = data.startAdress;
-            editOfferModal.querySelector("#destination-plz").value = data.destinationPlz;
-            editOfferModal.querySelector("#destination-city").value = data.destinationCity;
-            editOfferModal.querySelector("#destination-adress").value = data.destinationAdress;
-          })
-          .catch((err) => console.error(err));
-      });
-
-      editOfferForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var rideId = editOfferForm.querySelector("#offer").value;
-        var title = editOfferForm.querySelector("#title").value;
-        var type = editOfferForm.querySelector("#type").value;
-        var information = editOfferForm.querySelector("#information").value;
-        var price = editOfferForm.querySelector("#price").value;
-        var seats = editOfferForm.querySelector("#seats").value;
-        var startAtDate = editOfferForm.querySelector("#start-at").value;
-        var startAt = Date.parse(startAtDate) / 1000; // bcause we wan't timestamp in seconds not in millis
-        var startPlz = editOfferForm.querySelector("#start-plz").value;
-        var startCity = editOfferForm.querySelector("#start-city").value;
-        var startAdress = editOfferForm.querySelector("#start-adress").value;
-        var destinationPlz = editOfferForm.querySelector("#destination-plz").value;
-        var destinationCity = editOfferForm.querySelector("#destination-city").value;
-        var destinationAdress = editOfferForm.querySelector("#destination-adress").value;
-
-        AdminAPI
-          .updateOffer(
-            rideId,
-            title,
-            information,
-            price,
-            seats,
-            startAt,
-            startPlz,
-            startCity,
-            startAdress,
-            destinationPlz,
-            destinationCity,
-            destinationAdress
-          )
-          .then((result) => {
-            if (result.error == null) {
-              new Snackbar("Die Änderungen wurden gespeichert!").success();
-              setTimeout(() => {
-                window.location.reload();
-              }, 500);
-            } else {
-              new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
-              console.error(result.error);
-            }
-          })
-          .catch((err) => console.error(err));
-      });
 
       editOfferModal.addEventListener("hide.bs.modal", function (e) {
         editOfferModal.querySelector("form").reset();

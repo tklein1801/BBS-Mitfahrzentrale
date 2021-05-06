@@ -74,3 +74,63 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var admin = new Admin();
+  var editUserModal = document.querySelector("#edit-user-modal");
+  var editUserForm = editUserModal.querySelector("form");
+
+  editUserModal.addEventListener("show.bs.modal", function (e) {
+    const trigger = e.relatedTarget;
+    const userId = trigger.getAttribute("data-user");
+
+    admin
+      .getUser(userId)
+      .then((data) => {
+        var userId = editUserForm.querySelector("#user").value = data.userId;
+        var isAdmin = editUserForm.querySelector("#admin").value = data.isAdmin;
+        var isVerified = editUserForm.querySelector("#verified").value = data.verified;
+        var name = editUserForm.querySelector("#name").value = data.name;
+        var surname = editUserForm.querySelector("#surname").value = data.surname;
+        var email = editUserForm.querySelector("#email").value = data.email;
+        var phone = editUserForm.querySelector("#phone").value = data.telNumber;
+        var key = editUserForm.querySelector("#key").value = data.apiKey;
+      })
+      .then(() => {
+        editUserForm.addEventListener("submit", function (fe) {
+          fe.preventDefault();
+          var userId = editUserForm.querySelector("#user").value;
+          var isAdmin = editUserForm.querySelector("#admin").value;
+          var isVerified = editUserForm.querySelector("#verified").value;
+          var name = editUserForm.querySelector("#name").value;
+          var surname = editUserForm.querySelector("#surname").value;
+          var email = editUserForm.querySelector("#email").value;
+          var password = editUserForm.querySelector("#password").value; 
+          password !== "" ? password : null
+          var phone = editUserForm.querySelector("#phone").value;
+
+          admin
+            .updateUser(userId, isVerified, isAdmin, name, surname, email, phone, password !== "" ? password : null)
+            .then((result) => {
+                  
+              if (result.error == null) {
+                new Snackbar("Die Änderungen wurden gespeichert!").success();
+                setTimeout(() => {
+                  window.location.reload(); // Reload the website to refresh the table content
+                }, 500);
+              } else {
+                new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
+                console.error(result.error);
+              }
+            })
+            .catch((err) => console.error(err));
+        });
+      })
+      .catch((err) => console.error(err));
+          
+  });
+
+  editUserModal.addEventListener("hide.bs.modal", function (e) {
+    editUserForm.reset();
+  });
+</script>

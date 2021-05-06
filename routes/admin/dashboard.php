@@ -243,91 +243,13 @@
       </main>
     </div>
 
-    <?php require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/editUserModal.php"; ?>
-
-    <!-- PopperJS -->
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- BootstrapJS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/ApiHandler.js" ?>"></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/snackbar.js" ?>"></script>
+    <?php 
+      require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/editUserModal.php"; 
+      require_once get_defined_constants()['BASEPATH'] . "assets/php/scripts.php";
+    ?>
     <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>
     <script>
-      sidebar.querySelector("#dashboard").classList.add("active");
-      
-      const UserAPI = new User();
-      const AdminAPI = new Admin();
-      const editUserModal = document.querySelector("#edit-user-modal");
-      const editUserForm = editUserModal.querySelector("form");
-      const signOutBtn = document.querySelector(".navbar #signOut");
-
-      signOutBtn.addEventListener("click", function () {
-        UserAPI.destroySession().then(() => {
-          window.location.href = window.location.origin + "/Anmelden";
-        }).catch(err => console.error(err));
-      });
-
-      editUserModal.addEventListener("show.bs.modal", function (e) {
-        const trigger = e.relatedTarget;
-        const userId = trigger.getAttribute("data-user");
-
-        AdminAPI
-          .getUser(userId)
-          .then((data) => {
-            var userId = editUserForm.querySelector("#user").value = data.userId;
-            var isAdmin = editUserForm.querySelector("#admin").value = data.isAdmin;
-            var isVerified = editUserForm.querySelector("#verified").value = data.verified;
-            var name = editUserForm.querySelector("#name").value = data.name;
-            var surname = editUserForm.querySelector("#surname").value = data.surname;
-            var email = editUserForm.querySelector("#email").value = data.email;
-            var phone = editUserForm.querySelector("#phone").value = data.telNumber;
-            var key = editUserForm.querySelector("#key").value = data.apiKey;
-          })
-          .then(() => {
-            editUserForm.addEventListener("submit", function (fe) {
-              fe.preventDefault();
-              var userId = editUserForm.querySelector("#user").value;
-              var isAdmin = editUserForm.querySelector("#admin").value;
-              var isVerified = editUserForm.querySelector("#verified").value;
-              var name = editUserForm.querySelector("#name").value;
-              var surname = editUserForm.querySelector("#surname").value;
-              var email = editUserForm.querySelector("#email").value;
-              var password = editUserForm.querySelector("#password").value; 
-              password !== "" ? password : null
-              var phone = editUserForm.querySelector("#phone").value;
-
-              AdminAPI
-                .updateUser(userId, isVerified, isAdmin, name, surname, email, phone, password !== "" ? password : null)
-                .then((result) => {
-                  
-                  if (result.error == null) {
-                    new Snackbar("Die Änderungen wurden gespeichert!").success();
-                    setTimeout(() => {
-                      window.location.reload(); // Reload the website to refresh the table content
-                    }, 500);
-                  } else {
-                    new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
-                    console.error(result.error);
-                  }
-                })
-                .catch((err) => console.error(err));
-            });
-          })
-          .catch((err) => console.error(err));
-          
-      });
-
-      editUserModal.addEventListener("hide.bs.modal", function (e) {
-        editUserForm.reset();
-      });
+      document.querySelector(".sidebar #dashboard").classList.add("active");
     </script>
   </body>
 </html>

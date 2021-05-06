@@ -94,27 +94,11 @@
         </section>
       </main>
     </div>
-
-    <!-- BootstrapJS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/ApiHandler.js" ?>"></script>
-    <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/snackbar.js" ?>"></script>
+    
+    <?php require_once get_defined_constants()['BASEPATH'] . "assets/php/scripts.php"; ?>
     <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>      
     <script>
-      sidebar.querySelector("#logs").classList.add("active");
-
-      const UserAPI = new User();
-      const signOutBtn = document.querySelector(".navbar #signOut");
-
-      signOutBtn.addEventListener("click", function () {
-        UserAPI.destroySession().then(() => {
-          window.location.href = window.location.origin + "/Anmelden";
-        }).catch(err => console.error(err));
-      });
+      document.querySelector(".sidebar #logs").classList.add("active");
     </script>
   </body>
 </html>
