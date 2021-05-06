@@ -15,7 +15,7 @@ body {
 
   &.full {
     .sidebar {
-      margin-left: -15%;
+      margin-left: -$sidebarWidth;
     }
 
     .main {
@@ -26,12 +26,12 @@ body {
 
 .sidebar {
   transition: 100ms linear;
-  width: 15%;
+  width: $sidebarWidth;
   min-height: 100%;
-  background: $blueDark;
+  background-color: $blueDark;
 
   .logo {
-    width: 80%;
+    width: $sidebarMobileWidth;
     height: auto;
     margin: 10% 10%;
   }
@@ -68,7 +68,7 @@ body {
 
 .main {
   transition: 100ms linear;
-  width: calc(100% - 15%);
+  width: 100% - $sidebarWidth;
   min-height: 100%;
 }
 
@@ -93,23 +93,37 @@ body {
   }
 }
 
+@media (max-width: $br3xl) {
+  .wrapper.full .sidebar {
+    margin-left: -$sidebarSmallerWidth;
+  }
+
+  .sidebar {
+    width: $sidebarSmallerWidth;
+  }
+
+  .main {
+    width: 100% - $sidebarSmallerWidth;
+  }
+}
+
 @media (max-width: $brXs) {
   .wrapper {
     transition: transform 100ms linear;
     flex-wrap: nowrap;
     &.full {
       position: fixed;
-      transform: translateX(80%);
+      transform: translateX($sidebarMobileWidth);
 
       .sidebar {
-        margin-left: -80%;
+        margin-left: -$sidebarMobileWidth;
       }
     }
   }
 
   .sidebar {
-    width: 80%;
-    margin-left: -80%;
+    width: $sidebarMobileWidth;
+    margin-left: -$sidebarMobileWidth;
   }
 
   .main {

@@ -33,7 +33,7 @@ body {
   transition: 100ms linear;
   width: 15%;
   min-height: 100%;
-  background: #023846;
+  background-color: #023846;
 }
 
 .sidebar .logo {
@@ -74,7 +74,7 @@ body {
 .main {
   -webkit-transition: 100ms linear;
   transition: 100ms linear;
-  width: calc(100% - 15%);
+  width: 85%;
   min-height: 100%;
 }
 
@@ -111,6 +111,18 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+@media (max-width: 1600px) {
+  .wrapper.full .sidebar {
+    margin-left: -20%;
+  }
+  .sidebar {
+    width: 20%;
+  }
+  .main {
+    width: 80%;
+  }
 }
 
 @media (max-width: 576px) {
