@@ -326,6 +326,11 @@ table tr td {
   background-color: transparent;
 }
 
+.input-group.search-table {
+  width: 30%;
+  margin-left: calc(100% - 30%);
+}
+
 .input-group .form-control {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -457,6 +462,10 @@ table tr td {
 }
 
 @media (max-width: 576px) {
+  .input-group.search-table {
+    width: 100%;
+    margin-left: 0;
+  }
   .footer .grid-container {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);

@@ -43,6 +43,13 @@
                   <div class="col-md-12 mb-3 mb-md-0">
                     <!-- <h3 class="mb-2">Benutzer</h3> -->
                     <div class="p-3 bg-darkblue">
+                      <div class="input-group search-table mb-2">
+                        <input type="text" id="search-user" class="form-control" placeholder="Benutzer suchen" />
+                        <button type="button" class="btn px-3" disabled>
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+
                       <div class="table-responsive">
                         <table class="table text-white mb-0">
                           <thead>
@@ -134,6 +141,28 @@
     ?>
     <script type="text/javascript" src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>    
     <script>
+      document.querySelector(".sidebar #user").classList.add("active");
+
+      var searchUserInput = document.querySelector(".wrapper section #search-user");
+      searchUserInput.addEventListener("keyup", function (e) {
+        let tableItems = document.querySelectorAll(".wrapper table tbody tr");
+        let rowAmount = tableItems.length;
+        let keyword = this.value.toLowerCase();
+
+        if (keyword !== "" && rowAmount > 0) {
+          tableItems.forEach((row) => {
+            let name = row.querySelector("td:nth-child(4) > p").innerText.toLowerCase();
+            let email = row.querySelector("td:nth-child(5) > a").innerText.toLowerCase();
+            let match = email.includes(keyword) || name.includes(keyword);
+            
+            if (!match) row.classList.add("d-none");
+          });
+        } else {
+          let hiddenRows = document.querySelectorAll(".wrapper table tbody tr.d-none");
+          hiddenRows.forEach((row) => {
+            row.classList.remove("d-none");
+          });
+        }
       });
     </script>
   </body>

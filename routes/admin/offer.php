@@ -43,6 +43,13 @@
                   <div class="col-md-12 mb-3 mb-md-0">
                     <!-- <h3 class="mb-2">Aktive Anzeigen</h3> -->
                     <div class="p-3 bg-darkblue">
+                      <div class="input-group search-table mb-2">
+                        <input type="text" id="search-offer" class="form-control" placeholder="Anzeige suchen" />
+                        <button type="button" class="btn px-3" disabled>
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+
                       <div class="table-responsive">
                         <table class="table text-white mb-0">
                           <thead>
@@ -106,9 +113,27 @@
     <script>
       document.querySelector(".sidebar #offers").classList.add("active");
 
+      var searchOfferInput = document.querySelector(".wrapper section #search-offer");
+      searchOfferInput.addEventListener("keyup", function (e) {
+        let tableItems = document.querySelectorAll(".wrapper table tbody tr");
+        let rowAmount = tableItems.length;
+        let keyword = this.value.toLowerCase();
 
-      editOfferModal.addEventListener("hide.bs.modal", function (e) {
-        editOfferModal.querySelector("form").reset();
+        if (keyword !== "" && rowAmount > 0) {
+          tableItems.forEach((row) => {
+            let title = row.querySelector("td:nth-child(2) > p").innerText.toLowerCase();
+            let creatorName = row.querySelector("td:nth-child(3) > p").innerText.toLowerCase();
+            let creatorEmail = row.querySelector("td:nth-child(3) > p > a").innerText.toLowerCase();
+            let match = title.includes(keyword) || creatorName.includes(keyword) || creatorEmail.includes(keyword);
+            
+            if (!match) row.classList.add("d-none");
+          });
+        } else {
+          let hiddenRows = document.querySelectorAll(".wrapper table tbody tr.d-none");
+          hiddenRows.forEach((row) => {
+            row.classList.remove("d-none");
+          });
+        }
       });
     </script>
   </body>
