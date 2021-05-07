@@ -40,6 +40,13 @@
               <div>
 
                 <div class="row">
+                  <div class="col-12 mb-3">
+                    <div class="callout">
+                      <h5 class="callout-title">Anzeigen suchen</h5>
+                      <p class="callout-text">Sie können Anzeigen nach Titel, Name des Erstellers sowie der Email des Erstellers filtern!</p>
+                    </div>
+                  </div>
+
                   <div class="col-md-12 mb-3 mb-md-0">
                     <!-- <h3 class="mb-2">Aktive Anzeigen</h3> -->
                     <div class="p-3 bg-darkblue">

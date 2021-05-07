@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top">
+<nav class="navbar admin-navbar">
   <button type="button" class="navbar-toggler hamburger border-0">
     <span class="navbar-toggler-icon"></span></button
   ><!-- ./hamburger-->

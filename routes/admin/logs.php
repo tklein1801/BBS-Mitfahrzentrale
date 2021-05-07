@@ -30,7 +30,7 @@
             <div class="col-12 mb-3">
               <div>
                 <div class="row">
-                  <div class="col-md-7 mb-3 mb-md-0">
+                  <div class="col-md-8 mb-3 mb-md-0">
                     <!-- <h3 class="mb-2">Logs</h3> -->
                     <div class="p-3 bg-darkblue">
                       <div class="table-responsive">

@@ -599,6 +599,16 @@ hr.divider:after {
   }
 }
 
+.callout {
+  padding: 1rem;
+  border-left: 4px solid #e27a00;
+  background-color: #023846;
+}
+
+.callout .callout-title {
+  font-size: 1.2rem;
+}
+
 .profile-container {
   background-color: #023846;
 }
