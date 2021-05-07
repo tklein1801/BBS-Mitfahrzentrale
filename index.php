@@ -1,9 +1,10 @@
 <?php
-if (isset($_SERVER['HTTPS_HOST'])) {
-  $host = "https://" . $_SERVER['HTTPS_HOST'] . "/";
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === "on") {
+  $host = "https://";
 } else {
-  $host = "http://" . $_SERVER['HTTP_HOST'] . "/";
+  $host = "http://";
 }
+$host.= $_SERVER['HTTP_HOST']."/";
 
 define('BASEPATH', __DIR__."/");
 define('CON_PATH', __DIR__."/endpoints/sql.php");
