@@ -48,6 +48,6 @@
   integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
   crossorigin="anonymous"
 ></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['settings']['host'] . "assets/js/ApiHandler.js" ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['settings']['host'] . "assets/js/snackbar.js" ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sort.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $url . "assets/js/ApiHandler.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $url . "assets/js/snackbar.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $url . "assets/js/sort.js" ?>"></script>
