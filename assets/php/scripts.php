@@ -1,9 +1,10 @@
 <script>
-  var navbar = document.querySelector(".main-navbar");
-  window.addEventListener("scroll", () => {
-    const scrollOffset = window.scrollY;
-    scrollOffset >= 1 ? navbar.classList.add("scrolled") : navbar.classList.remove("scrolled");
-  });
+  if (document.querySelector(".main-navbar") !== null) {
+    window.addEventListener("scroll", () => {
+      const scrollOffset = window.scrollY;
+      scrollOffset >= 1 ? document.querySelector(".main-navbar").classList.add("scrolled") : document.querySelector(".main-navbar").classList.remove("scrolled");
+    });
+  }
 
   var UserAPI = new User();
   var signOutBtn = document.querySelector(".navbar #signOut");
