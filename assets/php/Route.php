@@ -3,12 +3,14 @@ require_once  get_defined_constants()['BASEPATH'] . "assets/php/ApiLogger.php";
 
 use DulliAG\System\ApiLogger;
 
-class Route {
+class Route 
+{
   private static $routes = Array();
   private static $pathNotFound = null;
   private static $methodNotAllowed = null;
 
-  public static function add($expression, $function, $method = 'GET') {
+  public static function add($expression, $function, $method = 'GET') 
+  {
     array_push(self::$routes,Array(
       'expression' => $expression,
       'function' => $function,
@@ -16,19 +18,23 @@ class Route {
     ));
   }
 
-  public static function getAll() {
+  public static function getAll() 
+  {
     return self::$routes;
   }
 
-  public static function pathNotFound($function)  {
+  public static function pathNotFound($function)
+  {
     self::$pathNotFound = $function;
   }
 
-  public static function methodNotAllowed($function)  {
+  public static function methodNotAllowed($function)
+  {
     self::$methodNotAllowed = $function;
   }
 
-  public static function run($basepath = '/') {
+  public static function run($basepath = '/')
+  {
     $logger = new ApiLogger();
     // Parse current url
     $parsed_url = parse_url($_SERVER['REQUEST_URI']);//Parse Uri
@@ -50,7 +56,7 @@ class Route {
       // If the method matches check the path
 
       // Add basepath to matching string
-      if ($basepath!=''&&$basepath!='/') {
+      if ($basepath != '' && $basepath != '/') {
         $route['expression'] = '('.$basepath.')'.$route['expression'];
       }
 
@@ -63,14 +69,14 @@ class Route {
       // echo $route['expression'].'<br/>';
 
       // Check path match	
-      if (preg_match('#'.$route['expression'].'#',$path,$matches)) {
+      if (preg_match('#'.$route['expression'].'#', $path, $matches)) {
         $path_match_found = true;
 
         // Check method match
         if (strtolower($method) == strtolower($route['method'])) {
           array_shift($matches);// Always remove first element. This contains the whole string
 
-          if ($basepath!=''&&$basepath!='/') {
+          if ($basepath != '' && $basepath != '/') {
             array_shift($matches);// Remove basepath
           }
 
@@ -86,7 +92,7 @@ class Route {
 
     // Check if the requested path is an RestAPI-endpoint but not the api-documentation website 
     // If the path contains the word api & have more than 4 characters it should be an real endpoint
-    // $isAnApiRoute = str_contains($parsed_url['path'], "api") && $parsed_url['path'] !== "/api"; Use this for PHP 8.0
+    // $isAnApiRoute = str_contains($parsed_url['path'], "api") && $parsed_url['path'] !== "/api"; Only works on PHP 8.0+
     $isAnApiRoute = strlen($parsed_url['path']) > 4 && substr($parsed_url['path'], 1, 3) == "api";
     // No matching route was found
     if (!$route_match_found) {
@@ -110,7 +116,7 @@ class Route {
       }
     }
     
-    if($isAnApiRoute && $route_match_found) {
+    if ($isAnApiRoute) {
       $logger->createLog($parsed_url['path']);
     } 
   }
