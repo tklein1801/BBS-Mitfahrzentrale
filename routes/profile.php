@@ -9,7 +9,7 @@
   $avatarUrl = $user->getAvatarUrl($userData['name']);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <?php require_once "assets/php/header.php"; ?>
     <title>BBS-Mitfahrzentrale • Profil</title>  
@@ -297,7 +297,8 @@
               form.phone.toggleAttribute("readonly", true);
               form.password.toggleAttribute("readonly", true);
               buttons.edit.classList.remove("d-none");
-              profileContianer.querySelector(".btn-group").classList.add("d-none");       
+              profileContianer.querySelector(".btn-group").classList.add("d-none");
+              new Snackbar("Die Änderungen wurden gespeichert!").success();
             })
             .catch((err) => console.error(err));
         }

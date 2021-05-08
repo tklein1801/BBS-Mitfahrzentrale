@@ -112,7 +112,8 @@ class Ride
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
                           INNER JOIN cshare_favorites ON cshare_rides.rideId = cshare_favorites.rideId
-                          WHERE cshare_favorites.userId = '".$userId."' ORDER BY cshare_rides.createdAt DESC");
+                          WHERE cshare_favorites.userId = '".$userId."' 
+                          ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr[] = $data;
     }
@@ -171,7 +172,8 @@ class Ride
     $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
-                          WHERE cshare_rides.rideId = '".$rideId."' ORDER BY cshare_rides.createdAt DESC");
+                          WHERE cshare_rides.rideId = '".$rideId."' 
+                          ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr = $data;
     }
@@ -190,7 +192,8 @@ class Ride
     $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
-                          WHERE cshare_rides.startAt >= '".$now."' ORDER BY cshare_rides.createdAt DESC");
+                          WHERE cshare_rides.startAt >= '".$now."' 
+                          ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr[] = $data;
     }
@@ -209,7 +212,8 @@ class Ride
     $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
-                          WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '1' ORDER BY cshare_rides.createdAt DESC");
+                          WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '1' 
+                          ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr[] = $data;
     }
@@ -228,7 +232,8 @@ class Ride
     $select = $con->query("SELECT cshare_rides.rideId, cshare_rides.creatorId, cshare_rides.driver, cshare_rides.title, cshare_rides.information, cshare_rides.price, cshare_rides.seats, cshare_rides.startAt, cshare_rides.startPlz, cshare_rides.startCity, cshare_rides.startAdress, cshare_rides.destinationPlz, cshare_rides.destinationCity, cshare_rides.destinationAdress, cshare_rides.createdAt, cshare_user.isAdmin, cshare_user.name, cshare_user.surname, cshare_user.email, cshare_user.telNumber 
                           FROM cshare_rides
                           INNER JOIN cshare_user ON cshare_rides.creatorId = cshare_user.userId
-                          WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '0' ORDER BY cshare_rides.createdAt DESC");
+                          WHERE cshare_rides.startAt >= '".$now."' AND cshare_rides.driver = '0' 
+                          ORDER BY cshare_rides.createdAt DESC");
     while ($data = $select->fetch_assoc()) {
       $arr[] = $data;
     }

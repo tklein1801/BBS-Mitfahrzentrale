@@ -5,7 +5,8 @@
 1. [Allgemeines](#allgemeines)
 2. [Bedienungsanleitung](#page_facing_up-bedienungsanleitung)
 3. [Installation](#wrench-installation)
-4. [Umgesetzt mithilfe von](#link-umgesetzt-mithilfe-von)
+4. [Entwicklerinformationen]()
+5. [Umgesetzt mithilfe von](#link-umgesetzt-mithilfe-von)
 
 ---
 
@@ -48,6 +49,10 @@ _Eine bebilderte Installationsanleitung findest du [hier](./assets/doc/Installie
    _(Die Zeitzone beim Download beträgt automatisch 'Europe/Berlin' und muss nur angepasst werden wenn man sich in einer anderen Zeitzone befindet.)_
 
 **Nun sollte die Anwendung erreichbar sein und die Nutzer sollten sich registrieren können.**
+
+---
+
+## :construction_worker: Entwicklerinformationen
 
 ---
 

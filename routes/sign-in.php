@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <?php require_once "assets/php/header.php"; ?>
     <title>BBS-Mitfahrzentrale • Anmelden</title>
@@ -40,12 +40,6 @@
       </div>
     </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./assets/js/ApiHandler.js"></script>
     <script>
       const UserAPI = new User();
       const form = document.querySelector("body #signInForm"),
@@ -66,8 +60,11 @@
             // Check if we received an error from our RestAPI
             if (result.error == null) {
               // Everything should be fine...
+              new Snackbar("Du wurdest angemeldet!").success();
               // Redriect the user to the application
-              window.location.href = "../Anzeigen";
+              setTimeout(() => {
+                window.location.href = "../Anzeigen";
+              }, 500);
             } else {
               // Something went wrong
               const error = result.error;
@@ -75,12 +72,14 @@
                 case "auth/password-invalid":
                   password.classList.add("is-invalid");
                   form.querySelector("#validationPassword").innerHTML = "Das Passwort ist falsch!";
+                  new Snackbar("Das Passwort ist falsch!").error();
                   break;
 
                 case "auth/user-not-found":
                   email.classList.add("is-invalid");
                   form.querySelector("#validationEmail").innerHTML =
                     "Der Benutzer konnte nicht gefunden werden!";
+                  new Snackbar("Der Benutzer konnte nicht gefunden werden!").error();
                   break;
               }
             }

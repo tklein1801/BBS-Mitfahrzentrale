@@ -26,6 +26,18 @@ body ::selection {
   width: 100%;
   min-height: 100%;
 }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+  background-color: $blue;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $blueDark;
+  border-radius: $borderRadius;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: $orange;
+}
 
 // Typography
 h1,
@@ -194,6 +206,10 @@ table {
   }
 }
 .input-group {
+  &.search-table {
+    width: 30%;
+    margin-left: calc(100% - 30%);
+  }
   .form-control {
     transition: 200ms;
     border-right-width: 0px;
@@ -306,7 +322,13 @@ table {
     }
   }
 }
+
 @media (max-width: $brXs) {
+  .input-group.search-table {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .footer .grid-container {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 1rem;
@@ -431,6 +453,16 @@ hr.divider {
 
   .offer-card .col-md-3 .card-body {
     padding-top: 0;
+  }
+}
+
+// Callout
+.callout {
+  padding: 1rem;
+  border-left: 4px solid $orange;
+  background-color: $blueDark;
+  .callout-title {
+    font-size: 1.2rem;
   }
 }
 

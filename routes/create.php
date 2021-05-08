@@ -4,7 +4,7 @@
   $ride = new Ride();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <?php require_once "assets/php/header.php"; ?>
     <title>BBS-Mitfahrzentrale • Anzeige erstellen</title>
@@ -16,14 +16,6 @@
       <section class="mx-2 mx-md-4">
         <div class="container py-4">
           <div class="row">
-            <div id="sidebar-column" class="col-md-3 col-12 d-none">
-              <div class="bg-blue p-3">
-                <form>
-                  <img class="w-25" src="https://files.dulliag.de/share/Blobbo.png" alt="User avatar" />
-                </form>
-              </div>
-            </div>
-            <!-- ./sidebar -->
 
             <div id="main-column" class="col-md-12 col-12 p-0">
               <div class="bg-darkblue p-3">
@@ -214,7 +206,10 @@
         RideAPI
           .create(type, title, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
-            window.location.href = window.location.origin + "/Anzeigen";
+            new Snackbar("Die Anzeige wurde erstellt!").success();
+            setTimeout(() => {
+              window.location.href = window.location.origin + "/Anzeigen";
+            }, 500);
           })
           .catch((err) => console.error(err));
       });

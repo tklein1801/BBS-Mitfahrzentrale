@@ -108,6 +108,21 @@ body ::selection {
   min-height: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+  background-color: #004253;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #023846;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e27a00;
+}
+
 h1,
 h2,
 h3,
@@ -311,6 +326,11 @@ table tr td {
   background-color: transparent;
 }
 
+.input-group.search-table {
+  width: 30%;
+  margin-left: calc(100% - 30%);
+}
+
 .input-group .form-control {
   -webkit-transition: 200ms;
   transition: 200ms;
@@ -442,6 +462,10 @@ table tr td {
 }
 
 @media (max-width: 576px) {
+  .input-group.search-table {
+    width: 100%;
+    margin-left: 0;
+  }
   .footer .grid-container {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
@@ -573,6 +597,16 @@ hr.divider:after {
   .offer-card .col-md-3 .card-body {
     padding-top: 0;
   }
+}
+
+.callout {
+  padding: 1rem;
+  border-left: 4px solid #e27a00;
+  background-color: #023846;
+}
+
+.callout .callout-title {
+  font-size: 1.2rem;
 }
 
 .profile-container {

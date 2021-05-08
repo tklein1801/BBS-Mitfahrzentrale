@@ -1,5 +1,38 @@
 ## Changelogs
 
+### [BBS-Mitfahrzentrale v0.4-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.4-pre)
+
+#### Hinzugefügt
+
+- [DulliAG Snackbar](https://github.com/DulliAG/Snackbar) für Benutzeraktionen als Feedback eingeführt
+- Nur bestimme Emailadresse beim Registrieren zulassen
+
+#### Geändert
+
+- API-Dokumentation überarbeiten
+- Kleinere Änderungen am Design vorgenommen
+- Ein paar ungenutze API-Endpoints wurden vorübergehend deaktiviert
+- [DB] Neue datenbank.sql erstellen
+- Logs überarbeiten
+  - Methode zum erstellen eines Logs in der `index.php` verwenden
+  - Statuscode speichern
+  - Nur noch Rest-API werden geloggt
+- Adminbereich umstrukturiert
+  - Neues Layout
+    - Sidebar auf kleineren Desktopgeräten angepasst
+  - Bereiche aufgeteilt
+  - Performance verbessert
+  - Suchleiste einbauen _(Mittels Stichwörter nach bestimmten Anzeigen oder Benutzern suchen)_
+- [PHP] Prüfen des abgefragten Pfads abwärtskompatibel gemacht
+- PHP-Komponenten für den Adminbereich erstellt _(Um die mehrfache Nutzung gleicher HTML-Strukturen zu erleichtern)_
+
+#### Entfernt
+
+- Ehemaliger Adminbereich wurde entfernt
+- [PHP] Nested-Statements entfernt um 8.0 kompatibel zu machen
+
+---
+
 ### [BBS-Mitfahrzentrale v0.3-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.3-pre)
 
 #### Hinzugefügt
