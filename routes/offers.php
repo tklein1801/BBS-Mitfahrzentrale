@@ -34,6 +34,10 @@
       <section class="mx-2 mx-md-4">
         <div class="container py-4">
           <div class="row">
+            <div class="col-12 mb-3 px-0">
+              <?php require_once get_defined_constants()['COMPONENTS']['not-verified']; ?>
+            </div>
+
             <div class="col-12 mb-3" style="padding-left: 0; padding-right: 0">
               <div
                 class="search-container p-3"

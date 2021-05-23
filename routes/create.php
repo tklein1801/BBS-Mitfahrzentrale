@@ -17,6 +17,10 @@
         <div class="container py-4">
           <div class="row">
 
+            <div class="col-12 mb-3 px-0">
+              <?php require_once get_defined_constants()['COMPONENTS']['not-verified']; ?>
+            </div>
+
             <div id="main-column" class="col-md-12 col-12 p-0">
               <div class="bg-darkblue p-3">
                 <h3 class="text-white">Anzeige erstellen</h3>

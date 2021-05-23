@@ -9,11 +9,6 @@ class User
   public $size = 16;
   public $avatar = array('size' => 256, 'backgroundColor' => '023846', 'color' => 'e27a00');
 
-  public function getAvatarUrl(string $username)
-  {
-    return "https://eu.ui-avatars.com/api/?name=".$username."&size=".$this->avatar['size']."&background=".$this->avatar['backgroundColor']."&color=".$this->avatar['color']."";
-  }
-
   public function register(string $name, string $surname, string $email, string $password, string $telNumber)
   {
     require get_defined_constants()['CON_PATH'];
@@ -46,30 +41,39 @@ class User
     $con->close();
   }
 
-  /** 
-   * Validate an email adress
-   * Only a few email provider are allowed to sign-up as an user to this application
-   * You can find and edit the list of allowed email providers in the index.php or retrieve the list using get_defined_constants()['SETTINGS']['email']
-   */
-  public function validateEmail(string $email) 
+  public function update(int $userId, int $isAdmin, int $isVerified, string $name, string $surname, string $email, string $telNumber, string $password)
   {
-    $allowedEmailProvider = get_defined_constants()['SETTINGS']['email'];
-    $insertedEmail = explode("@", $email);
-    $emailProvider = $insertedEmail[1];
-    return in_array($emailProvider, $allowedEmailProvider);
+    require get_defined_constants()['CON_PATH'];
+
+    if (is_null($password) || $password == "null") {
+      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin`=?, `name`=?, `surname`=?, `email`=?, `telNumber`=? WHERE `userId`=?");
+      $update->bind_param("iissssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $userId);
+      $update->execute();
+    } else {
+      $hashedPassword = hash("md5", $password);
+      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin`=?, `name`=?, `surname`=?, `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
+      $update->bind_param("iisssssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $hashedPassword, $userId);
+      $update->execute();
+    }
+
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
+    $update->close();
+    $con->close();
   }
 
-  public function sendVerificationEmail(int $userId)
+  public function isVerified(int $userId)
   {
-    $userData = $this->get($userId);
-    // TODO Research what these headers mean
-    // $headers = "From: " . strip_tags($_POST['req-email']) . "\r\n";
-    // $headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
-    // $headers .= "CC: susan@example.com\r\n";
-    // $headers .= "MIME-Version: 1.0\r\n";
-    // $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-    mail($userData['email'], "BBS-Mitfahrzentrale", "This is the message!"/*, $headers*/);
-  }
+    require get_defined_constants()['CON_PATH'];
+
+    $select = $con->query("SELECT `verified` FROM `cshare_user` WHERE `userId`='".$userId."' ");
+    while ($row = $select->fetch_assoc()) {
+      $result = $row['verified'] == 1;
+    }
+
+    return $result;
+    $select->close();
+    $con->close();
+  }  
 
   public function verify(int $userId)
   {
@@ -82,6 +86,41 @@ class User
     return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
     $update->close();
     $con->close();
+  }
+
+  public function getAll()
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $arr = array();
+    $select = $con->query("SELECT * FROM `cshare_user` WHERE 1");
+    while ($data = $select->fetch_assoc()) {
+      $arr[] = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function get(int $userId)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $arr = array();
+    $select = $con->query("SELECT * FROM `cshare_user` WHERE `userId`='".$userId."'");
+    while ($data = $select->fetch_assoc()) {
+      $arr = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function getAvatarUrl(string $username)
+  {
+    return "https://eu.ui-avatars.com/api/?name=".$username."&size=".$this->avatar['size']."&background=".$this->avatar['backgroundColor']."&color=".$this->avatar['color']."";
   }
 
   public function checkCredentials(string $email, string $password)
@@ -122,6 +161,19 @@ class User
   {
     session_start();
     session_destroy();
+  }
+
+  /** 
+   * Validate an email adress
+   * Only a few email provider are allowed to sign-up as an user to this application
+   * You can find and edit the list of allowed email providers in the index.php or retrieve the list using get_defined_constants()['SETTINGS']['email']
+   */
+  public function validateEmail(string $email) 
+  {
+    $allowedEmailProvider = get_defined_constants()['SETTINGS']['email'];
+    $insertedEmail = explode("@", $email);
+    $emailProvider = $insertedEmail[1];
+    return in_array($emailProvider, $allowedEmailProvider);
   }
 
   public function exist(string $email)
@@ -177,55 +229,5 @@ class User
     }
 
     return $result;
-  }
-
-  public function getAll()
-  {
-    require get_defined_constants()['CON_PATH'];
-
-    $arr = array();
-    $select = $con->query("SELECT * FROM `cshare_user` WHERE 1");
-    while ($data = $select->fetch_assoc()) {
-      $arr[] = $data;
-    }
-
-    return $arr;
-    $select->close();
-    $con->close();
-  }
-
-  public function get(int $userId)
-  {
-    require get_defined_constants()['CON_PATH'];
-
-    $arr = array();
-    $select = $con->query("SELECT * FROM `cshare_user` WHERE `userId`='".$userId."'");
-    while ($data = $select->fetch_assoc()) {
-      $arr = $data;
-    }
-
-    return $arr;
-    $select->close();
-    $con->close();
-  }
-
-  public function update(int $userId, int $isAdmin, int $isVerified, string $name, string $surname, string $email, string $telNumber, string $password)
-  {
-    require get_defined_constants()['CON_PATH'];
-
-    if (is_null($password) || $password == "null") {
-      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin`=?, `name`=?, `surname`=?, `email`=?, `telNumber`=? WHERE `userId`=?");
-      $update->bind_param("iissssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $userId);
-      $update->execute();
-    } else {
-      $hashedPassword = hash("md5", $password);
-      $update = $con->prepare("UPDATE `cshare_user` SET `verified`=?, `isAdmin=?, `name`=?, `surname`=?, `email`=?, `telNumber`=?, `password`=? WHERE `userId`=?");
-      $update->bind_param("iisssssi", $isVerified, $isAdmin, $name, $surname, $email, $telNumber, $hashedPassword, $userId);
-      $update->execute();
-    }
-
-    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
-    $update->close();
-    $con->close();
   }
 }

@@ -28,15 +28,21 @@ error_reporting(E_ALL);
 date_default_timezone_set("Europe/Berlin");
 
 // Application information
-define('CURRENT_APP_VERSION', 'v0.4-pre');
-define('GITHUB', array('author' => 'Thorben Klein', 'user' => 'tklein1801', 'repo' => 'BBS-Mitfahrzentrale'));
+define('CURRENT_APP_VERSION', 'v0.5-pre');
+define('GITHUB', array('author' => 'Thorben Klein',
+  'user' => 'tklein1801',
+  'repo' => 'BBS-Mitfahrzentrale'
+));
 
 require_once "assets/php/Route.php";
+require_once "assets/php/Mailer.php";
 require_once "assets/php/Parsedown.php";
 require_once "endpoints/user/user.php";
 require_once "endpoints/ride/ride.php";
 // require_once "endpoints/plz/plz.php";
 
+use DulliAG\System\Mailer;
+use DulliAG\System\MailTemplates;
 use DulliAG\API\User;
 use DulliAG\API\Ride;
 // use DulliAG\API\PLZ;
@@ -86,9 +92,9 @@ function getApiKey() {
 Route::add("/", function () {
   session_start();
   if(isset($_SESSION['login'])) {
-    header("Location: ./Anzeigen");
+    header("Location: " . get_defined_constants()['SETTINGS']['host'] . "Anzeigen");
   } else {
-    header("Location: ./Anmelden");
+    header("Location: " . get_defined_constants()['SETTINGS']['host'] . "Anmelden");
   }
 }); 
 
@@ -255,28 +261,23 @@ Route::add($GLOBALS['apiPath'] . "user/register", function () {
   header('Content-Type: application/json; charset=utf-8');
   session_start();
 
-  $apiKey = getApiKey();
   $user = new User();
+  $mail_template = new MailTemplates();
   $result = $user->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['telNumber']);
+  if (is_null($result['error'])) {
+    $userId = $result['inserted_id'];
+    $userData = $user->get($userId);
+    $userApiKey = $userData['apiKey'];
+    $message = $mail_template->verifyEmail(get_defined_constants()['SETTINGS']['host'] . "api/user/verify/" . $userApiKey);
+    $mail_template->send($userData['email'], "E-Mail bestätigen", $message);
+  }
+
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
 
-// Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
-//   header('Access-Control-Allow-Origin: *');
-//   header('Content-Type: application/json; charset=utf-8');
-//   $logger = new ApiLogger();
-//   $logger->create($GLOBALS['apiPath'] . "user/verify/".$apiKey, $GLOBALS['clientIp'], $apiKey);
-  
-//   $user = new User();
-//   $verifyResult = $user->verifyKey($apiKey);
-//   if($verifyResult['authentificated'] == true) {
-//     $userData = $user->get($verifyResult['userId']);
-//     echo "Deine E-Mail <strong>".$userData['email']."</strong> wurde bestätigt!";
-//     echo(json_encode($user->verify($verifyResult['userId'], JSON_PRETTY_PRINT)));
-//   } else {
-//     echo "<h1>Der Link ist ungültig!</h1>";
-//   }
-// }, "GET");
+Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
+  require_once "routes/verify.php";
+});
 
 Route::add($GLOBALS['apiPath'] . "user/checkCredentials", function () {
   header('Access-Control-Allow-Origin: *');
@@ -356,6 +357,22 @@ Route::add($GLOBALS['apiPath'] . "user/update", function () {
     echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
   }
 }, "POST");
+
+/**
+ * Mail
+ */
+Route::add($GLOBALS['apiPath'] . "mail/send_verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
+  $user = new User();
+  $mail_template = new MailTemplates();
+  $verifyResult = $user->verifyKey($apiKey);
+  if ($verifyResult['authentificated']) {
+    $verifiedUserId = $verifyResult['userId'];
+    $userData = $user->get($verifiedUserId);
+    $message = $mail_template->verifyEmail(get_defined_constants()['SETTINGS']['host'] . "api/user/verify/" . $apiKey);
+    $mail_template->send($userData['email'], "E-Mail bestätigen", $message);
+    header("Location: " . get_defined_constants()['SETTINGS']['host'] . "Anzeigen");
+  }
+});
 
 /**
  * Admin
