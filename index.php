@@ -591,8 +591,14 @@ Route::add($GLOBALS['apiPath'] . "ride/create", function () {
   if(!is_null($apiKey)) {
     $verifyResult = $user->verifyKey($apiKey);
     if($verifyResult) {
-      $result = $ride->create($verifyResult['userId'], $_POST['driver'], $_POST['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
-      echo(json_encode($result, JSON_PRETTY_PRINT));
+      $verifiedUserId = $verifyResult['userId'];
+      $userData = $user->get($verifiedUserId);
+      if ($userData['verified']) {
+        $result = $ride->create($verifiedUserId, $_POST['driver'], $_POST['title'], $_POST['information'], $_POST['price'], $_POST['seats'], $_POST['startAt'], $_POST['startPlz'], $_POST['startCity'], $_POST['startAdress'], $_POST['destinationPlz'], $_POST['destinationCity'], $_POST['destinationAdress']);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else {
+        echo(json_encode(array('authentificated' => true, 'error' => 'auth/user-not-verified'), JSON_PRETTY_PRINT));
+      }
     } else {
       echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
     }

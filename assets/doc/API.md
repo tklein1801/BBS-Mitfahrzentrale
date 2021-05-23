@@ -23,6 +23,7 @@
 | `auth/not-an-admin`           | Der Benutzer ist kein Admin                                     |
 | `auth/password-invalid`       | Das Passwort passt nicht zur angegeben E-Mail                   |
 | `auth/invalid-email-provider` | Der Emailanbieter kann sich nicht bei dieser Plattform anbieten |
+| `auth/user-not-verified`      | Die E-Mail Adresse wurde noch nicht verifiziert                 |
 | `auth/key-invalid`            | `RestAPI` Der angegebene API-Key existiert nicht                |
 | `auth/key-not-set`            | `RestAPI` Es wurde kein API-Key zur authentifizierung gefunden  |
 | `ride/not-the-creator`        | Du bist nicht der Ersteller der Anzeiger                        |

@@ -210,10 +210,27 @@
         RideAPI
           .create(type, title, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
-            new Snackbar("Die Anzeige wurde erstellt!").success();
-            setTimeout(() => {
-              window.location.href = window.location.origin + "/Anzeigen";
-            }, 1000);
+            let error = result.error;
+            if (error == null) {
+              new Snackbar("Die Anzeige wurde erstellt!").success();
+              setTimeout(() => {
+                window.location.href = window.location.origin + "/Anzeigen";
+              }, 1000);
+            } else {
+              switch (error) {
+                case "auth/user-not-verified":
+                  new Snackbar("Du musst erst deine E-Mail Adresse bestätigen!").error();
+                  break;
+
+                case "auth/key-invalid":
+                  new Snackbar("Der API-Key war ungültig!").error();
+                  break;
+
+                case "auth/key-not-set":
+                  new Snackbar("Der API-Key wurde nicht gesetzt!").error();
+                  break;
+              }
+            }
           })
           .catch((err) => console.error(err));
       });
