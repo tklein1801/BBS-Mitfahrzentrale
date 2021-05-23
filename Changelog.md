@@ -1,5 +1,26 @@
 ## Changelogs
 
+### [BBS-Mitfahrzentrale v0.5-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.5-pre)
+
+#### Hinzugefügt
+
+- **Seitennummerierung** für Logs wurden hinzugefügt
+- **Keine Treffer**-Nachricht für den Adminbereich hinzugefügt
+- **Mailer & MailTemplates** wurden hinzugefügt
+
+#### Geändert
+
+- **Routen** zum Adminbereich wurden geändert
+- Icon in der Navbar wurde durch das Profilbild ausgetauscht
+- Modals schließen nun direkt nach dem abschicken des Formulares
+- PHP Komponenten wurden verschoben & wurden neu "verlinkt"
+
+#### Entfernt
+
+- Methode `new User()->sendVerificationEmail()` wurde entfernt
+
+---
+
 ### [BBS-Mitfahrzentrale v0.4-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.4-pre)
 
 #### Hinzugefügt
