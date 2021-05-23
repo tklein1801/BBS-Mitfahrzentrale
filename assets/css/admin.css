@@ -96,6 +96,12 @@ body {
   background-color: #023846;
 }
 
+.navbar .profile-avatar {
+  width: 28px;
+  height: auto;
+  border-radius: 50%;
+}
+
 .page-content {
   margin: 1rem 2rem 0;
 }

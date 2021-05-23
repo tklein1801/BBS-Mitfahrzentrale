@@ -81,6 +81,12 @@ body {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
   background-color: $blueDark;
+
+  .profile-avatar {
+    width: 28px;
+    height: auto;
+    border-radius: 50%;
+  }
 }
 
 .page-content {

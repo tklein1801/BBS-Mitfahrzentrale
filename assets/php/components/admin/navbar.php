@@ -1,3 +1,7 @@
+<?php
+use DulliAG\API\User;
+$user = new User();
+?>
 <nav class="navbar admin-navbar">
   <button type="button" class="navbar-toggler hamburger border-0">
     <span class="navbar-toggler-icon"></span></button
@@ -17,7 +21,12 @@
         class="btn btn-outline-orange dropdown-toggle rounded-0"
         data-bs-toggle="dropdown"
       >
-        <i class="far fa-user"></i> Mein Profil
+        <?php
+          $userData = $user->get($_SESSION['login']['userId']);
+          $avatarUrl = $user->getAvatarUrl($userData['name']);
+          echo '<img class="profile-avatar" src="'.$avatarUrl.'" alt="Avatar url" />';
+        ?>
+        Mein Profil
       </button>
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
         <li>

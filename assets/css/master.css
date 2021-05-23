@@ -9,11 +9,11 @@
   background-color: rgba(2, 56, 70, 0.95);
 }
 
-.navbar.scrolled .navbar-brand img {
+.navbar.scrolled .navbar-brand > img {
   height: 4rem;
 }
 
-.navbar .navbar-brand img {
+.navbar .navbar-brand > img {
   -webkit-transition: 200ms;
   transition: 200ms;
   height: 6rem;
@@ -21,6 +21,12 @@
 
 .navbar .navbar-nav {
   margin-left: auto;
+}
+
+.navbar .navbar-nav .profile-avatar {
+  width: 28px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .navbar .navbar-nav .nav-item:not(:last-child) {
