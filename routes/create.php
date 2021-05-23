@@ -209,7 +209,7 @@
             new Snackbar("Die Anzeige wurde erstellt!").success();
             setTimeout(() => {
               window.location.href = window.location.origin + "/Anzeigen";
-            }, 500);
+            }, 1000);
           })
           .catch((err) => console.error(err));
       });

@@ -114,7 +114,7 @@
                 new Snackbar("Du wurdest registriert!").success();
                 setTimeout(() => {
                   window.location.href = "../Anzeigen";
-                }, 500);
+                }, 1000);
               });
             } else {
               // Something went wrong

@@ -77,10 +77,12 @@
 
 <script type="text/javascript">
   var admin = new Admin();
-  var editUserModal = document.querySelector("#edit-user-modal");
-  var editUserForm = editUserModal.querySelector("form");
+  var eum = document.querySelector("#edit-user-modal");
+  var modalOptions = {};
+  var editUserModal = new bootstrap.Modal(eum, modalOptions);
+  var editUserForm = eum.querySelector("form");
 
-  editUserModal.addEventListener("show.bs.modal", function (e) {
+  eum.addEventListener("show.bs.modal", function (e) {
     const trigger = e.relatedTarget;
     const userId = trigger.getAttribute("data-user");
 
@@ -108,7 +110,8 @@
           var password = editUserForm.querySelector("#password").value; 
           password !== "" ? password : null
           var phone = editUserForm.querySelector("#phone").value;
-
+          
+          editUserModal.toggle();
           admin
             .updateUser(userId, isVerified, isAdmin, name, surname, email, phone, password !== "" ? password : null)
             .then((result) => {
@@ -117,7 +120,7 @@
                 new Snackbar("Die Änderungen wurden gespeichert!").success();
                 setTimeout(() => {
                   window.location.reload(); // Reload the website to refresh the table content
-                }, 500);
+                }, 1000);
               } else {
                 new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
                 console.error(result.error);
@@ -130,7 +133,7 @@
           
   });
 
-  editUserModal.addEventListener("hide.bs.modal", function (e) {
+  eum.addEventListener("hide.bs.modal", function (e) {
     editUserForm.reset();
   });
 </script>

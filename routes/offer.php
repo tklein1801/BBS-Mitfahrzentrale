@@ -275,6 +275,8 @@
       const delBtn = sidebar.querySelector("#delete");
       const editModal = document.getElementById("editModal"),
         editForm = editModal.querySelector("form");
+      const modal = new bootstrap.Modal(editModal, {});
+
       wannaDelBtn.addEventListener("click", function () {
         if (!del) {
           del = true;
@@ -300,7 +302,7 @@
                 new Snackbar("Die Anzeige wurde gelöscht!").success();
                 setTimeout(() => {
                   window.location.href = window.location.origin + "/Anzeigen";
-                }, 500);
+                }, 1000);
               } else {
                 new Snackbar("Die Anzeige konnte nicht gelöscht werden!").error();
                 console.error(result.error);
@@ -327,6 +329,7 @@
           destinationCity = editForm.querySelector("#destination-city").value,
           destinationAdress = editForm.querySelector("#destination-adress").value;
 
+        modal.toggle();
         ride
           .update(rideId, information, price, seats, startAt, startPlz, startCity, startAdress, destinationPlz, destinationCity, destinationAdress)
           .then((result) => {
@@ -334,7 +337,7 @@
               new Snackbar("Die Änderungen wurden gespeichert!").success();
               setTimeout(() => {
                 location.reload();
-              }, 500);
+              }, 1000);
             } else {
               new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
               console.error(result.error);

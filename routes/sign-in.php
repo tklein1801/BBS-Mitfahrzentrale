@@ -64,7 +64,7 @@
               // Redriect the user to the application
               setTimeout(() => {
                 window.location.href = "../Anzeigen";
-              }, 500);
+              }, 1000);
             } else {
               // Something went wrong
               const error = result.error;

@@ -121,10 +121,12 @@
 
 <script type="text/javascript">
   var admin = new Admin();
-  var editOfferModal = document.querySelector("#edit-offer-modal");
-  var editOfferForm = editOfferModal.querySelector("form");
+  var eom = document.querySelector("#edit-offer-modal");
+  var modalOptions = {};
+  var editOfferModal = new bootstrap.Modal(eom, modalOptions)
+  var editOfferForm = eom.querySelector("form");
   
-  editOfferModal.addEventListener("show.bs.modal", function (e) {
+  eom.addEventListener("show.bs.modal", function (e) {
     const trigger = e.relatedTarget;
     const rideId = trigger.getAttribute("data-ride");
         
@@ -133,19 +135,19 @@
       .then((data) => {
         var startAt = new Date(parseInt(data.startAt) * 1000);
         startAt.setMinutes(startAt.getMinutes() - startAt.getTimezoneOffset());
-        editOfferModal.querySelector("#offer").value = data.rideId;
-        editOfferModal.querySelector("#title").value = data.title;
-        editOfferModal.querySelector("#type").value = data.driver;
-        editOfferModal.querySelector("#information").value = data.information;
-        editOfferModal.querySelector("#price").value = data.price;
-        editOfferModal.querySelector("#seats").value = data.seats;
-        editOfferModal.querySelector("#start-at").value = startAt.toISOString().slice(0, 16);
-        editOfferModal.querySelector("#start-plz").value = data.startPlz;
-        editOfferModal.querySelector("#start-city").value = data.startCity;
-        editOfferModal.querySelector("#start-adress").value = data.startAdress;
-        editOfferModal.querySelector("#destination-plz").value = data.destinationPlz;
-        editOfferModal.querySelector("#destination-city").value = data.destinationCity;
-        editOfferModal.querySelector("#destination-adress").value = data.destinationAdress;
+        eom.querySelector("#offer").value = data.rideId;
+        eom.querySelector("#title").value = data.title;
+        eom.querySelector("#type").value = data.driver;
+        eom.querySelector("#information").value = data.information;
+        eom.querySelector("#price").value = data.price;
+        eom.querySelector("#seats").value = data.seats;
+        eom.querySelector("#start-at").value = startAt.toISOString().slice(0, 16);
+        eom.querySelector("#start-plz").value = data.startPlz;
+        eom.querySelector("#start-city").value = data.startCity;
+        eom.querySelector("#start-adress").value = data.startAdress;
+        eom.querySelector("#destination-plz").value = data.destinationPlz;
+        eom.querySelector("#destination-city").value = data.destinationCity;
+        eom.querySelector("#destination-adress").value = data.destinationAdress;
       })
       .catch((err) => console.error(err));
   });
@@ -167,6 +169,7 @@
     var destinationCity = editOfferForm.querySelector("#destination-city").value;
     var destinationAdress = editOfferForm.querySelector("#destination-adress").value;
 
+    editOfferModal.toggle();
     admin
       .updateOffer(
         rideId,
@@ -187,7 +190,7 @@
           new Snackbar("Die Änderungen wurden gespeichert!").success();
           setTimeout(() => {
             window.location.reload();
-          }, 500);
+          }, 1000);
         } else {
           new Snackbar("Die Änderungen konnten nicht gespeichert werden!").error();
           console.error(result.error);
@@ -196,7 +199,7 @@
       .catch((err) => console.error(err));
   });
 
-  editOfferModal.addEventListener("hide.bs.modal", function (e) {
-    editOfferModal.querySelector("form").reset();
+  eom.addEventListener("hide.bs.modal", function (e) {
+    eom.querySelector("form").reset();
   });
 </script>
