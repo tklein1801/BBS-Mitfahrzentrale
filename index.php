@@ -143,7 +143,7 @@ Route::add("/Profil", function () {
 });
 
 // Secured admin space
-Route::add("/(Admin|ACP)", function () {
+Route::add("/Admin", function () {
   session_start();
   if (isset($_SESSION['login'])) {
     $user = new User();
@@ -159,7 +159,7 @@ Route::add("/(Admin|ACP)", function () {
   }
 });
 
-Route::add("/(Admin|ACP)/Dashboard", function () {
+Route::add("/Admin/Dashboard", function () {
   session_start();
   if (isset($_SESSION['login'])) {
     $user = new User();
@@ -175,7 +175,7 @@ Route::add("/(Admin|ACP)/Dashboard", function () {
   }
 });
 
-Route::add("/(Admin|ACP)/Benutzer", function () {
+Route::add("/Admin/Benutzer", function () {
   session_start();
   if (isset($_SESSION['login'])) {
     $user = new User();
@@ -191,7 +191,7 @@ Route::add("/(Admin|ACP)/Benutzer", function () {
   }
 });
 
-Route::add("/(Admin|ACP)/Anzeigen", function () {
+Route::add("/Admin/Anzeigen", function () {
   session_start();
   if (isset($_SESSION['login'])) {
     $user = new User();
@@ -207,7 +207,7 @@ Route::add("/(Admin|ACP)/Anzeigen", function () {
   }
 });
 
-Route::add("/(Admin|ACP)/Logs", function () {
+Route::add("/Admin/Logs", function () {
   session_start();
   if (isset($_SESSION['login'])) {
     $user = new User();

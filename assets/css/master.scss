@@ -173,6 +173,35 @@ table {
   }
 }
 
+// Pagination
+.pagination {
+  justify-content: center;
+  .page-item.disabled:hover {
+    cursor: not-allowed;
+  }
+  .page-item,
+  .page-item.disabled {
+    &.active,
+    &:hover {
+      .page-link {
+        background-color: $orange;
+        border-color: $orange;
+        color: white;
+      }
+    }
+    .page-link {
+      padding: 0.5rem 1rem;
+      background-color: $blue;
+      border-color: $blue;
+      border-radius: 0 !important;
+      color: white;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
 // Form
 .form-label {
   margin-bottom: 0;

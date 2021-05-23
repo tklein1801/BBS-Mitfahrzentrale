@@ -69,28 +69,36 @@
                           </thead>
                           <tbody>
                           <?php
-                            foreach ($rideList as $ride) {
+                            if (count($rideList) > 0) {
+                              foreach ($rideList as $ride) {
+                                echo '<tr>
+                                  <td>
+                                    <p class="text-center"># '.$ride['rideId'].'</p>
+                                  </td>
+                                  <td>
+                                    <p>'.$ride['title'].'</p>
+                                  </td>
+                                  <td>
+                                    <p>
+                                      '.$ride['name'].' '.$ride['surname'].'
+                                      <a href="mailto:'.$ride['email'].'">'.$ride['email'].'</a>
+                                    </p>
+                                  </td>
+                                  <td>
+                                    <a href="'.$GLOBALS['settings']['host'].'Angebot/'.$ride['rideId'].'" class="badge bg-orange">Hier</a>
+                                  </td>
+                                  <td class="d-flex justify-content-end">
+                                    <button class="btn btn-outline-orange rounded-0 mr-auto px-3" data-ride="'.$ride['rideId'].'" data-bs-toggle="modal" data-bs-target="#edit-offer-modal">
+                                      <i class="fas fa-pencil-alt"></i>
+                                      Bearbeiten
+                                    </button>
+                                  </td>
+                                </tr>';
+                              }
+                            } else {
                               echo '<tr>
-                                <td>
-                                  <p class="text-center"># '.$ride['rideId'].'</p>
-                                </td>
-                                <td>
-                                  <p>'.$ride['title'].'</p>
-                                </td>
-                                <td>
-                                  <p>
-                                    '.$ride['name'].' '.$ride['surname'].'
-                                    <a href="mailto:'.$ride['email'].'">'.$ride['email'].'</a>
-                                  </p>
-                                </td>
-                                <td>
-                                  <a href="'.$GLOBALS['settings']['host'].'Angebot/'.$ride['rideId'].'" class="badge bg-orange">Hier</a>
-                                </td>
-                                <td class="d-flex justify-content-end">
-                                  <button class="btn btn-outline-orange rounded-0 mr-auto px-3" data-ride="'.$ride['rideId'].'" data-bs-toggle="modal" data-bs-target="#edit-offer-modal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                    Bearbeiten
-                                  </button>
+                                <td colspan="5">
+                                  <p class="text-center font-weight-bold">Keine Anzeigen gefunden</p>
                                 </td>
                               </tr>';
                             }

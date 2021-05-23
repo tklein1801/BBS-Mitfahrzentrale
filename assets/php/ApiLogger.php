@@ -16,6 +16,18 @@ class ApiLogger
     $con->close();
   }
 
+  public function count()
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $select = $con->query("SELECT logId FROM cshare_apiLogs WHERE 1");
+    $count = $select->num_rows;
+
+    return $count;
+    $select->close();
+    $con->close();
+  }
+
   /**
    * Get an x-amount of the last saved api logs
    * Sorted from newest to oldest => logId DESC
@@ -26,6 +38,21 @@ class ApiLogger
 
     $arr = array();
     $select = $con->query("SELECT * FROM cshare_apiLogs WHERE 1 ORDER BY logId DESC LIMIT ".$amount." ");
+    while ($row = $select->fetch_assoc()) {
+      $arr[] = $row;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function getRange(int $startAt, int $endAt)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $arr = array();
+    $select = $con->query("SELECT * FROM cshare_apiLogs WHERE 1 ORDER BY logId DESC LIMIT ".$startAt.", ".$endAt." ");
     while ($row = $select->fetch_assoc()) {
       $arr[] = $row;
     }

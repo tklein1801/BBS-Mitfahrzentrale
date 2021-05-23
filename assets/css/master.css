@@ -282,6 +282,39 @@ table tr td {
   white-space: nowrap;
 }
 
+.pagination {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination .page-item.disabled:hover {
+  cursor: not-allowed;
+}
+
+.pagination .page-item.active .page-link, .pagination .page-item:hover .page-link,
+.pagination .page-item.disabled.active .page-link,
+.pagination .page-item.disabled:hover .page-link {
+  background-color: #e27a00;
+  border-color: #e27a00;
+  color: white;
+}
+
+.pagination .page-item .page-link,
+.pagination .page-item.disabled .page-link {
+  padding: 0.5rem 1rem;
+  background-color: #004253;
+  border-color: #004253;
+  border-radius: 0 !important;
+  color: white;
+}
+
+.pagination .page-item .page-link:focus,
+.pagination .page-item.disabled .page-link:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .form-label {
   margin-bottom: 0;
   font-size: 90%;

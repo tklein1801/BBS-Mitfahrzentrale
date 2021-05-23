@@ -112,7 +112,11 @@
                                 </tr>';
                               }
                             } else {
-                              echo '<tr><td colspan="6"><p class="text-center">Keine Benutzer gefunden</p></td></tr>';
+                              echo '<tr>
+                                <td colspan="6">
+                                  <p class="text-center">Keine Benutzer gefunden</p>
+                                </td>
+                              </tr>';
                             }
                           ?>
                           </tbody>
