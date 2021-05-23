@@ -7,6 +7,10 @@
 - **Seitennummerierung** für Logs wurden hinzugefügt
 - **Keine Treffer**-Nachricht für den Adminbereich hinzugefügt
 - **Mailer & MailTemplates** wurden hinzugefügt
+- Benutzer kann/muss seine E-Mail Adresse nach dem Registrieren bestätigen
+  - Bestätigungsmail wird nach dem registrieren automatisch verschickt
+  - Benutzer ist in der Lage die Bestätigungsmail erneut anzufordern
+  - Anzeigen können erst nach dem bestätigen der E-Mail Adresse erstellt werden
 
 #### Geändert
 
