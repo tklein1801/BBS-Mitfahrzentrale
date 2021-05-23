@@ -8,6 +8,13 @@ $host.= $_SERVER['HTTP_HOST']."/";
 
 define('BASEPATH', __DIR__."/");
 define('CON_PATH', __DIR__."/endpoints/sql.php");
+define('COMPONENTS', array(
+  'header' => "assets/php/components/header.php",
+  'navbar' => "assets/php/components/navbar.php",
+  'footer' => "assets/php/components/footer.php",
+  'scripts' => "assets/php/components/scripts.php",
+  'not-verified' => "assets/php/components/not-verified.php"
+));
 define('SETTINGS', array(
   'host' => $host,
   'email' => array('bbssoltau.eu', 'bbssoltau.de'),

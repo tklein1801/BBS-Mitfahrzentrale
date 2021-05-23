@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <?php require_once "assets/php/header.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <title>BBS-Mitfahrzentrale • 404 Page Not Found</title>
   </head>
   <body class="err-page">

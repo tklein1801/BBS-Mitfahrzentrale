@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <?php require_once "assets/php/header.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <title>BBS-Mitfahrzentrale • Adminbereich</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="<?php echo $GLOBALS['host'] . "assets/css/admin.css"; ?>" />
@@ -137,7 +137,7 @@
       require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/editUserModal.php";
       require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/userOffersModal.php";
       require_once get_defined_constants()['BASEPATH'] . "assets/php/components/admin/editOfferModal.php";
-      require_once get_defined_constants()['BASEPATH'] . "assets/php/scripts.php";
+      require_once get_defined_constants()['BASEPATH'] . get_defined_constants()['COMPONENTS']['scripts'];
     ?>
     <script type="text/javascript" src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>    
     <script>

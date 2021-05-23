@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <?php require_once "assets/php/header.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <?php
       switch ($slug) {
         case "Angebote":
@@ -29,7 +29,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <?php require_once "assets/php/navbar.php"; ?>
+      <?php require_once get_defined_constants()['COMPONENTS']['navbar']; ?>
 
       <section class="mx-2 mx-md-4">
         <div class="container py-4">
@@ -171,11 +171,11 @@
         <!-- ./container -->
       </section>
 
-      <?php require_once "assets/php/footer.php"; ?>
+      <?php require_once get_defined_constants()['COMPONENTS']['footer']; ?>
     </div>
     <!-- ./wrapper -->
 
-    <?php require_once "assets/php/scripts.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['scripts']; ?>
     <script>
       const sort = new Sort();
       const slug = "<?php echo $slug ?>"; // I know this is very bad :o

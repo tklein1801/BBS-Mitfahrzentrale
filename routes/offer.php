@@ -105,7 +105,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <?php require_once "assets/php/header.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <?php
       switch ($slug) {
         case "Angebot":
@@ -120,7 +120,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <?php require_once "assets/php/navbar.php"; ?>
+      <?php require_once get_defined_constants()['COMPONENTS']['navbar']; ?>
 
       <section class="mx-2 mx-md-4">
         <div class="container py-4">
@@ -261,11 +261,11 @@
         </div>
       </section>
 
-      <?php require_once "assets/php/footer.php"; ?>
+      <?php require_once get_defined_constants()['COMPONENTS']['footer']; ?>
     </div>
     <!-- ./wrapper -->
 
-    <?php require_once "assets/php/scripts.php"; ?>
+    <?php require_once get_defined_constants()['COMPONENTS']['scripts']; ?>
     <script>
       let del = false;
       const ride = new Ride();
