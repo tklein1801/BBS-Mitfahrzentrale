@@ -37,7 +37,22 @@
 ```
 POST /api/user/register
 Params: (string) name, (string) surname, (string) email, (string) password, (string) telNumber
-Response 200 (application/json)
+Response: 200 (application/json)
+```
+
+**Webseite zum aufrufen um die E-Mail Adresse zu bestätigen**
+
+```
+GET /api/user/verify/{apiKey}
+Response: 200 (text/html)
+```
+
+**Webseite zum aufrufen um das neue Passwort einzutragen**
+
+```
+GET /api/user/password/reset/{apiKey}
+Response: 200 (application/json)
+
 ```
 
 **Überprüfen der Anmeldedaten eines Benutzers**
@@ -45,7 +60,7 @@ Response 200 (application/json)
 ```
 GET /api/user/checkCredentials
 Params: (string) email, (string) password
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Prüfen ob ein Benutzer bereits existiert**
@@ -53,7 +68,7 @@ Response 200 (application/json)
 ```
 GET /api/user/exist
 Params: (string) email
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abmelden eines Benutzers durch beenden der Sitzung**
@@ -61,7 +76,7 @@ Response 200 (application/json)
 ```
 GET /api/user/destroySession
 Params: (string) redirectTo
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen der Benutzerinformationen eines spezifischen Benutzers**
@@ -69,7 +84,7 @@ Response 200 (application/json)
 ```
 POST /api/user/get
 Authentification: (string) apiKey
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Updaten der Benutzerinformationen eines Benutzers**
@@ -78,7 +93,26 @@ Response 200 (application/json)
 POST /api/user/update
 Authentification: (string) apiKey
 Params: (string) phone, (string|null) password
-Response 200 (application/json)
+Response: 200 (application/json)
+```
+
+---
+
+## mail
+
+**E-Mail zur bestätigung der E-Mail Adresse anfordern**
+
+```
+GET /api/mail/send_verify/{apiKey}
+Response: 200 (text/html)
+```
+
+**E-Mail zum zurücksetzen des Passworts anfordern**
+
+```
+GET /api/mail/reset_password/
+Params: (string) email
+Response: 200 (text/html)
 ```
 
 ---
@@ -93,7 +127,7 @@ Response 200 (application/json)
 POST /api/admin/user/get
 Authentification: (string) apiKey
 Params: (int) userId
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Bearbeiten eines Benutzers**
@@ -102,7 +136,7 @@ Response 200 (application/json)
 POST /api/admin/user/update
 Authentification: (string) apiKey
 Params: (int) userId, (int) verified, (int) admin, (string) name, (string) surname, (string) email, (string) phone, (string|null) password
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Anzeigen eines Benutzers**
@@ -111,7 +145,7 @@ Response 200 (application/json)
 POST /api/admin/ride/user
 Authentification: (string) apiKey
 Params: (int) userId
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Anzeigen**
@@ -119,7 +153,7 @@ Response 200 (application/json)
 ```
 POST /api/admin/ride/all
 Authentification: (string) apiKey
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen einer bestimmten Anzeige**
@@ -127,7 +161,7 @@ Response 200 (application/json)
 ```
 POST /api/admin/ride/offer
 Authentification: (int) rideId
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Bearbeiten einer bestehenden Anzeige**
@@ -135,7 +169,7 @@ Response 200 (application/json)
 ```
 POST /api/admin/ride/update
 Authentification: (int) rideId, (string) title, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 ---
@@ -150,7 +184,7 @@ Response 200 (application/json)
 ```
 GET /api/plz/placesByPlz
 Params: (int) plz
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen eines Ortes mittels Postleitzahl**
@@ -158,7 +192,7 @@ Response 200 (application/json)
 ```
 GET /api/plz/placeByPlz
 Params: (int) plz
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen eines Ortes mittels Name**
@@ -166,7 +200,7 @@ Response 200 (application/json)
 ```
 GET /api/plz/plzByName
 Params: (string) cityName
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 ---
@@ -179,7 +213,7 @@ Response 200 (application/json)
 POST /api/ride/create
 Authentification: (string) apiKey
 Params: (int) driver, (string) title, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Bearbeiten einer bestehenden Anzeige**
@@ -188,7 +222,7 @@ Response 200 (application/json)
 POST /api/ride/update
 Authentification: (string) apiKey
 Params: (int) rideId, (string) information, (int) price, (int) seats, (int) startAt, (int) startPlz, (string) startCity, (string) startAdress, (int) destinationPlz, (string) destinationCity, (string) destinationAdress
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Löschen einer bestehenden Anzeige**
@@ -197,14 +231,14 @@ Response 200 (application/json)
 POST /api/ride/delete
 Authentification: (string) apiKey
 Params: (int) rideId
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Anzeigen**
 
 ```
 GET /api/ride/all
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen einer Anzeige**
@@ -212,21 +246,21 @@ Response 200 (application/json)
 ```
 GET /api/ride/offer
 Params: (int) rideId
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Fahrangebote**
 
 ```
 GET /api/ride/offers
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Fahrgesuche**
 
 ```
 GET /api/ride/requests
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven Anzeigen eines Benutzers**
@@ -234,7 +268,7 @@ Response 200 (application/json)
 ```
 POST /api/ride/user
 Authentification: (string) apiKey
-Response 200 (application/json)
+Response: 200 (application/json)
 ```
 
 **Abrufen aller aktiven favorisierten Anzeigen eines Benutzers**
@@ -244,5 +278,5 @@ Response 200 (application/json)
 ```
 GET /api/ride/favorites
 Authentification: (string) apiKey
-Response 200 (application/json)
+Response: 200 (application/json)
 ```

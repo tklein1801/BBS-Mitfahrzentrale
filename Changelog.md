@@ -11,6 +11,9 @@
   - Bestätigungsmail wird nach dem registrieren automatisch verschickt
   - Benutzer ist in der Lage die Bestätigungsmail erneut anzufordern
   - Anzeigen können erst nach dem bestätigen der E-Mail Adresse erstellt werden
+- Passwort zurücksetzen wurde für den Benutzer ermöglicht
+  - E-Mail für die Weiterleitung wird dem Benutzer auf Anfrage zugestellt
+  - Benutzer kann das Passwort über einen besonderen Link welcher per E-Mail zugestellt wird zurück setzen
 
 #### Geändert
 

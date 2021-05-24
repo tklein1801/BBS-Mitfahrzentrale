@@ -4,13 +4,13 @@
     <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <title>BBS-Mitfahrzentrale • Registrieren</title>
     <!-- Other stylesheets -->
-    <link rel="stylesheet" href="./assets/css/signIn.css" />
+    <link rel="stylesheet" href="<?php echo $GLOBALS['settings']['host'] . "assets/css/signIn.css"; ?>" />
   </head>
   <body id="sign-up">
     <div class="wrapper">
       <div class="form-container p-3 p-md-4">
         <form id="signUpForm">
-          <img src="./assets/img/BBS-Soltau-Logo.svg" alt="BBS Logo" />
+          <img src="<?php echo $GLOBALS['settings']['host'] . "assets/img/BBS-Soltau-Logo.svg"; ?>" alt="BBS Logo" />
 
           <div class="row mb-0">
             <div class="col-12 col-md-6 mb-2 mb-md-3">
@@ -56,7 +56,7 @@
 
           <hr class="divider" data-text="Schon ein Konto?" />
 
-          <a href="./Anmelden" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
+          <a href="<?php echo $GLOBALS['settings']['host'] . "Anmelden"; ?>" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
             >Hier anmelden!</a
           >
         </form>

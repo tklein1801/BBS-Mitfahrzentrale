@@ -234,6 +234,11 @@ Route::add("/Anmelden", function () {
   require_once "routes/sign-in.php";
 });
 
+// Request an password reset
+Route::add("/Anmelden/Passwort", function () {
+  require_once "routes/reset_password.php";
+});
+
 // Sign up
 Route::add("/Registrieren", function () {
   require_once "routes/sign-up.php";
@@ -277,6 +282,36 @@ Route::add($GLOBALS['apiPath'] . "user/register", function () {
 
 Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
   require_once "routes/verify.php";
+});
+
+Route::add($GLOBALS['apiPath'] . "user/password/reset", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+
+  $apiKey = getApiKey();
+  $user = new User();
+
+  // Check if the key is set
+  // If no key was set the value equals null
+  if(!is_null($apiKey)) {
+    $verifyResult = $user->verifyKey($apiKey);
+    $verifiedUserId = $verifyResult['userId'];
+    // Check if the key is valid
+    if($verifyResult['authentificated']) {
+      $password = $_POST['password'];
+      $result = $user->setPassword($verifiedUserId, $password);
+      echo(json_encode($result, JSON_PRETTY_PRINT));
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "POST");
+
+Route::add($GLOBALS['apiPath'] . "user/password/reset/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
+  require_once "routes/set_password.php";
 });
 
 Route::add($GLOBALS['apiPath'] . "user/checkCredentials", function () {
@@ -372,6 +407,17 @@ Route::add($GLOBALS['apiPath'] . "mail/send_verify/([a-zA-Z0-9]{0,16}$)", functi
     $mail_template->send($userData['email'], "E-Mail bestätigen", $message);
     header("Location: " . get_defined_constants()['SETTINGS']['host'] . "Anzeigen");
   }
+});
+
+Route::add($GLOBALS['apiPath'] . "mail/reset_password", function () {
+  $user = new User();
+  $mail_template = new MailTemplates();
+  $target_email = $_GET['email'];
+  $userData = $user->getByEmail($target_email);
+  $apiKey = $userData['apiKey'];
+  $message = $mail_template->resetPasswort(get_defined_constants()['SETTINGS']['host'] . "api/user/password/reset/" . $apiKey);
+  $mail_template->send($userData['email'], "Passwort zurücksetzen", $message);
+  header("Location: " . get_defined_constants()['SETTINGS']['host'] . "Anmelden");
 });
 
 /**

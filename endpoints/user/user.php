@@ -61,6 +61,20 @@ class User
     $con->close();
   }
 
+  public function setPassword(int $userId, string $password)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $hashedPassword = hash("md5", $password);
+    $update = $con->prepare("UPDATE `cshare_user` SET `password`=? WHERE `userId`=?");
+    $update->bind_param("si", $hashedPassword, $userId);
+    $update->execute();
+
+    return array('affected_rows' => $update->affected_rows, 'error' => $update->error == "" ? null : $update->error);
+    $update->close();
+    $con->close();
+  }
+
   public function isVerified(int $userId)
   {
     require get_defined_constants()['CON_PATH'];
@@ -111,6 +125,21 @@ class User
     $select = $con->query("SELECT * FROM `cshare_user` WHERE `userId`='".$userId."'");
     while ($data = $select->fetch_assoc()) {
       $arr = $data;
+    }
+
+    return $arr;
+    $select->close();
+    $con->close();
+  }
+
+  public function getByEmail(string $email)
+  {
+    require get_defined_constants()['CON_PATH'];
+    
+    $arr = array();
+    $select = $con->query("SELECT * FROM `cshare_user` WHERE `email`='".$email."' ");
+    while ($row = $select->fetch_assoc()) {
+      $arr = $row;
     }
 
     return $arr;

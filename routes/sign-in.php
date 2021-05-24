@@ -4,13 +4,13 @@
     <?php require_once get_defined_constants()['COMPONENTS']['header']; ?>
     <title>BBS-Mitfahrzentrale • Anmelden</title>
     <!-- Other stylesheets -->
-    <link rel="stylesheet" href="./assets/css/signIn.css" />
+    <link rel="stylesheet" href="<?php echo $GLOBALS['settings']['host'] . "assets/css/signIn.css"; ?>" />
   </head>
   <body id="sign-in">
     <div class="wrapper">
       <div class="form-container p-3 p-md-4"">
         <form id="signInForm">
-          <img src="./assets/img/BBS-Soltau-Logo.svg" alt="BBS Logo" />
+          <img src="<?php echo $GLOBALS['settings']['host'] . "assets/img/BBS-Soltau-Logo.svg"; ?>" alt="BBS Logo" />
 
           <div class="mb-2 mb-md-3">
             <label class="form-label font-weight-bold mb-0">E-Mail</label>
@@ -18,13 +18,18 @@
             <div id="validationEmail" class="invalid-feedback"></div>
           </div>
 
-          <label class="form-label font-weight-bold mb-0">Passwort</label>
-          <div class="input-group mb-4 mb-md-3">
-            <input type="password" id="password" class="form-control" required />
-            <button type="button" class="btn" id="toggler">
-              <i id="icon" class="far fa-eye"></i>
-            </button>
-            <div id="validationPassword" class="invalid-feedback"></div>
+          <div class="form-group mb-2 mb-md-3">
+            <label class="form-label font-weight-bold mb-0">Passwort</label>
+            <div class="input-group">
+              <input type="password" id="password" class="form-control" required />
+              <button type="button" class="btn" id="toggler">
+                <i id="icon" class="far fa-eye"></i>
+              </button>
+              <div id="validationPassword" class="invalid-feedback"></div>
+            </div>
+            <div class="form-text text-end">
+              <a href="<?php echo $GLOBALS['settings']['host'] . "Anmelden/Passwort"; ?>" class="text-decoration-none">Passwort vergessen?</a>
+            </div>
           </div>
 
           <div class="row mx-0">
@@ -33,7 +38,7 @@
 
           <hr class="divider" data-text="Noch kein Konto?" />
 
-          <a href="./Registrieren" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
+          <a href="<?php echo $GLOBALS['settings']['host'] . "Registrieren"; ?>" class="btn btn-outline-orange redirect-btn w-100 rounded-0"
             >Hier registrieren!</a
           >
         </form>

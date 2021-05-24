@@ -37,6 +37,25 @@ class User {
   }
 
   /**
+   *
+   * @param {string} apiKey
+   * @param {string} password
+   * @returns {object}
+   */
+  async setPassword(apiKey, password) {
+    const form = new FormData();
+    form.append("apiKey", apiKey);
+    form.append("password", password);
+
+    const response = await fetch(this.apiHost + "password/reset", {
+      method: "POST",
+      body: form,
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
    * Check if the login-credentials are correct
    * If they are correct the will be signed in automaticly
    * @param {string} email
@@ -94,6 +113,25 @@ class User {
       body: formData,
     });
     const data = await response.json();
+    return data;
+  }
+}
+
+class Mailer {
+  constructor() {
+    this.apiHost = window.location.origin + "/api/mail/";
+  }
+
+  /**
+   *
+   * @param {string} email
+   * @return {boolean}
+   */
+  async requestPasswordReset(email) {
+    const response = await fetch(this.apiHost + `reset_password?email=${email}`, {
+      method: "GET",
+    });
+    const data = await response.text();
     return data;
   }
 }
