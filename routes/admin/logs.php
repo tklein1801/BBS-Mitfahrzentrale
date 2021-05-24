@@ -107,6 +107,7 @@
                             $PREV_PAGE = $CURRENT_PAGE - 1;
                             $NEXT_PAGE = $CURRENT_PAGE + 1;
 
+                            // Previous page
                             if ($PREV_PAGE <= $CURRENT_PAGE && $PREV_PAGE != 0) {
                               echo ' <li class="page-item">
                                 <a class="page-link" href="./Logs?p='.$PREV_PAGE.'" tabindex="-1" aria-disabled="true">
@@ -121,7 +122,32 @@
                               </li>';
                             }
 
-                            for ($pNum = 1; $pNum <= $PAGE_NUMBERS; $pNum++) {
+                            /**
+                             * Immer die erste und letzte Seite anzeigen
+                             */
+                            // Always display the first page
+                            if ($CURRENT_PAGE == 1) {
+                              echo '<li class="page-item active">
+                                <a class="page-link" href="./Logs?p=1">1</a>
+                              </li>';
+                            } else {
+                              echo '<li class="page-item">
+                                <a class="page-link" href="./Logs?p=1">1</a>
+                              </li>';
+                            }
+                            
+                            if ($CURRENT_PAGE > 2) {
+                              $start_page = $CURRENT_PAGE - 1;
+                            } else {
+                              $start_page = 2;
+                            }
+
+                            if (($CURRENT_PAGE + 1) < $PAGE_NUMBERS) {
+                              $max_page = $CURRENT_PAGE + 1;
+                            } else {
+                              $max_page = $PAGE_NUMBERS - 1;
+                            }
+                            for ($pNum = $start_page; $pNum <= $max_page; $pNum++) {
                               if ($pNum == $CURRENT_PAGE) {
                                 $classList = "page-item active";
                               } else {
@@ -131,7 +157,20 @@
                                 <a class="page-link" href="./Logs?p='.$pNum.'">'.$pNum.'</a>
                               </li>';
                             }
-                            if ($NEXT_PAGE <= $CURRENT_PAGE) {
+
+                            // Always display the last page
+                            if ($CURRENT_PAGE == $PAGE_NUMBERS) {
+                              echo '<li class="page-item active">
+                                <a class="page-link" href="./Logs?p='.$PAGE_NUMBERS.'">'.$PAGE_NUMBERS.'</a>
+                              </li>';
+                            } else {
+                              echo '<li class="page-item">
+                                <a class="page-link" href="./Logs?p='.$PAGE_NUMBERS.'">'.$PAGE_NUMBERS.'</a>
+                              </li>';
+                            }
+
+                            // Next page
+                            if ($NEXT_PAGE < $PAGE_NUMBERS) {
                               echo '<li class="page-item">
                                 <a class="page-link" href="./Logs?p='.$NEXT_PAGE.'">
                                   <span aria-hidden="true">&raquo;</span>
@@ -145,21 +184,6 @@
                               </li>';
                             }
                           ?>
-                          <!-- <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">2</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
-                          </li> -->
                         </ul>
                       </nav>
                       <!-- ./pagination -->
