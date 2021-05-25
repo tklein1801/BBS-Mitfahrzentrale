@@ -14,6 +14,10 @@
 - Passwort zurücksetzen wurde für den Benutzer ermöglicht
   - E-Mail für die Weiterleitung wird dem Benutzer auf Anfrage zugestellt
   - Benutzer kann das Passwort über einen besonderen Link welcher per E-Mail zugestellt wird zurück setzen
+- Benutzerkonto löschen
+  - Datenbank angepasst
+  - Neuer API-Endpunkt `POST /api/user/delete` hinzugefügt
+  - UI des Profils sowie des Adminbereiches angepasst
 
 #### Geändert
 
