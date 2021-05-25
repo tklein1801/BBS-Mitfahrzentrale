@@ -280,6 +280,40 @@ Route::add($GLOBALS['apiPath'] . "user/register", function () {
   echo(json_encode($result, JSON_PRETTY_PRINT));
 }, "POST");
 
+Route::add($GLOBALS['apiPath'] . "user/delete", function () {
+  header('Access-Control-Allow-Origin: *');
+  header('Content-Type: application/json; charset=utf-8');
+  session_start();
+
+  $apiKey = getApiKey();
+  $user = new User();
+
+  // If the api-key wasn't set it should equal null
+  if(!is_null($apiKey)) {
+    $verifyResult = $user->verifyKey($apiKey);
+    $verifiedUserId = $verifyResult['userId'];
+    $userIsAdmin = $user->isAdmin($verifiedUserId);
+
+    if($verifyResult['authentificated']) {
+      $targetUserId = $_POST['userId'];
+      
+      if ($userIsAdmin) {
+        $result = $user->delete($targetUserId);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else if ($targetUserId == $verifiedUserId) {
+        $result = $user->delete($targetUserId);
+        echo(json_encode($result, JSON_PRETTY_PRINT));
+      } else {
+        echo(json_encode(array('authentificated' => true, 'error' => 'auth/not-the-user'), JSON_PRETTY_PRINT));
+      }
+    } else {
+      echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-invalid'), JSON_PRETTY_PRINT));
+    }
+  } else {
+    echo(json_encode(array('authentificated' => false, 'error' => 'auth/key-not-set'), JSON_PRETTY_PRINT));
+  }
+}, "POST");
+
 Route::add($GLOBALS['apiPath'] . "user/verify/([a-zA-Z0-9]{0,16}$)", function ($apiKey) {
   require_once "routes/verify.php";
 });

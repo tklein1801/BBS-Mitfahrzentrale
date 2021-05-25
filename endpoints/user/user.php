@@ -41,6 +41,19 @@ class User
     $con->close();
   }
 
+  public function delete(int $userId)
+  {
+    require get_defined_constants()['CON_PATH'];
+
+    $delete = $con->prepare("DELETE FROM `cshare_user` WHERE `userId`=?");
+    $delete->bind_param("i", $userId);
+    $delete->execute();
+
+    return array('affected_rows' => $delete->affected_rows, 'error' => $delete->error == "" ? null : $delete->error);
+    $delete->close();
+    $con->close();
+  }
+
   public function update(int $userId, int $isAdmin, int $isVerified, string $name, string $surname, string $email, string $telNumber, string $password)
   {
     require get_defined_constants()['CON_PATH'];

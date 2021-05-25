@@ -188,7 +188,7 @@ ALTER TABLE `cshare_favorites`
 -- Constraints der Tabelle `cshare_rides`
 --
 ALTER TABLE `cshare_rides`
-  ADD CONSTRAINT `cshare_user-cshare_rides` FOREIGN KEY (`creatorId`) REFERENCES `cshare_user` (`userId`);
+  ADD CONSTRAINT `cshare_user-cshare_rides` FOREIGN KEY (`creatorId`) REFERENCES `cshare_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -172,7 +172,7 @@
                                   $badge = '<span class="badge bg-blue">Nicht Verifiziert</span>';
                                 }
 
-                                echo '<tr>
+                                echo '<tr id="user-'.$u['userId'].'">
                                   <td class="text-center">
                                     '.$badge.'
                                   </td>
@@ -185,12 +185,21 @@
                                   <td class="d-flex justify-content-end">
                                     <button
                                       class="btn btn-outline-orange rounded-0 mr-auto px-3"
+                                      style="margin-right: 1rem;"
                                       data-user="'.$u['userId'].'"
                                       data-bs-toggle="modal"
                                       data-bs-target="#edit-user-modal"
                                     >
                                       <i class="fas fa-user-edit"></i>
                                       Bearbeiten
+                                    </button>
+
+                                    <button
+                                      class="delUser btn btn-outline-orange rounded-0 px-3"
+                                      data-user="'.$u['userId'].'"
+                                    >
+                                      <i class="fas fa-user-alt-slash"></i>
+                                      Löschen
                                     </button>
                                   </td>
                                 </tr>';
@@ -250,6 +259,28 @@
     <script src="<?php echo $GLOBALS['settings']['host'] . "assets/js/sidebar.js" ?>"></script>
     <script>
       document.querySelector(".sidebar #dashboard").classList.add("active");
+      let delUserBtns = document.querySelectorAll(".delUser.btn");
+      delUserBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          let targetUser = new User();
+          let targetUserId = parseInt(this.getAttribute("data-user"));
+          targetUser
+            .delete(targetUserId)
+            .then((data) => {
+              if (data.error == null) {
+                new Snackbar("Der Benutzer wurde gelöscht!").success();
+                document.querySelector(`#user-${targetUserId}`).remove();
+              } else {
+                console.error(data.error);
+                new Snackbar("Etwas ist schief gelaufen!").error();
+              }
+            })
+            .catch((err) => {
+              console.error("ERROR: ", err);
+              new Snackbar("Etwas ist schief gelaufen!").error();
+            })
+        });
+      });
     </script>
   </body>
 </html>

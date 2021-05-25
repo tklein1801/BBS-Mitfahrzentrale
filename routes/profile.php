@@ -98,6 +98,7 @@
                     ?>
                   </div>
 
+                  <!-- edit-container -->
                   <div>
                     <button type="button" id="edit" class="btn btn-outline-orange w-100 mb-2 rounded-0">
                       <i class="fas fa-user-edit"></i>
@@ -106,6 +107,18 @@
                     <div role="group" class="w-100 mb-2 btn-group d-none">
                       <button type="button" id="cancel" class="btn btn-outline-red rounded-0">Abbrechen</button>
                       <button type="submit" id="save" class="btn btn-orange rounded-0">Speichern</button>
+                    </div>
+                  </div>
+                  <!-- ./edit-container -->
+
+                  <div id="delete-account-button-group">
+                    <button type="button" id="delete-account" class="btn btn-outline-orange w-100 mb-2 rounded-0">
+                      <i class="fas fa-user-alt-slash"></i>
+                      Account löschen
+                    </button>
+                    <div class="w-100 mb-2 btn-group d-none" role="group">
+                      <button type="button" id="cancel" class="btn btn-outline-red rounded-0">Abbrechen</button>
+                      <button type="button" id="delete" class="btn btn-orange rounded-0" data-user="<?php echo $userData['userId']; ?>">Ja, löschen!</button>
                     </div>
                   </div>
 
@@ -235,6 +248,46 @@
           });
         }
       }
+
+      let deleteAccBtnGroup = document.querySelector("#delete-account-button-group");
+      let deleteAccBtn = deleteAccBtnGroup.querySelector("#delete-account");
+      deleteAccBtn.addEventListener("click", function () {
+        let cancelBtn = deleteAccBtnGroup.querySelector("#cancel");
+        let submitBtn = deleteAccBtnGroup.querySelector("#delete");
+
+        // Toggle element visibility
+        deleteAccBtn.classList.add("d-none");
+        deleteAccBtnGroup.querySelector("div").classList.remove("d-none"); 
+
+        cancelBtn.addEventListener("click", function () {
+          deleteAccBtn.classList.remove("d-none");
+          deleteAccBtnGroup.querySelector("div").classList.add("d-none"); 
+        });
+
+        submitBtn.addEventListener("click", function () {
+          let user = new User();
+          let userId = parseInt(submitBtn.getAttribute("data-user"));
+          user.delete(userId)
+            .then((result) => {
+              if (result.error == null) {
+                console.log(result);
+                user
+                  .destroySession()
+                  .then(() => {
+                    window.location.href = window.location.origin + "/Anmelden";
+                  })
+                  .catch((err) => console.error(err));
+              } else {
+                console.error(err);
+                new Snackbar("Etwas ist schief gelaufen!").error();
+              }
+            })
+            .catch((err) => {
+              console.error(err);
+              new Snackbar("Etwas ist schief gelaufen!").error();
+            });
+        });
+      });
 
       new Ride()
         .getUserOffers()

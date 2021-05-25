@@ -38,6 +38,22 @@ class User {
 
   /**
    *
+   * @param {number} userId
+   */
+  async delete(userId) {
+    const form = new FormData();
+    form.append("userId", userId);
+
+    const response = await fetch(this.apiHost + "delete", {
+      method: "POST",
+      body: form,
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  /**
+   *
    * @param {string} apiKey
    * @param {string} password
    * @returns {object}

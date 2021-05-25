@@ -24,6 +24,7 @@
 | `auth/password-invalid`       | Das Passwort passt nicht zur angegeben E-Mail                   |
 | `auth/invalid-email-provider` | Der Emailanbieter kann sich nicht bei dieser Plattform anbieten |
 | `auth/user-not-verified`      | Die E-Mail Adresse wurde noch nicht verifiziert                 |
+| `auth/not-the-user`           | Der verifizierte Benutzer ist nicht das Ziel                    |
 | `auth/key-invalid`            | `RestAPI` Der angegebene API-Key existiert nicht                |
 | `auth/key-not-set`            | `RestAPI` Es wurde kein API-Key zur authentifizierung gefunden  |
 | `ride/not-the-creator`        | Du bist nicht der Ersteller der Anzeiger                        |
@@ -37,6 +38,16 @@
 ```
 POST /api/user/register
 Params: (string) name, (string) surname, (string) email, (string) password, (string) telNumber
+Response: 200 (application/json)
+```
+
+**Löschen eines Benutzers aus dem System**
+_(Auch für Admins abrufbar)_
+
+```
+POST /api/user/delete
+Authentification: (string) apiKey
+Params: (int) userId
 Response: 200 (application/json)
 ```
 
