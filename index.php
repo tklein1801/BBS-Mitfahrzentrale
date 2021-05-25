@@ -339,7 +339,7 @@ Route::add($GLOBALS['apiPath'] . "user/destroySession", function () {
   session_start();
 
   $user = new User();
-  $user->destroySession($_GET['redirectTo']);
+  $user->destroySession();
 }, "GET"); // FIXME Maybe change it to POST
 
 Route::add($GLOBALS['apiPath'] . "user/get", function () {

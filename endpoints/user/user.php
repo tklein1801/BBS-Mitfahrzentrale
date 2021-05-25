@@ -188,7 +188,9 @@ class User
 
   public function destroySession()
   {
-    session_start();
+    if (!isset($_SESSION)) {
+      session_start();
+    }
     session_destroy();
   }
 
