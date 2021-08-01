@@ -48,8 +48,10 @@
                           <thead>
                             <tr>
                               <th class="text-center">ID</th>
+                              <th>Datum</th>
                               <th class="text-center">Statuscode</th>
-                              <th>Pfad</th>
+                              <th>Methode</th>
+                              <th class="text-center">Pfad</th>
                               <th>IP-Adresse</th>
                               <th colspan="2">API-Key</th>
                             </tr>
@@ -59,6 +61,7 @@
                               if ($LOG_COUNT > 0) {
                                 foreach ($logs as $log) {
                                   $statusCode = $log['response_code'];
+                                  $requestMethod = $log['requestMethod'];
                                   if ($statusCode >= 500 && $statusCode < 600) {
                                     $statusBadge = '<span class="badge bg-danger">'.$statusCode.'</span>';
                                   } else if ($statusCode >= 400) {
@@ -70,12 +73,24 @@
                                   } else {
                                     $statusBadge = '<span class="badge bg-secondary">'.$statusCode.'</span>';
                                   }
+
+                                  if ($requestMethod !== null) {
+                                    $requestMethodBadge = '<span class="badge bg-warning">'.$requestMethod.'</span>';                                    
+                                  } else {
+                                    $requestMethodBadge = '<span class="badge bg-warning">NULL</span>';
+                                  }
                                   echo '<tr>
                                     <td class="text-center">
                                       <p class="text-center">'.$log['logId'].'</p>
                                     </td>
                                     <td class="text-center">
+                                      '.date("d.m.Y • H:i", strtotime($log['requestedAt'])).'
+                                    </td>
+                                    <td class="text-center">
                                       '.$statusBadge.'
+                                    </td>     
+                                    <td class="text-center">
+                                      '.$requestMethodBadge.'
                                     </td>
                                     <td>
                                       <p>'.$log['requestedPath'].'</p>

@@ -31,6 +31,12 @@
 
 ---
 
+## database
+
+> Wird verwendet um zu prüfen ob die Datenbankverbindung erfolgreich war. Sollte die Verbindung scheitern wird hier die Fehlermeldung angezeigt. Sollte keine Fehlermeldung angezeigt werden ist davon auszugehen dass die Verbindung erfolgreich war
+
+---
+
 ## user
 
 **Registrieren eines neuen Benutzers**

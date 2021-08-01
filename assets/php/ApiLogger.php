@@ -3,12 +3,12 @@ namespace DulliAG\System;
 
 class ApiLogger 
 {  
-  public function create(int $responseCode, string $requestedPath, string $requestedIp, $requestedKey)
+  public function create(int $responseCode, string $requestedPath, string $requestedIp, string $requestMethod, $requestedKey)
   {
     require get_defined_constants()['CON_PATH'];
 
-    $insert = $con->prepare("INSERT INTO `cshare_apiLogs` (`response_code`, `requestedPath`, `requestedIp`, `requestKey`) VALUES (?, ?, ?, ?)");
-    $insert->bind_param("isss", $responseCode, $requestedPath, $requestedIp, $requestedKey);
+    $insert = $con->prepare("INSERT INTO `cshare_apiLogs` (`response_code`, `requestedPath`, `requestedIp`, `requestMethod`, `requestKey`) VALUES (?, ?, ?, ?, ?)");
+    $insert->bind_param("issss", $responseCode, $requestedPath, $requestedIp, $requestMethod, $requestedKey);
     $insert->execute();
 
     return $insert;
@@ -93,6 +93,8 @@ class ApiLogger
 
     $HTTP_STATUS_CODE = http_response_code();
 
-    $this->create($HTTP_STATUS_CODE, $requestedPath, $clientIp, $apiKey);
+    $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+    $this->create($HTTP_STATUS_CODE, $requestedPath, $clientIp, $requestMethod, $apiKey);
   }
 }

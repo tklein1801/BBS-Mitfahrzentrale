@@ -1,5 +1,18 @@
 ## Changelogs
 
+### [BBS-Mitfahrzentrale v0.5.1-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.5.1-pre)
+
+#### Hinzugefügt
+
+- Endpunkt um zu überprüfen ob die Datenbankverbindung erfolgreich war oder nicht
+
+#### Geändert
+
+- Die Anfragemethode wird nun auch bei den API-Logs gespeichert
+- Das Datum bei API-Logs wurd nun angezeigt
+
+---
+
 ### [BBS-Mitfahrzentrale v0.5-pre](https://github.com/tklein1801/BBS-Mitfahrzentrale/releases/tag/v0.5-pre)
 
 #### Hinzugefügt

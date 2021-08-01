@@ -28,7 +28,7 @@ error_reporting(E_ALL);
 date_default_timezone_set("Europe/Berlin");
 
 // Application information
-define('CURRENT_APP_VERSION', 'v0.5-pre');
+define('CURRENT_APP_VERSION', 'v0.5.1-pre');
 define('GITHUB', array('author' => 'Thorben Klein',
   'user' => 'tklein1801',
   'repo' => 'BBS-Mitfahrzentrale'
@@ -258,6 +258,13 @@ Route::add("(/(api/|api))", function() {
 });
 
 // Avaiable endpoints
+/**
+ * Database connection
+ */
+Route::add($GLOBALS['apiPath'] . "database", function () {
+  require_once "endpoints/sql.php";
+});
+
 /**
  * User
  */
