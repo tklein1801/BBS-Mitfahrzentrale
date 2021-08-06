@@ -169,6 +169,12 @@ class User
   {
     require get_defined_constants()['CON_PATH'];
 
+    // To prevent secruity issues due to sql-injection manipulation we're gonna check if the inserted email is valid
+    $isEmail = str_contains($email, "@");
+    if (!$isEmail)
+    {
+      return array('email' => $email, 'error' => 'auth/email-is-not-an-valid-email');
+    }
     $userExist = $this->exist($email);
     if ($userExist['registered']) {
       $hashedPassword = hash("md5", $password);
